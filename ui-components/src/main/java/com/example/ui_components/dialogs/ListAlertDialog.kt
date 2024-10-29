@@ -46,13 +46,12 @@ fun <T> ListAlertDialog(
     isProcessing: Boolean,
     listContent: List<T>,
     selectedItem: T,
-    itemPhoto: String,
-    itemTitle: String,
     itemSubTitle: String,
     onItemSelected: (T) -> Unit,
     confirmButtonEnabled: List<Boolean> = emptyList(),
     confirmText: String = "",
     processingText: String = "",
+    itemCard: @Composable() ((T) -> Unit),
     onConfirmClicked: () -> Unit,
     onHideDialog: () -> Unit
 ) {
@@ -97,17 +96,7 @@ fun <T> ListAlertDialog(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 listContent.forEach { item ->
-                    val containerColor by animateColorAsState(if (selectedItem != item) CustomColor.cardFadedGray() else CustomColor.cardFadedGraySelected())
-                    val contentColor by animateColorAsState(if (selectedItem != item) MaterialTheme.colorScheme.inverseSurface else MaterialTheme.colorScheme.surface)
-
-                    RegularCard(
-                        photoUrl = itemPhoto,
-                        headerText = itemTitle,
-                        subHeaderText = itemSubTitle,
-                        containerColor = containerColor,
-                        contentColor = contentColor,
-                        onCardClicked = { onItemSelected(item)}
-                    )
+                    itemCard(item)
                 }
             }
         }
