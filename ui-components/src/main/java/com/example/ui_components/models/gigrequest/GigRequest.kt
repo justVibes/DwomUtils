@@ -1,4 +1,4 @@
-package com.example.data_models_dwom.gigrequest
+package com.example.ui_components.models.gigrequest
 
 data class GigRequest(
     var isCancelled: Boolean = false,

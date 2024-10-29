@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
-import com.example.data_models_dwom.gigrequest.GigRequest
+import com.example.ui_components.models.gigrequest.GigRequest
 import com.example.ui_components.core.AppointmentDateTimeUtil.requestLifespan
 import com.example.ui_components.core.TextStyling
 

@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import com.example.data_models_dwom.gigrequest.GigRequest
+import com.example.ui_components.models.gigrequest.GigRequest
 import com.example.ui_components.theme.BlueHighlight
 
 @Composable

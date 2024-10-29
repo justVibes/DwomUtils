@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.data_models_dwom.gigrequest.GigRequest
+import com.example.ui_components.models.gigrequest.GigRequest
 import com.example.ui_components.cards.appointment.components.AppointmentCardDetails
 import com.example.ui_components.cards.appointment.components.AppointmentSummaryCard
 import com.example.ui_components.cards.appointment.components.HeaderRow
@@ -75,7 +75,6 @@ fun AppointmentCard(
         }
 
         RescheduleAndCancelBtns(
-            request = request,
             onResheduleClicked = onRescheduleClicked,
             onCancelClicked = onCancelClicked
         )

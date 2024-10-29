@@ -1,8 +1,7 @@
-package com.example.data_models_dwom.core
+package com.example.ui_components.models.core
 
-import com.example.data_models_dwom.core.type_of_worker.TypeOfWorkerModel
-import com.example.data_models_dwom.core.type_of_worker.TypeOfWorkerModelLocal
-import com.example.data_models_dwom.gigrequest.GigRequest
+import com.example.ui_components.models.core.type_of_worker.TypeOfWorkerModelLocal
+import com.example.ui_components.models.gigrequest.GigRequest
 
 data class UserModel(
     val userContentLoading: Boolean = false,

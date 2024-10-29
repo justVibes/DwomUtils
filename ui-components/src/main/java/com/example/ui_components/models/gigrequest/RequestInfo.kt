@@ -1,6 +1,6 @@
-package com.example.data_models_dwom.gigrequest
+package com.example.ui_components.models.gigrequest
 
-import com.example.data_models_dwom.core.type_of_worker.TypeOfWorkerModel
+import com.example.ui_components.models.core.type_of_worker.TypeOfWorkerModel
 import java.util.UUID
 
 data class RequestInfo(

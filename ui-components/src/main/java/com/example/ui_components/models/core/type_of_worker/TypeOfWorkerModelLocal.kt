@@ -1,4 +1,4 @@
-package com.example.data_models_dwom.core.type_of_worker
+package com.example.ui_components.models.core.type_of_worker
 
 data class TypeOfWorkerModelLocal(
     var formattedWorkerTitle: String = "",

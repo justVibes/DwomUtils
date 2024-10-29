@@ -1,4 +1,4 @@
-package com.example.data_models_dwom.gigrequest
+package com.example.ui_components.models.gigrequest
 
 data class ServiceProviderDetails(
     var isCancelled: Boolean = false,
