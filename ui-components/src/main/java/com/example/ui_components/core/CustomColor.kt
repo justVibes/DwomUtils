@@ -1,4 +1,4 @@
-package com.example.ui_components
+package com.example.ui_components.core
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +13,8 @@ object CustomColor{
     fun cardFadedGraySelected() =  MaterialTheme.colorScheme.onSurface.copy(alpha = .8f)
     @Composable
     fun photoFadedGray() =  MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = .5f)
+    @Composable
+    fun photoFadedGrayBorder() =  if(isSystemInDarkTheme()) MaterialTheme.colorScheme.outlineVariant else MaterialTheme.colorScheme.outline
     @Composable
     fun errorFadedGray() =  MaterialTheme.colorScheme.onSurface.copy(alpha = .25f)
     @Composable
