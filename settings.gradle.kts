@@ -21,6 +21,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "DwomUtils"
-//include(":app")
+include(":app")
 //include(":data-models")
 include(":ui-components")
