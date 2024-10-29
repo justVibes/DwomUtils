@@ -1,5 +1,7 @@
 package com.example.ui_components.cards.appointment.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +30,7 @@ import com.example.ui_components.models.gigrequest.GigRequest
 import com.example.ui_components.core.AppointmentDateTimeUtil.daysUntilAppointment
 import com.example.ui_components.core.TextStyling
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ServiceProviderCard(
     mainCardBg: Color,
