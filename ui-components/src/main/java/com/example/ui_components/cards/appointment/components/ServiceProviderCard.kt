@@ -30,7 +30,6 @@ import com.example.ui_components.models.gigrequest.GigRequest
 import com.example.ui_components.core.AppointmentDateTimeUtil.daysUntilAppointment
 import com.example.ui_components.core.TextStyling
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ServiceProviderCard(
     mainCardBg: Color,
@@ -98,10 +97,12 @@ fun ServiceProviderCard(
                     text = request.requestInfo.typeOfWorker.formattedWorkerTitle,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                Text(
-                    text = daysUntilAppointment(request.requestInfo.appointmentDate),
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = .3f)
-                )
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    Text(
+                        text = daysUntilAppointment(request.requestInfo.appointmentDate),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = .3f)
+                    )
+                }
             }
         }
     }

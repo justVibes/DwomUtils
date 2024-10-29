@@ -31,7 +31,6 @@ import com.example.ui_components.models.gigrequest.GigRequest
 import com.example.ui_components.core.AppointmentDateTimeUtil.requestLifespan
 import com.example.ui_components.core.TextStyling
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppointmentSummaryCard(
     modifier: Modifier = Modifier,
@@ -100,10 +99,12 @@ fun AppointmentSummaryCard(
                     text = request.requestInfo.selectedRequestOptions[1].option,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                Text(
-                    text = requestLifespan(request.requestInfo.creationDate),
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = .3f)
-                )
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    Text(
+                        text = requestLifespan(request.requestInfo.creationDate),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = .3f)
+                    )
+                }
             }
         }
     }
