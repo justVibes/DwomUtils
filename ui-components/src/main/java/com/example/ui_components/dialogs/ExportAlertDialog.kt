@@ -40,10 +40,10 @@ fun ExportAlertDialog(
     selectedDocType: ExportDocumentTypes? = null,
     onDocTypeClicked: (ExportDocumentTypes) -> Unit,
     onExportClicked: () -> Unit,
-    onCancel: () -> Unit
+    onHideDialog: () -> Unit
 ) {
     AlertDialog(
-        onDismissRequest = { if (!isExporting) onCancel() },
+        onDismissRequest = { if (!isExporting) onHideDialog() },
         confirmButton = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -72,7 +72,7 @@ fun ExportAlertDialog(
                         onClick = {
                             when (index) {
                                 0 -> onExportClicked()
-                                1 -> onCancel()
+                                1 -> onHideDialog()
                             }
                         },
                         enabled = !isExporting

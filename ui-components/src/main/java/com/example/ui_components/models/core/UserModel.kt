@@ -12,5 +12,11 @@ data class UserModel(
     var phoneNumber: String? = null,
     var uid: String = "",
     var typeOfWorker: TypeOfWorkerModelLocal? = null,
-    var acceptedRequests: List<GigRequest> = emptyList() /*This is for local usage.*/
+    var partnerCodes: List<Keys> = emptyList(),
+    var requests: List<GigRequest> = emptyList() /*This is for local usage.*/
+)
+
+data class Keys(
+    val userId: String = "",
+    val establishmentId: String = ""
 )

@@ -27,7 +27,6 @@ fun AppointmentCard(
     modifier: Modifier = Modifier,
     request: GigRequest,
     isHighlighted: Boolean,
-    hasServiceProvider: Boolean,
     isDetailsVisible: Boolean,
     onHideDetailsClicked: () -> Unit,
     onShowDetailsClicked: () -> Unit,
@@ -64,7 +63,7 @@ fun AppointmentCard(
             onShowDetailsClicked = onShowDetailsClicked
         )
 
-        if (hasServiceProvider) {
+        if (request.serviceProviderDetails.uid.isNotEmpty()) {
             ServiceProviderCard(mainCardBg, request)
         } else {
             AppointmentSummaryCard(Modifier, request, mainCardBg)

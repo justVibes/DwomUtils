@@ -34,12 +34,12 @@ fun DeleteAlertDialog(
     subjectGender: String = "",
     isDeleting: Boolean,
     onDeleteClick: () -> Unit,
-    onCancelClick: () -> Unit,
+    onHideDialog: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = {
             if (!isDeleting) {
-                onCancelClick()
+                onHideDialog()
             }
         },
         confirmButton = {
@@ -70,7 +70,7 @@ fun DeleteAlertDialog(
                         onClick = {
                             when (index) {
                                 0 -> onDeleteClick()
-                                1 -> onCancelClick()
+                                1 -> onHideDialog()
                             }
                         },
                         enabled = !isDeleting
