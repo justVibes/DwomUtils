@@ -25,6 +25,7 @@ import com.example.ui_components.R
 
 @Composable
 fun EmptyScreen(
+    modifier: Modifier = Modifier,
     windowSizeClass: WindowSizeClass,
     subject: String,
     message: String = "",
@@ -51,9 +52,8 @@ fun EmptyScreen(
         else -> defaultPhoto
     }
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .clip(MaterialTheme.shapes.small)
             .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = .1f)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
