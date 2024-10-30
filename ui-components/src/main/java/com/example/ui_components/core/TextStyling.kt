@@ -20,10 +20,10 @@ object TextStyling {
         Text(
             text = buildAnnotatedString {
                 withStyle(SpanStyle(color = color)) {
-                    append(text.takeWhile { it != separator })
+                    append(text.dropLastWhile { it != separator })
                 }
                 withStyle(SpanStyle(color = color.copy(alpha = .7f))) {
-                    append(text.takeLastWhile { it != separator })
+                    append(text.dropWhile { it != separator })
                 }
             },
             style = style,

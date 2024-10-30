@@ -42,7 +42,7 @@ fun <T> ListAlertDialog(
     mainHeader: String,
     mainHeaderStyle: TextStyle = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
     subHeader: String = "",
-    subHeaderStyle: TextStyle = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+    subHeaderStyle: TextStyle = MaterialTheme.typography.titleSmall,
     isProcessing: Boolean,
     listContent: List<T>,
     confirmButtonEnabled: List<Boolean> = emptyList(),

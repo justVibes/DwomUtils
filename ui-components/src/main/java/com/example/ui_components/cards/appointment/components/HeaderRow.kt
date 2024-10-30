@@ -42,11 +42,11 @@ fun HeaderRow(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = (if (isDetailsVisible) " Show " else " Hide ") + "Details ",
+                text = (if (!isDetailsVisible) " Show " else " Hide ") + "Details ",
                 color = BlueHighlight
             )
             Icon(
-                modifier = Modifier.rotate(if (isDetailsVisible) 0f else 180f),
+                modifier = Modifier.rotate(if (!isDetailsVisible) 0f else 180f),
                 imageVector = Icons.Default.ArrowDropDown,
                 contentDescription = null,
                 tint = BlueHighlight
