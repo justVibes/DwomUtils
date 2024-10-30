@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.ui_components.core.TextStyling
-import javax.security.auth.Subject
 
 @Composable
 fun CancelAlertDialog(

@@ -1,6 +1,5 @@
 package com.example.ui_components.dialogs
 
-import android.app.Dialog
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
