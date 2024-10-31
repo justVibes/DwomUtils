@@ -1,5 +1,6 @@
 package com.example.ui_components.cards
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -14,6 +15,7 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,10 +42,16 @@ fun RegularCard(
     headerStyle: TextStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.ExtraBold),
     subHeaderText: String,
     subHeaderStyle: TextStyle = MaterialTheme.typography.titleSmall.copy(fontStyle = FontStyle.Italic),
-    containerColor: Color,
-    contentColor: Color,
+    unfocusedContainerColor: Color = CustomColor.cardFadedGray(),
+    unfocusedContentColor: Color = MaterialTheme.colorScheme.inverseSurface,
+    focusedContainerColor: Color = CustomColor.cardFadedGraySelected(),
+    focusedContentColor: Color = MaterialTheme.colorScheme.surface,
+    isSelected: Boolean = false,
     onCardClicked: () -> Unit
 ) {
+    val containerColor by animateColorAsState(if (!isSelected) unfocusedContainerColor else focusedContainerColor)
+    val contentColor by animateColorAsState(if (!isSelected) unfocusedContentColor else focusedContentColor)
+
     ListItem(
         modifier = modifier
             .fillMaxWidth()

@@ -12,11 +12,11 @@ data class UserModel(
     var phoneNumber: String? = null,
     var uid: String = "",
     var typeOfWorker: TypeOfWorkerModelLocal? = null,
-    var partnerCodes: List<ConnectionKey> = emptyList(),
+    var connectionKeys: List<ConnectionKey> = emptyList(),
     var requests: List<GigRequest> = emptyList() /*This is for local usage.*/
 )
 
 data class ConnectionKey(
     val userId: String = "",
-    val establishmentId: String = ""
+    val establishmentConnectionId: String = ""
 )
