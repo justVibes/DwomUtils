@@ -47,6 +47,7 @@ fun RegularCard(
     focusedContainerColor: Color = CustomColor.cardFadedGraySelected(),
     focusedContentColor: Color = MaterialTheme.colorScheme.surface,
     isSelected: Boolean = false,
+    isProfileCard: Boolean = false,
     onCardClicked: () -> Unit
 ) {
     val containerColor by animateColorAsState(if (!isSelected) unfocusedContainerColor else focusedContainerColor)
@@ -76,14 +77,17 @@ fun RegularCard(
                     .padding(5.dp),
                 contentAlignment = Alignment.Center
             ) {
+                val placeholderImg = if (!isProfileCard) painterResource(R.drawable.ic_image_placeholder) else painterResource(
+                    R.drawable.ic_person
+                )
                 AsyncImage(
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(CircleShape),
                     model = photoUrl.toUri(),
                     contentDescription = null,
-                    placeholder = painterResource(R.drawable.ic_image_placeholder),
-                    error = painterResource(R.drawable.ic_image_placeholder),
+                    placeholder = placeholderImg,
+                    error = placeholderImg,
                     contentScale = ContentScale.Crop
                 )
             }

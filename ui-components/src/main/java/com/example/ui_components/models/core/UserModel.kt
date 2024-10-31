@@ -2,6 +2,7 @@ package com.example.ui_components.models.core
 
 import com.example.ui_components.models.core.type_of_worker.TypeOfWorkerModelLocal
 import com.example.ui_components.models.gigrequest.GigRequest
+import kotlinx.serialization.Serializable
 
 data class UserModel(
     val userContentLoading: Boolean = false,
@@ -16,6 +17,7 @@ data class UserModel(
     var requests: List<GigRequest> = emptyList() /*This is for local usage.*/
 )
 
+@Serializable
 data class ConnectionKey(
     val userId: String = "",
     val establishmentConnectionId: String = ""

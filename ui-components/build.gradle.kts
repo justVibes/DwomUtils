@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("maven-publish")
     id ("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
 }
 
 android {
@@ -52,7 +53,11 @@ dependencies {
     //Dagger Hilt
     implementation ("com.google.dagger:hilt-android:2.49")
     implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.androidx.room.common)
     kapt ("com.google.dagger:hilt-compiler:2.45")
+
+    //Json serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }
 
 publishing {
