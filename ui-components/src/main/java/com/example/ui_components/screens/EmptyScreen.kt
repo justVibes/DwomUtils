@@ -53,8 +53,7 @@ fun EmptyScreen(
     }
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = .1f)),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

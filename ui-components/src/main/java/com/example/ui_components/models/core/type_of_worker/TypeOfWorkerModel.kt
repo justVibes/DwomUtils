@@ -4,5 +4,6 @@ data class TypeOfWorkerModel(
     var formattedWorkerTitle: String = "",
     var endProduct: String = "",
     val establishments: List<Establishment> = emptyList(),
-    val typeOfAppointment: String = ""
+    val typeOfAppointment: String = "",
+    val needsEstablishment: Boolean = false
 )

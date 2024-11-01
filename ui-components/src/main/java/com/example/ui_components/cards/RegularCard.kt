@@ -32,6 +32,7 @@ import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.example.ui_components.core.CustomColor
 import com.example.ui_components.R
+import com.example.ui_components.core.TextStyling
 
 @Composable
 fun RegularCard(
@@ -39,6 +40,10 @@ fun RegularCard(
     photoUrl: String,
     photoSize: Dp = 50.dp,
     headerText: String,
+    headerSeparator: Char = ' ',
+    subHeaderSeparator: Char = ' ',
+    separateHeader: Boolean = false,
+    separateSubHeader: Boolean = false,
     headerStyle: TextStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.ExtraBold),
     subHeaderText: String,
     subHeaderStyle: TextStyle = MaterialTheme.typography.titleSmall.copy(fontStyle = FontStyle.Italic),
@@ -93,18 +98,36 @@ fun RegularCard(
             }
         },
         headlineContent = {
-            Text(
-                text = headerText,
-                style = headerStyle,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            if(separateHeader){
+                TextStyling.ColorDifference(
+                    text = headerText,
+                    color = headerStyle.color,
+                    style = headerStyle,
+                    separator = headerSeparator
+                )
+            }else{
+                Text(
+                    text = headerText,
+                    style = headerStyle,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         },
         supportingContent = {
-            Text(
-                text = subHeaderText,
-                style = subHeaderStyle
-            )
+            if(separateSubHeader){
+                TextStyling.ColorDifference(
+                    text = subHeaderText,
+                    color = subHeaderStyle.color,
+                    style = subHeaderStyle,
+                    separator = subHeaderSeparator
+                )
+            }else{
+                Text(
+                    text = subHeaderText,
+                    style = subHeaderStyle
+                )
+            }
         }
     )
 }

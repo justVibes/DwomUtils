@@ -13,5 +13,7 @@ data class ClientRecord(
     val medicalIssue: String = "",
     val prescriptions: List<Prescription> = emptyList(),
     val recommendations: List<String> = emptyList(),
-    val appointmentDate: String = ""
+    val appointmentDate: String = "",
+    val doctorName: String = "",
+    val doctorPhotoUrl: String = ""
 )
