@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -37,26 +39,23 @@ import com.example.ui_components.core.TextStyling
 @Composable
 fun RegularCard(
     modifier: Modifier = Modifier,
-    photoUrl: String,
-    photoSize: Dp = 50.dp,
-    headerText: String,
-    headerSeparator: Char = ' ',
-    subHeaderSeparator: Char = ' ',
-    separateHeader: Boolean = false,
-    separateSubHeader: Boolean = false,
-    headerStyle: TextStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.ExtraBold),
-    subHeaderText: String,
-    subHeaderStyle: TextStyle = MaterialTheme.typography.titleSmall.copy(fontStyle = FontStyle.Italic),
-    unfocusedContainerColor: Color = CustomColor.cardFadedGray(),
-    unfocusedContentColor: Color = MaterialTheme.colorScheme.inverseSurface,
-    focusedContainerColor: Color = CustomColor.cardFadedGraySelected(),
-    focusedContentColor: Color = MaterialTheme.colorScheme.surface,
+    leadingImage: LeadingImage,
+    header: CardTextContent,
+    subHeader: CardTextContent,
+    trailingIcon: TrailingIcon? = null,
+    colors: RegularCardColors,
+    shadowElevation: Dp = Dp.Unspecified,
     isSelected: Boolean = false,
-    isProfileCard: Boolean = false,
     onCardClicked: () -> Unit
 ) {
-    val containerColor by animateColorAsState(if (!isSelected) unfocusedContainerColor else focusedContainerColor)
-    val contentColor by animateColorAsState(if (!isSelected) unfocusedContentColor else focusedContentColor)
+    val containerColor by animateColorAsState(
+        if (!isSelected) colors.unfocusedContainerColor.invoke() else colors.focusedContainerColor.invoke(),
+        label = "containerColor"
+    )
+    val contentColor by animateColorAsState(
+        if (!isSelected) colors.unfocusedContentColor.invoke() else colors.focusedContentColor.invoke(),
+        label = "contentColor"
+    )
 
     ListItem(
         modifier = modifier
@@ -71,25 +70,25 @@ fun RegularCard(
         leadingContent = {
             Box(
                 modifier = Modifier
-                    .size(photoSize)
+                    .size(leadingImage.photoSize)
                     .clip(CircleShape)
-                    .background(CustomColor.photoFadedGray())
+                    .background(leadingImage.backgroundColor.invoke())
                     .border(
                         width = 1.dp,
-                        color = CustomColor.photoFadedGrayBorder(),
+                        color = leadingImage.borderColor.invoke(),
                         shape = CircleShape
                     )
                     .padding(5.dp),
                 contentAlignment = Alignment.Center
             ) {
-                val placeholderImg = if (!isProfileCard) painterResource(R.drawable.ic_image_placeholder) else painterResource(
-                    R.drawable.ic_person
-                )
+                val placeholderImg =
+                    if (!leadingImage.isProfileImage) painterResource(R.drawable.ic_image_placeholder)
+                    else painterResource(R.drawable.ic_person)
                 AsyncImage(
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(CircleShape),
-                    model = photoUrl.toUri(),
+                    model = leadingImage.photoUrl.toUri(),
                     contentDescription = null,
                     placeholder = placeholderImg,
                     error = placeholderImg,
@@ -98,36 +97,90 @@ fun RegularCard(
             }
         },
         headlineContent = {
-            if(separateHeader){
+            if (header.separateText) {
                 TextStyling.ColorDifference(
-                    text = headerText,
-                    color = headerStyle.color,
-                    style = headerStyle,
-                    separator = headerSeparator
+                    text = header.text,
+                    color = header.style.invoke().color,
+                    style = header.style.invoke(),
+                    separator = header.separator
                 )
-            }else{
+            } else {
                 Text(
-                    text = headerText,
-                    style = headerStyle,
+                    text = header.text,
+                    style = header.style.invoke(),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
             }
         },
         supportingContent = {
-            if(separateSubHeader){
+            if (subHeader.separateText) {
                 TextStyling.ColorDifference(
-                    text = subHeaderText,
-                    color = subHeaderStyle.color,
-                    style = subHeaderStyle,
-                    separator = subHeaderSeparator
+                    text = subHeader.text,
+                    color = subHeader.style.invoke().color,
+                    style = subHeader.style.invoke(),
+                    separator = subHeader.separator
                 )
-            }else{
+            } else {
                 Text(
-                    text = subHeaderText,
-                    style = subHeaderStyle
+                    text = subHeader.text,
+                    style = subHeader.style.invoke()
                 )
             }
-        }
+        },
+        trailingContent = {
+            if (trailingIcon != null) {
+                Icon(
+                    modifier = Modifier
+                        .size(trailingIcon.size)
+                        .clip(CircleShape)
+                        .background(trailingIcon.backgroundColor.invoke())
+                        .clickable { trailingIcon.onClick() }
+                        .padding(10.dp),
+                    imageVector = trailingIcon.icon,
+                    contentDescription = null,
+                    tint = trailingIcon.iconColor.invoke()
+                )
+            }
+        },
+        shadowElevation = shadowElevation
     )
 }
+
+data class CardTextContent(
+    val text: String,
+    val isHeader: Boolean,
+    val separator: Char = ' ',
+    val style: @Composable () -> TextStyle = {
+        if (isHeader) {
+            MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.ExtraBold)
+        } else {
+            MaterialTheme.typography.titleSmall.copy(fontStyle = FontStyle.Italic)
+        }
+    },
+    val separateText: Boolean = false
+)
+
+data class LeadingImage(
+    val isProfileImage: Boolean = false,
+    val photoUrl: String = "",
+    val photoSize: Dp = 50.dp,
+    val backgroundColor: @Composable () -> Color = { CustomColor.photoFadedGray() },
+    val borderColor: @Composable () -> Color = { CustomColor.photoFadedGrayBorder() },
+)
+
+data class TrailingIcon(
+    val icon: ImageVector,
+    val size: Dp = 30.dp,
+    val onClick: () -> Unit = {},
+    val backgroundColor: @Composable () -> Color = { Color.Unspecified },
+    val iconColor: @Composable () -> Color = { MaterialTheme.colorScheme.onSurface }
+)
+
+
+data class RegularCardColors(
+    val unfocusedContainerColor: @Composable () -> Color = { CustomColor.cardFadedGray() },
+    val unfocusedContentColor: @Composable () -> Color = { MaterialTheme.colorScheme.inverseSurface },
+    val focusedContainerColor: @Composable () -> Color = { CustomColor.cardFadedGraySelected() },
+    val focusedContentColor: @Composable () -> Color = { MaterialTheme.colorScheme.surface },
+)

@@ -20,5 +20,13 @@ data class UserModel(
 @Serializable
 data class ConnectionKey(
     val userId: String = "",
-    val establishmentConnectionId: String = ""
+    val establishmentConnectionId: String = "",
+    val config: ConnectionKeyConfig = ConnectionKeyConfig()
+)
+
+@Serializable
+data class ConnectionKeyConfig(
+    val userEmail: String = "",
+    val serviceProviderEmail: String = "",
+    val generatedCode: String = ""
 )
