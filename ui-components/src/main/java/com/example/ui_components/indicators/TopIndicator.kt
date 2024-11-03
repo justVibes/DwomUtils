@@ -58,8 +58,8 @@ fun TopIndicator(
     ) {
         repeat(2) { index ->
             val btn = when (index) {
-                0 -> listOf(leadingIcon, onLeadingIconClicked, leadingText, leadingTextStyle)
-                1 -> listOf(trailingIcon, onTrailingIconClicked, trailingText, trailingTextStyle)
+                0 -> listOf(leadingIcon, leadingText, leadingTextStyle)
+                1 -> listOf(trailingIcon, trailingText, trailingTextStyle)
                 else -> emptyList()
             }
             Row(
@@ -67,7 +67,12 @@ fun TopIndicator(
                     .wrapContentSize()
                     .clip(CircleShape)
                     .background(containerColor)
-                    .clickable { btn[1] as Unit}
+                    .clickable {
+                        when (index) {
+                            0 -> onLeadingIconClicked()
+                            1 -> onTrailingIconClicked()
+                        }
+                    }
                     .padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -80,10 +85,10 @@ fun TopIndicator(
                     contentDescription = null,
                     tint = contentColor
                 )
-                if ("${btn[2]}".isNotEmpty()) {
+                if ("${btn[1]}".isNotEmpty()) {
                     Text(
-                        text = "${btn[2]}",
-                        style = btn[3] as TextStyle
+                        text = "${btn[1]}",
+                        style = btn[2] as TextStyle
                     )
                 }
             }

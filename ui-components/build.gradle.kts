@@ -56,6 +56,9 @@ dependencies {
     implementation(libs.androidx.room.common)
     kapt ("com.google.dagger:hilt-compiler:2.45")
 
+    //Firebase-firestore
+    implementation("com.google.firebase:firebase-firestore:25.1.0")
+
     //Json serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }

@@ -1,6 +1,6 @@
 package com.example.ui_components.models.gigrequest
 
-import com.example.ui_components.models.core.type_of_worker.TypeOfWorkerModel
+import com.example.ui_components.models.core.TypeOfWorkerModel
 import java.util.UUID
 
 data class RequestInfo(
