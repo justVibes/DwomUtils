@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class EstablishmentWorker(
     @PrimaryKey(autoGenerate = true)
-    val _id: String = "",
+    val _id: Int = 0,
     val name: String = "",
     val photoUrl: String = "",
     val email: String = "",
