@@ -3,7 +3,6 @@ package com.example.ui_components.models.core.user
 import com.example.ui_components.models.core.TypeOfWorkerModel
 import com.example.ui_components.models.core.user.components.ConnectionKey
 import com.example.ui_components.models.gigrequest.GigRequest
-import kotlinx.serialization.Serializable
 
 data class UserModel(
     val userContentLoading: Boolean = false,

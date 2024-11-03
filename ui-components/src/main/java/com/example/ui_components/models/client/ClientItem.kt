@@ -5,14 +5,15 @@ import com.example.ui_components.models.client.components.ClientNote
 import com.example.ui_components.models.client.components.ClientRecord
 import com.example.ui_components.models.client.components.ClientVitals
 import com.example.ui_components.models.client.components.EmergencyContactInfo
-import com.example.ui_components.models.core.user.ConnectionKey
+import com.example.ui_components.models.core.user.components.ConnectionKey
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import java.util.UUID
 
 
 @Serializable
 data class ClientItem(
-    val key: ConnectionKey = ConnectionKey(),
+    @Transient val key: ConnectionKey = ConnectionKey(),
     var clientId: String = "${UUID.randomUUID()}",
     var serviceProviderUid: String = "",
     var vitals: ClientVitals = ClientVitals(),
