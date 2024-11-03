@@ -15,5 +15,20 @@ data class EstablishmentWorker(
     val email: String = "",
     val establishmentId: String = "",
     @Ignore val bookedAppointments: List<DocumentReference> = emptyList()
-)
+) {
+    constructor(
+        _id: Int = 0,
+        name: String = "",
+        photoUrl: String = "",
+        email: String = "",
+        establishmentId: String = "",
+    ) : this(
+        _id = 0,
+        name = "",
+        photoUrl = "",
+        email = "",
+        establishmentId = "",
+        bookedAppointments = emptyList()
+    )
+}
 

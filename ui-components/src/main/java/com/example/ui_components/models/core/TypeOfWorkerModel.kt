@@ -15,4 +15,21 @@ data class TypeOfWorkerModel(
     var needsEstablishment: Boolean = false,
     var estCategory: String = "",
     @Ignore var establishments: List<DocumentReference> = emptyList()
-)
+) {
+    constructor(
+        formattedWorkerTitle: String = "",
+        abvWorkerTitle: String = "",
+        endProduct: String = "",
+        typeOfAppointment: String = "",
+        needsEstablishment: Boolean = false,
+        estCategory: String = "",
+    ) : this(
+        formattedWorkerTitle = "",
+        abvWorkerTitle = "",
+        endProduct = "",
+        typeOfAppointment = "",
+        needsEstablishment = false,
+        estCategory = "",
+        establishments = emptyList()
+    )
+}
