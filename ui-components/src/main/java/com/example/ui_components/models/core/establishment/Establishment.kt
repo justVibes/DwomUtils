@@ -1,16 +1,19 @@
 package com.example.ui_components.models.core.establishment
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.firebase.firestore.DocumentReference
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 import java.util.UUID
 
-@Serializable
+@Entity
 data class Establishment(
+    @PrimaryKey
     val establishmentId: String = "${UUID.randomUUID()}",
     val photoUrl: String = "",
     val name: String = "",
     val coarseLocation: String = "",
     val type: String = "",
-    @Transient val workers: List<DocumentReference> = emptyList()
+    val category: String = "",
+    @Ignore val workers: List<DocumentReference> = emptyList()
 )
