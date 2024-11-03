@@ -3,6 +3,7 @@ package com.example.ui_components.models.core.establishment
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.example.ui_components.models.core.establishment.components.EstablishmentWorker
 import com.google.firebase.firestore.DocumentReference
 import java.util.UUID
 
@@ -16,7 +17,9 @@ data class Establishment(
     val type: String = "",
     val category: String = "",
     @Ignore
-    var workers: List<DocumentReference>
+    var workers: List<DocumentReference>,
+    @Ignore
+    var tempWorkers: List<EstablishmentWorker> /*This is for local usage*/
 ) {
     constructor(
         establishmentId: String = "${UUID.randomUUID()}",
@@ -32,6 +35,7 @@ data class Establishment(
         coarseLocation = "",
         type = "",
         category = "",
-        workers = emptyList()
+        workers = emptyList(),
+        tempWorkers = emptyList()
     )
 }
