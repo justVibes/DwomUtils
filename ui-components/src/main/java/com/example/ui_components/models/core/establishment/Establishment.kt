@@ -15,5 +15,23 @@ data class Establishment(
     val coarseLocation: String = "",
     val type: String = "",
     val category: String = "",
-    @Ignore val workers: List<DocumentReference> = emptyList()
-)
+    @Ignore
+    var workers: List<DocumentReference>?
+) {
+    constructor(
+        establishmentId: String = "${UUID.randomUUID()}",
+        photoUrl: String = "",
+        name: String = "",
+        coarseLocation: String = "",
+        type: String = "",
+        category: String = "",
+    ) : this(
+        establishmentId = "${UUID.randomUUID()}",
+        photoUrl = "",
+        name = "",
+        coarseLocation = "",
+        type = "",
+        category = "",
+        workers = null
+    )
+}
