@@ -14,7 +14,7 @@ data class TypeOfWorkerModel(
     var typeOfAppointment: String = "",
     var needsEstablishment: Boolean = false,
     var estCategory: String = "",
-    @Ignore var establishments: List<DocumentReference> = emptyList()
+    @Ignore var establishments: List<DocumentReference>
 ) {
     constructor(
         formattedWorkerTitle: String = "",

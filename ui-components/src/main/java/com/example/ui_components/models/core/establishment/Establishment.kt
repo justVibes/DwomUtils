@@ -16,7 +16,7 @@ data class Establishment(
     val type: String = "",
     val category: String = "",
     @Ignore
-    var workers: List<DocumentReference>?
+    var workers: List<DocumentReference>
 ) {
     constructor(
         establishmentId: String = "${UUID.randomUUID()}",
@@ -32,6 +32,6 @@ data class Establishment(
         coarseLocation = "",
         type = "",
         category = "",
-        workers = null
+        workers = emptyList()
     )
 }
