@@ -17,9 +17,9 @@ data class Establishment(
     val type: String = "",
     val category: String = "",
     @Ignore
-    var workers: List<DocumentReference>,
+    var workers: List<DocumentReference> = emptyList(),
     @Ignore
-    var tempWorkers: List<EstablishmentWorker> /*This is for local usage*/
+    var tempWorkers: List<EstablishmentWorker>  = emptyList()/*This is for local usage*/
 ) {
     constructor(
         establishmentId: String = "${UUID.randomUUID()}",
