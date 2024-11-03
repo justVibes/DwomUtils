@@ -13,5 +13,5 @@ data class Establishment(
     val photoUrl: String = "",
     val name: String = "",
     val coarseLocation: String = "",
-    val typeOfEstablishment: String = ""
+    val type: String = ""
 )

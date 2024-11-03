@@ -43,10 +43,10 @@ fun RegularCard(
     header: CardTextContent,
     subHeader: CardTextContent,
     trailingIcon: TrailingIcon? = null,
-    colors: RegularCardColors,
+    colors: RegularCardColors = RegularCardColors(),
     shadowElevation: Dp = Dp.Unspecified,
     isSelected: Boolean = false,
-    onCardClicked: () -> Unit
+    onClick: () -> Unit
 ) {
     val containerColor by animateColorAsState(
         if (!isSelected) colors.unfocusedContainerColor.invoke() else colors.focusedContainerColor.invoke(),
@@ -61,7 +61,7 @@ fun RegularCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.small)
-            .clickable { onCardClicked() },
+            .clickable { onClick() },
         colors = ListItemDefaults.colors(
             containerColor = containerColor,
             headlineColor = contentColor,
@@ -149,7 +149,7 @@ fun RegularCard(
 
 data class CardTextContent(
     val text: String,
-    val isHeader: Boolean,
+    val isHeader: Boolean = false,
     val separator: Char = ' ',
     val style: @Composable () -> TextStyle = {
         if (isHeader) {

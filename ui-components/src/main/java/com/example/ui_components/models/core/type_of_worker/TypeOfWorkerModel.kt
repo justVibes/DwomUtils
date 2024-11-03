@@ -6,4 +6,5 @@ data class TypeOfWorkerModel(
     val establishments: List<Establishment> = emptyList(),
     val typeOfAppointment: String = "",
     val needsEstablishment: Boolean = false,
+    val typeOfEstablishment: String = ""
 )
