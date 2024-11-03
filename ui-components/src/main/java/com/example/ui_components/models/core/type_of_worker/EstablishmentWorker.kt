@@ -7,8 +7,8 @@ import kotlinx.serialization.Serializable
 @Entity
 @Serializable
 data class EstablishmentWorker(
-    @PrimaryKey
-    val workerId: String = "",
+    @PrimaryKey(autoGenerate = true)
+    val _id: String = "",
     val name: String = "",
     val photoUrl: String = "",
     val email: String = "",
