@@ -6,29 +6,44 @@ import androidx.room.PrimaryKey
 import com.google.firebase.firestore.DocumentReference
 
 
-@Entity
 data class EstablishmentWorker(
-    @PrimaryKey(autoGenerate = true)
-    val _id: Int = 0,
-    val name: String = "",
-    val photoUrl: String = "",
-    val email: String = "",
-    val establishmentId: String = "",
-    @Ignore val bookedAppointments: List<DocumentReference> = emptyList()
+    var email: String = "",
+    var name: String = "",
+    var photoUrl: String = "",
+    var establishmentId: String = "",
+    var bookedAppointments: List<DocumentReference> = emptyList(),
+    var tempBookedAppointments: List<BookedAppointments> = emptyList(), /*This is for local usage*/
+
 ) {
-    constructor(
-        _id: Int = 0,
-        name: String = "",
-        photoUrl: String = "",
-        email: String = "",
-        establishmentId: String = "",
-    ) : this(
-        _id = 0,
-        name = "",
-        photoUrl = "",
-        email = "",
-        establishmentId = "",
-        bookedAppointments = emptyList()
-    )
+    object MapToStripped {
+        fun from(form: EstablishmentWorker) =
+            EstablishmentWorkerStripped(
+                email = form.email,
+                name = form.name,
+                photoUrl = form.photoUrl,
+                establishmentId = form.establishmentId,
+            )
+    }
+}
+
+@Entity
+data class EstablishmentWorkerStripped(
+    @PrimaryKey
+    var email: String = "",
+    var name: String = "",
+    var photoUrl: String = "",
+    var establishmentId: String = "",
+) {
+    object MapToOriginal {
+        fun from(form: EstablishmentWorkerStripped, bookedAppointmentsRef: List<DocumentReference>, tempBookedAppointments: List<BookedAppointments>) =
+            EstablishmentWorker(
+                email = form.email,
+                name = form.name,
+                photoUrl = form.photoUrl,
+                establishmentId = form.establishmentId,
+                bookedAppointments = bookedAppointmentsRef,
+                tempBookedAppointments = tempBookedAppointments
+            )
+    }
 }
 

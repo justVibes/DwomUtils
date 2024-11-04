@@ -7,8 +7,31 @@ import com.example.ui_components.models.core.establishment.components.Establishm
 import com.google.firebase.firestore.DocumentReference
 import java.util.UUID
 
-@Entity
 data class Establishment(
+    val establishmentId: String = "${UUID.randomUUID()}",
+    val photoUrl: String = "",
+    val name: String = "",
+    val coarseLocation: String = "",
+    val type: String = "",
+    val category: String = "",
+    var workers: List<DocumentReference> = emptyList(),
+    var tempWorkers: List<EstablishmentWorker> = emptyList()/*This is for local usage*/
+) {
+    object MapToStripped {
+        fun from(form: Establishment) =
+            EstablishmentStripped(
+                establishmentId = form.establishmentId,
+                photoUrl = form.photoUrl,
+                name = form.name,
+                coarseLocation = form.coarseLocation,
+                type = form.type,
+                category = form.category,
+            )
+    }
+}
+
+@Entity
+data class EstablishmentStripped(
     @PrimaryKey
     val establishmentId: String = "${UUID.randomUUID()}",
     val photoUrl: String = "",
@@ -16,26 +39,18 @@ data class Establishment(
     val coarseLocation: String = "",
     val type: String = "",
     val category: String = "",
-    @Ignore
-    var workers: List<DocumentReference> = emptyList(),
-    @Ignore
-    var tempWorkers: List<EstablishmentWorker>  = emptyList()/*This is for local usage*/
 ) {
-    constructor(
-        establishmentId: String = "${UUID.randomUUID()}",
-        photoUrl: String = "",
-        name: String = "",
-        coarseLocation: String = "",
-        type: String = "",
-        category: String = "",
-    ) : this(
-        establishmentId = "${UUID.randomUUID()}",
-        photoUrl = "",
-        name = "",
-        coarseLocation = "",
-        type = "",
-        category = "",
-        workers = emptyList(),
-        tempWorkers = emptyList()
-    )
+    object MapToOriginal {
+        fun from(form: EstablishmentStripped, workers: List<DocumentReference>, tempWorkers: List<EstablishmentWorker>) =
+            Establishment(
+                establishmentId = form.establishmentId,
+                photoUrl = form.photoUrl,
+                name = form.name,
+                coarseLocation = form.coarseLocation,
+                type = form.type,
+                category = form.category,
+                workers = workers,
+                tempWorkers = tempWorkers
+            )
+    }
 }
