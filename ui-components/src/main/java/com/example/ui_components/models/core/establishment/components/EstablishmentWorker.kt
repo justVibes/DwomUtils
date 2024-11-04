@@ -1,7 +1,6 @@
 package com.example.ui_components.models.core.establishment.components
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.DocumentReference
 
