@@ -1,11 +1,8 @@
 package com.example.ui_components.models.core.establishment.components
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.example.ui_components.models.client.ClientItem
-import com.google.android.gms.common.api.Api.Client
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 
 data class BookedAppointments(
     val _id: Int = 0,
