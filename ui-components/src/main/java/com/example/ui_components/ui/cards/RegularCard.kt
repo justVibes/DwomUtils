@@ -102,14 +102,14 @@ fun RegularCard(
                     text = header.text,
                     color = header.style.invoke().color,
                     style = header.style.invoke(),
-                    separator = header.separator
+                    separator = header.separator,
                 )
             } else {
                 Text(
                     text = header.text,
                     style = header.style.invoke(),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    maxLines = header.maxLines,
+                    overflow = header.overflow
                 )
             }
         },
@@ -124,7 +124,9 @@ fun RegularCard(
             } else {
                 Text(
                     text = subHeader.text,
-                    style = subHeader.style.invoke()
+                    style = subHeader.style.invoke(),
+                    maxLines = subHeader.maxLines,
+                    overflow = subHeader.overflow
                 )
             }
         },
@@ -158,7 +160,9 @@ data class CardTextContent(
             MaterialTheme.typography.titleSmall.copy(fontStyle = FontStyle.Italic)
         }
     },
-    val separateText: Boolean = false
+    val separateText: Boolean = false,
+    val maxLines: Int = 1,
+    val overflow: TextOverflow = TextOverflow.Ellipsis
 )
 
 data class LeadingImage(
