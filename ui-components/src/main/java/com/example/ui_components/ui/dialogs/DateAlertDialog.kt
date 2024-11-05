@@ -17,7 +17,7 @@ import java.time.LocalDate
 @Composable
 fun DateAlertDialog(
     modifier: Modifier = Modifier,
-    initialSelectedDate: Long,
+    initialSelectedDate: Long? = null,
     minYear: Int = LocalDate.now().year,
     maxYear: Int = LocalDate.now().year + 1,
     onHideDialog: () -> Unit,

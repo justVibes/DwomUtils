@@ -1,5 +1,7 @@
 package com.example.ui_components.ui.dialogs
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +34,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.ui_components.theme.Cream
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RescheduleAlertDialog(
     modifier: Modifier = Modifier,
