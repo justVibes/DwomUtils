@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.cards.appointment.components
+package com.example.ui_components.ui.cards.appointment_card.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

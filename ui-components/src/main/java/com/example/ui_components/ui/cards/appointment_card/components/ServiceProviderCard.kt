@@ -1,7 +1,6 @@
-package com.example.ui_components.ui.cards.appointment.components
+package com.example.ui_components.ui.cards.appointment_card.components
 
 import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement

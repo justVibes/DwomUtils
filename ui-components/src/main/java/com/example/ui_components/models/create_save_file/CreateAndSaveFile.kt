@@ -18,7 +18,7 @@ import java.io.File
 import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.Q)
-class CreateSaveFile @Inject constructor(
+class CreateAndSaveFile @Inject constructor(
     @ApplicationContext val context: Context
 ) {
     suspend fun saveDocument(file: File, mimeType: String) {

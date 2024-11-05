@@ -11,7 +11,7 @@ data class EstablishmentWorker(
     var photoUrl: String = "",
     var establishmentId: String = "",
     var bookedAppointments: List<DocumentReference> = emptyList(),
-    var tempBookedAppointments: List<BookedAppointments> = emptyList(), /*This is for local usage*/
+    var tempBookedAppointments: List<BookedAppointment> = emptyList(), /*This is for local usage*/
 
 ) {
     object MapToStripped {
@@ -34,7 +34,7 @@ data class EstablishmentWorkerStripped(
     var establishmentId: String = "",
 ) {
     object MapToOriginal {
-        fun from(form: EstablishmentWorkerStripped, bookedAppointmentsRef: List<DocumentReference>, tempBookedAppointments: List<BookedAppointments>) =
+        fun from(form: EstablishmentWorkerStripped, bookedAppointmentsRef: List<DocumentReference>, tempBookedAppointments: List<BookedAppointment>) =
             EstablishmentWorker(
                 email = form.email,
                 name = form.name,

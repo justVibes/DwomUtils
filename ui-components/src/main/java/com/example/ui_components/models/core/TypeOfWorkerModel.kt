@@ -13,6 +13,7 @@ data class TypeOfWorkerModel(
     var needsEstablishment: Boolean = false,
     var estCategory: String = "",
     var establishments: List<DocumentReference> = emptyList(),
+    var icon: String = "",
     var tempEstablishments: List<Establishment> = emptyList() /*This is for local usage*/
 ) {
     object MapToStripped {

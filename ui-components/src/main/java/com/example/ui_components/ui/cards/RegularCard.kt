@@ -4,7 +4,9 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,6 +36,12 @@ import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.example.ui_components.ui.core.CustomColor
 import com.example.ui_components.R
+import com.example.ui_components.ui.cards.components.CardTextContent
+import com.example.ui_components.ui.cards.components.LeadingImage
+import com.example.ui_components.ui.cards.components.PunchDefaults
+import com.example.ui_components.ui.cards.components.RegularCardColors
+import com.example.ui_components.ui.cards.components.TrailingIcon
+import com.example.ui_components.ui.core.AppointmentDateTimeUtil
 import com.example.ui_components.ui.core.TextStyling
 
 @Composable
@@ -46,6 +54,7 @@ fun RegularCard(
     colors: RegularCardColors = RegularCardColors(),
     shadowElevation: Dp = Dp.Unspecified,
     isSelected: Boolean = false,
+    punchDefaults: PunchDefaults? = null,
     onClick: () -> Unit
 ) {
     val containerColor by animateColorAsState(
@@ -74,7 +83,7 @@ fun RegularCard(
                     .clip(CircleShape)
                     .background(leadingImage.backgroundColor.invoke())
                     .border(
-                        width = 1.dp,
+                        width = 2.dp,
                         color = leadingImage.borderColor.invoke(),
                         shape = CircleShape
                     )
@@ -143,48 +152,26 @@ fun RegularCard(
                     contentDescription = null,
                     tint = trailingIcon.iconColor.invoke()
                 )
+            } else if (punchDefaults != null) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(((leadingImage.photoSize.value.toInt() / 2) * .8).dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(15.dp)
+                            .clip(CircleShape)
+                            .background(punchDefaults.color.invoke())
+                    )
+                    Text(
+                        text = punchDefaults.supportText,
+                        style = punchDefaults.supportTextStyle.invoke()
+                    )
+                }
             }
         },
         shadowElevation = shadowElevation
     )
 }
 
-data class CardTextContent(
-    val text: String,
-    val isHeader: Boolean = false,
-    val separator: Char = ' ',
-    val style: @Composable () -> TextStyle = {
-        if (isHeader) {
-            MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.ExtraBold)
-        } else {
-            MaterialTheme.typography.titleSmall.copy(fontStyle = FontStyle.Italic)
-        }
-    },
-    val separateText: Boolean = false,
-    val maxLines: Int = 1,
-    val overflow: TextOverflow = TextOverflow.Ellipsis
-)
 
-data class LeadingImage(
-    val isProfileImage: Boolean = false,
-    val photoUrl: String = "",
-    val photoSize: Dp = 50.dp,
-    val backgroundColor: @Composable () -> Color = { CustomColor.photoFadedGray() },
-    val borderColor: @Composable () -> Color = { CustomColor.photoFadedGrayBorder() },
-)
-
-data class TrailingIcon(
-    val icon: ImageVector,
-    val size: Dp = 30.dp,
-    val onClick: () -> Unit = {},
-    val backgroundColor: @Composable () -> Color = { Color.Unspecified },
-    val iconColor: @Composable () -> Color = { MaterialTheme.colorScheme.onSurface }
-)
-
-
-data class RegularCardColors(
-    val unfocusedContainerColor: @Composable () -> Color = { CustomColor.cardFadedGray() },
-    val unfocusedContentColor: @Composable () -> Color = { MaterialTheme.colorScheme.inverseSurface },
-    val focusedContainerColor: @Composable () -> Color = { CustomColor.cardFadedGraySelected() },
-    val focusedContentColor: @Composable () -> Color = { MaterialTheme.colorScheme.surface },
-)

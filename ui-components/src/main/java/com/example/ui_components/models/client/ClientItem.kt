@@ -13,7 +13,7 @@ import java.util.UUID
 
 @Serializable
 data class ClientItem(
-    @Transient val key: ConnectionKey = ConnectionKey(),
+    @Transient val connectionKey: ConnectionKey = ConnectionKey(),
     var clientId: String = "${UUID.randomUUID()}",
     var serviceProviderUid: String = "",
     var vitals: ClientVitals = ClientVitals(),

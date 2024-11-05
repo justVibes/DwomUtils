@@ -25,7 +25,7 @@ import com.example.ui_components.R
 fun EmptyScreen(
     modifier: Modifier = Modifier,
     windowSizeClass: WindowSizeClass,
-    subject: String,
+    subject: String = "",
     message: String = "",
     @DrawableRes defaultPhoto: Int = R.drawable.ic_search_document,
     isPeronSearch: Boolean = false,
@@ -63,7 +63,7 @@ fun EmptyScreen(
         )
         Spacer(Modifier.height(15.dp))
         Text(
-            text = message.ifEmpty { "No $subject found" },
+            text = message.ifEmpty { "No ${subject.lowercase()} found" },
             fontSize = textSize,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = .5f)
