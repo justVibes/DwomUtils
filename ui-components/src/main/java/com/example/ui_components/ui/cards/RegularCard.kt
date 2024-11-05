@@ -22,26 +22,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
-import com.example.ui_components.ui.core.CustomColor
 import com.example.ui_components.R
 import com.example.ui_components.ui.cards.components.CardTextContent
 import com.example.ui_components.ui.cards.components.LeadingImage
 import com.example.ui_components.ui.cards.components.PunchDefaults
 import com.example.ui_components.ui.cards.components.RegularCardColors
 import com.example.ui_components.ui.cards.components.TrailingIcon
-import com.example.ui_components.ui.core.AppointmentDateTimeUtil
 import com.example.ui_components.ui.core.TextStyling
 
 @Composable

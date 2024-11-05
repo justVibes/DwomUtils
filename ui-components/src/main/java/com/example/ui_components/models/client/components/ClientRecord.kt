@@ -1,7 +1,6 @@
 package com.example.ui_components.models.client.components
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.client.components.components.Prescription
 import kotlinx.serialization.Serializable
