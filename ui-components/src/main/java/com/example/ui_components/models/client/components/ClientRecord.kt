@@ -14,7 +14,7 @@ data class ClientRecord(
     var prescriptions: List<Prescription> = emptyList(),
     var recommendations: List<String> = emptyList(),
     var appointmentDate: String = "",
-    var serviceProviderDetails: EstServiceProviderDetails
+    var serviceProviderDetails: EstServiceProviderDetails = EstServiceProviderDetails()
 ) {
     object MapToStripped {
         fun from(form: ClientRecord) =

@@ -12,7 +12,7 @@ data class UserModel(
     var photoUrl: String = "",
     var phoneNumber: String? = null,
     var uid: String = "",
-    var workerInfo: WorkerInfo? = null,
+    var estWorkerInfo: WorkerInfo? = null,
     var connectionKeys: List<ConnectionKey> = emptyList(),
     var requests: List<GigRequest> = emptyList() /*This is for local usage.*/
 )

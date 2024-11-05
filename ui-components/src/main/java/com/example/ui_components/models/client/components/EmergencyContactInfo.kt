@@ -11,5 +11,6 @@ data class EmergencyContactInfo(
     var clientId: String = "",
     var name: String = "",
     var phoneNumber: String = "",
+    var email: String = "",
     var presentAddress: String = "",
 )

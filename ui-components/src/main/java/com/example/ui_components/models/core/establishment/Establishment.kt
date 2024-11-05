@@ -14,7 +14,7 @@ data class Establishment(
     val coarseLocation: String = "",
     val type: String = "",
     val category: String = "",
-    val collectionReference: CollectionReference,
+    val collectionReference: CollectionReference? = null,
     var workers: List<DocumentReference> = emptyList(),
     var tempWorkers: List<EstablishmentWorker> = emptyList()/*This is for local usage*/
 ) {
