@@ -3,7 +3,6 @@ package com.example.ui_components.models.core.establishment
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.core.establishment.components.EstablishmentWorker
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import java.util.UUID
 
