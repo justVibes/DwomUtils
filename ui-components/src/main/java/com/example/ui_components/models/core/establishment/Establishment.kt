@@ -14,7 +14,7 @@ data class Establishment(
     val coarseLocation: String = "",
     val type: String = "",
     val category: String = "",
-    val collectionReference: CollectionReference? = null,
+    val collectionPath: String = "",
     var workers: List<DocumentReference> = emptyList(),
     var tempWorkers: List<EstablishmentWorker> = emptyList()/*This is for local usage*/
 ) {
@@ -40,11 +40,11 @@ data class EstablishmentStripped(
     val coarseLocation: String = "",
     val type: String = "",
     val category: String = "",
+    val collectionPath: String = ""
 ) {
     object MapToOriginal {
         fun from(
             form: EstablishmentStripped,
-            collectionReference: CollectionReference,
             workers: List<DocumentReference>,
             tempWorkers: List<EstablishmentWorker>
         ) =
@@ -57,7 +57,7 @@ data class EstablishmentStripped(
                 category = form.category,
                 workers = workers,
                 tempWorkers = tempWorkers,
-                collectionReference = collectionReference
+                collectionPath = form.collectionPath
             )
     }
 }
