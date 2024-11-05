@@ -61,7 +61,7 @@ fun ServiceProviderCard(
                         alpha = .5f
                     )
                 ),
-            model = request.serviceProviderDetails.pfp.toUri(),
+            model = request.nonEstServiceProviderDetails.pfp.toUri(),
             contentDescription = null
         )
         Column(
@@ -73,7 +73,7 @@ fun ServiceProviderCard(
             ) {
 
                 TextStyling.ColorDifference(
-                    text = request.serviceProviderDetails.tagName,
+                    text = request.nonEstServiceProviderDetails.tagName,
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.SemiBold

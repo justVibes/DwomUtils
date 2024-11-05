@@ -6,6 +6,7 @@ import com.example.ui_components.models.client.components.ClientRecord
 import com.example.ui_components.models.client.components.ClientVitals
 import com.example.ui_components.models.client.components.EmergencyContactInfo
 import com.example.ui_components.models.core.user.components.ConnectionKey
+import com.google.firebase.firestore.DocumentReference
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import java.util.UUID
@@ -15,12 +16,12 @@ import java.util.UUID
 data class ClientItem(
     @Transient val connectionKey: ConnectionKey = ConnectionKey(),
     var clientId: String = "${UUID.randomUUID()}",
-    var serviceProviderUid: String = "",
-    var vitals: ClientVitals = ClientVitals(),
-    var clientInfo: ClientInfo = ClientInfo(),
-    var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
-    var tempNotes: List<ClientNote> = emptyList(),
-    var notes: List<String> = emptyList(),
+    var doctorUid: String = "",
+    var vitals: ClientVitals = ClientVitals(clientId = clientId),
+    var clientInfo: ClientInfo = ClientInfo(clientId = clientId),
+    var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(clientId = clientId),
+    var tempNotes: List<ClientNote> = emptyList(), /*This is for local usage.*/
+    @Transient var notes: List<DocumentReference> = emptyList(),
     var labResults: List<String> = emptyList(),
     var history: List<ClientRecord> = emptyList()
 )

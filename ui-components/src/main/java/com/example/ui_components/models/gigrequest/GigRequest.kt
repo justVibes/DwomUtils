@@ -5,6 +5,6 @@ data class GigRequest(
     var cancelMessage: String = "",
     var requestInfo: RequestInfo = RequestInfo(),
     val requesterDetails: RequesterDetails = RequesterDetails(),
-    var serviceProviderDetails: ServiceProviderDetails = ServiceProviderDetails(), /*TODO this is for searches*/
+    var nonEstServiceProviderDetails: NonEstServiceProviderDetails = NonEstServiceProviderDetails(), /*TODO this is for searches*/
     var rescheduleAppointmentForm: RescheduleAppointmentForm = RescheduleAppointmentForm(),
 )

@@ -1,7 +1,7 @@
 package com.example.ui_components.models.core.user
 
-import com.example.ui_components.models.core.TypeOfWorkerModel
 import com.example.ui_components.models.core.user.components.ConnectionKey
+import com.example.ui_components.models.core.user.components.WorkerInfo
 import com.example.ui_components.models.gigrequest.GigRequest
 
 data class UserModel(
@@ -12,7 +12,7 @@ data class UserModel(
     var photoUrl: String = "",
     var phoneNumber: String? = null,
     var uid: String = "",
-    var typeOfWorker: TypeOfWorkerModel? = null,
+    var workerInfo: WorkerInfo? = null,
     var connectionKeys: List<ConnectionKey> = emptyList(),
     var requests: List<GigRequest> = emptyList() /*This is for local usage.*/
 )
