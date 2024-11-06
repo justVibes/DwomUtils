@@ -16,7 +16,9 @@ import java.util.UUID
 data class ClientItem(
     @Transient val connectionKey: ConnectionKey = ConnectionKey(),
     var clientId: String = "${UUID.randomUUID()}",
+    @Transient var docRef: DocumentReference? = null,
     var serviceProviderUid: String = "",
+    var authorizedEditors: List<String> = emptyList(),
     var vitals: ClientVitals = ClientVitals(),
     var clientInfo: ClientInfo = ClientInfo(),
     var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(clientId = clientId),
