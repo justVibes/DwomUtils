@@ -14,6 +14,7 @@ data class Establishment(
     val type: String = "",
     val category: String = "",
     val collectionPath: String = "",
+    val aboutUs: String = "",
     var workers: List<DocumentReference> = emptyList(),
     var tempWorkers: List<EstablishmentWorker> = emptyList()/*This is for local usage*/
 ) {

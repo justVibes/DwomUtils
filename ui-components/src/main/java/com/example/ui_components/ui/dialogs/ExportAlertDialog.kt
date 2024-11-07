@@ -51,10 +51,8 @@ fun ExportAlertDialog(
             ) {
                 repeat(2) { index ->
                     val btn: Pair<Pair<String, Color>, Pair<Color, Float>> = when (index) {
-                        0 -> ("Export" to Export) to (Color.White to .4f)
-                        1 -> ("Cancel" to Color.Transparent) to (MaterialTheme.colorScheme.onSurface.copy(
-                            alpha = .5f
-                        ) to .25f)
+                        0 -> ("Export" to Export) to (Color.Black to .4f)
+                        1 -> ("Cancel" to Color.Transparent) to (Color.White to .25f)
 
                         else -> ("{47:35}" to Color.Unspecified) to (Color.Unspecified to 1f)
                     }

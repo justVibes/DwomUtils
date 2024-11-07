@@ -29,10 +29,11 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.example.ui_components.R
-import com.example.ui_components.ui.cards.components.CardTextContent
+import com.example.ui_components.ui.cards.components.HeaderContent
 import com.example.ui_components.ui.cards.components.LeadingImage
 import com.example.ui_components.ui.cards.components.PunchDefaults
 import com.example.ui_components.ui.cards.components.RegularCardColors
+import com.example.ui_components.ui.cards.components.SubHeaderContent
 import com.example.ui_components.ui.cards.components.TrailingIcon
 import com.example.ui_components.ui.core.TextStyling
 
@@ -40,8 +41,8 @@ import com.example.ui_components.ui.core.TextStyling
 fun RegularCard(
     modifier: Modifier = Modifier,
     leadingImage: LeadingImage,
-    header: CardTextContent,
-    subHeader: CardTextContent,
+    header: HeaderContent,
+    subHeader: SubHeaderContent,
     trailingIcon: TrailingIcon? = null,
     colors: RegularCardColors = RegularCardColors(),
     shadowElevation: Dp = Dp.Unspecified,
