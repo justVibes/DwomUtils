@@ -23,8 +23,8 @@ data class ClientItem(
     var clientInfo: ClientInfo = ClientInfo(),
     var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(clientId = clientId),
     @Transient var originalDocRef: DocumentReference? = null,
-    @Transient var copyDocRefs: List<DocumentReference> = emptyList(),
-    @Transient var tempCopyDocs: List<ClientItem> = emptyList(), /*This is for local usage.*/
+    @Transient var clientCopyDocRefs: List<DocumentReference> = emptyList(),
+    @Transient var tempClientCopies: List<ClientItemCopy> = emptyList(), /*This is for local usage.*/
     var tempNotes: List<ClientNote> = emptyList(), /*This is for local usage.*/
     @Transient var noteRefs: List<DocumentReference> = emptyList(),
     var labResults: List<String> = emptyList(),
@@ -75,4 +75,7 @@ data class ClientItem(
             }
     }
 }
+
+
+
 
