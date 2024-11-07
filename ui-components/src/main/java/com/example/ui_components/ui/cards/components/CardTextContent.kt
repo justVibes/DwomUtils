@@ -6,19 +6,27 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 
-data class HeaderContent(
+data class CardTextContent(
     val text: String,
     val separator: Char = ' ',
+    val isHeader: Boolean = false,
     val style: @Composable () -> TextStyle = {
-        MaterialTheme.typography.titleMedium.copy(
-            fontWeight = FontWeight.ExtraBold,
-            color = MaterialTheme.colorScheme.onSurface
-        )
+        if (isHeader){
+            MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }else{
+            MaterialTheme.typography.bodyMedium.copy(
+                color = MaterialTheme.colorScheme.outline
+            )
+        }
     },
     val separateText: Boolean = false,
     val maxLines: Int = 1,
     val overflow: TextOverflow = TextOverflow.Ellipsis
 )
+
 
 
 

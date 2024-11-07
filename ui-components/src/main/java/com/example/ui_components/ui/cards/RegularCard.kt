@@ -29,11 +29,10 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.example.ui_components.R
-import com.example.ui_components.ui.cards.components.HeaderContent
+import com.example.ui_components.ui.cards.components.CardTextContent
 import com.example.ui_components.ui.cards.components.LeadingImage
 import com.example.ui_components.ui.cards.components.PunchDefaults
 import com.example.ui_components.ui.cards.components.RegularCardColors
-import com.example.ui_components.ui.cards.components.SubHeaderContent
 import com.example.ui_components.ui.cards.components.TrailingIcon
 import com.example.ui_components.ui.core.TextStyling
 
@@ -41,8 +40,8 @@ import com.example.ui_components.ui.core.TextStyling
 fun RegularCard(
     modifier: Modifier = Modifier,
     leadingImage: LeadingImage,
-    header: HeaderContent,
-    subHeader: SubHeaderContent,
+    header: CardTextContent,
+    subHeader: CardTextContent,
     trailingIcon: TrailingIcon? = null,
     colors: RegularCardColors = RegularCardColors(),
     shadowElevation: Dp = Dp.Unspecified,
@@ -147,12 +146,12 @@ fun RegularCard(
                 )
             } else if (punchDefaults != null) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(((leadingImage.photoSize.value.toInt() / 2) * .8).dp),
+                    verticalArrangement = Arrangement.spacedBy(((leadingImage.photoSize.value.toInt() / 2) * .7).dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(15.dp)
+                            .size(if (punchDefaults.punchSize != Dp.Unspecified) punchDefaults.punchSize else (leadingImage.photoSize.value * .1).dp)
                             .clip(CircleShape)
                             .background(punchDefaults.color.invoke())
                     )

@@ -16,15 +16,17 @@ import java.util.UUID
 data class ClientItem(
     @Transient val connectionKey: ConnectionKey = ConnectionKey(),
     var clientId: String = "${UUID.randomUUID()}",
-    @Transient var docRef: DocumentReference? = null,
     var serviceProviderUid: String = "",
     var serviceProviderName: String = "",
     var authorizedEditors: List<String> = emptyList(),
     var vitals: ClientVitals = ClientVitals(),
     var clientInfo: ClientInfo = ClientInfo(),
     var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(clientId = clientId),
+    @Transient var originalDocRef: DocumentReference? = null,
+    @Transient var copyDocRefs: List<DocumentReference> = emptyList(),
+    @Transient var tempCopyDocs: List<ClientItem> = emptyList(), /*This is for local usage.*/
     var tempNotes: List<ClientNote> = emptyList(), /*This is for local usage.*/
-    @Transient var notes: List<DocumentReference> = emptyList(),
+    @Transient var noteRefs: List<DocumentReference> = emptyList(),
     var labResults: List<String> = emptyList(),
     var history: List<ClientRecord> = emptyList()
 ) {
