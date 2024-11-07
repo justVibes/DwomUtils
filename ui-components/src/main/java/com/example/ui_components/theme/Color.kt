@@ -15,6 +15,10 @@ val LogoRed = Color(0xFFB01A21)
 val Cream = Color(0xF0D6A986)
 val BlueHighlight = Color(0xFFADD8E6)
 
+val Save = Color(0xFF4CAF50)
+val Export = Color(0xFFFFC107)
+val Delete = Color(0xFFE74C3C)
+
 val PaleGreen = Color(0xFFC6E2B5)
 
 val CancelRed = Color(0xFFFF1744)

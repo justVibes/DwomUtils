@@ -30,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.ui_components.theme.Export
 import com.example.ui_components.ui.core.CustomColor
 import com.example.ui_components.theme.UploadBlue
 import com.example.ui_components.ui.dialogs.components.ExportDocumentTypes
@@ -51,7 +52,7 @@ fun ExportAlertDialog(
             ) {
                 repeat(2) { index ->
                     val btn: Pair<Pair<String, Color>, Pair<Color, Float>> = when (index) {
-                        0 -> ("Export" to UploadBlue) to (Color.White to .4f)
+                        0 -> ("Export" to Export) to (Color.White to .4f)
                         1 -> ("Cancel" to Color.Transparent) to (MaterialTheme.colorScheme.onSurface.copy(
                             alpha = .5f
                         ) to .25f)
@@ -118,7 +119,7 @@ fun ExportAlertDialog(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Text(
-                    text = "Choose the document type that you want the data to be exported as: "
+                    text = "Select a document type to export as"
                 )
 
                 Row(

@@ -18,6 +18,7 @@ data class ClientItem(
     var clientId: String = "${UUID.randomUUID()}",
     @Transient var docRef: DocumentReference? = null,
     var serviceProviderUid: String = "",
+    var serviceProviderName: String = "",
     var authorizedEditors: List<String> = emptyList(),
     var vitals: ClientVitals = ClientVitals(),
     var clientInfo: ClientInfo = ClientInfo(),
