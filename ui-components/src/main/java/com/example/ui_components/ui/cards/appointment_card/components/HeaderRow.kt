@@ -28,7 +28,7 @@ fun HeaderRow(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = if (request.nonEstServiceProviderDetails.uid.isNotEmpty()) "Accepted By: " else "",
+            text = if (request.selectedServiceProvider.uid.isNotEmpty()) "Accepted By: " else "",
             color = MaterialTheme.colorScheme.onSurface
         )
         Row(

@@ -1,6 +1,6 @@
 package com.example.ui_components.models.gigrequest
 
-data class NonEstServiceProviderDetails(
+data class ServiceProviderDetailsForGigRequest(
     var isCancelled: Boolean = false,
     var cancelMessage: String = "",
     val tagName: String = "",
