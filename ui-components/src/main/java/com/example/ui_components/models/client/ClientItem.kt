@@ -5,6 +5,9 @@ import com.example.ui_components.models.client.components.ClientNote
 import com.example.ui_components.models.client.components.ClientRecord
 import com.example.ui_components.models.client.components.ClientVitals
 import com.example.ui_components.models.client.components.EmergencyContactInfo
+import com.example.ui_components.models.client.components.HighlightedClientInfo
+import com.example.ui_components.models.client.components.HighlightedClientVitals
+import com.example.ui_components.models.client.components.HighlightedEmergencyContactInfo
 import com.google.firebase.firestore.DocumentReference
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -17,9 +20,9 @@ data class ClientItem(
     var serviceProviderUid: String = "",
     var serviceProviderName: String = "",
     var authorizedEditors: List<String> = emptyList(),
-    var vitals: ClientVitals = ClientVitals(),
     var clientInfo: ClientInfo = ClientInfo(),
-    var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(clientId = clientId),
+    var vitals: ClientVitals = ClientVitals(),
+    var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
     var clientCopyOwnerEmail: String = "",
     @Transient var originalDocRef: DocumentReference? = null,
     @Transient var clientCopyDocRefs: List<DocumentReference> = emptyList(),
@@ -29,51 +32,30 @@ data class ClientItem(
     var labResults: List<String> = emptyList(),
     var history: List<ClientRecord> = emptyList()
 ) {
-    object MapToNestedObject {
-        fun toVitals(from: ClientItem) =
-            ClientVitals(
-                clientId = from.clientId,
-                heartRate = from.vitals.heartRate,
-                respiratoryRate = from.vitals.respiratoryRate,
-                bloodPressure = from.vitals.bloodPressure,
-                bloodOxygen = from.vitals.bloodOxygen,
-                bodyTemperatureCel = from.vitals.bodyTemperatureCel,
+    object MapToHighlighted {
+        fun from(original: ClientItem, modified: ClientItem): HighlightedClientItem {
+            return HighlightedClientItem(
+                clientInfo = ClientInfo.MapToHighlighted.from(
+                    original.clientInfo,
+                    modified.clientInfo
+                ),
+                vitals = ClientVitals.MapToHighlighted.from(original.vitals, modified.vitals),
+                emergencyContactInfo = EmergencyContactInfo.MapToHighlighted.from(
+                    original.emergencyContactInfo,
+                    modified.emergencyContactInfo
+                )
             )
-
-        fun toClientInfo(from: ClientItem) =
-            ClientInfo(
-                clientId = from.clientId,
-                tagName = from.clientInfo.tagName,
-                photoUrl = from.clientInfo.photoUrl,
-                firstName = from.clientInfo.firstName,
-                lastName = from.clientInfo.lastName,
-                sex = from.clientInfo.sex,
-                birthDate = from.clientInfo.birthDate,
-                birthPlace = from.clientInfo.birthPlace,
-                height = from.clientInfo.height,
-                weight = from.clientInfo.weight,
-                presentAddress = from.clientInfo.presentAddress,
-                occupation = from.clientInfo.occupation,
-                age = from.clientInfo.age,
-                localPhoneNumber = from.clientInfo.localPhoneNumber,
-                emailAddress = from.clientInfo.emailAddress,
-            )
-
-        fun toEmergencyContact(from: ClientItem) =
-            EmergencyContactInfo(
-                clientId = from.clientId,
-                name = from.emergencyContactInfo.name,
-                phoneNumber = from.emergencyContactInfo.phoneNumber,
-                email = from.emergencyContactInfo.email,
-                presentAddress = from.emergencyContactInfo.presentAddress,
-            )
-
-        fun toTempNotes(from: ClientItem) =
-            from.tempNotes.map {
-                it.apply { clientId = from.clientId }
-            }
+        }
     }
 }
+
+
+data class HighlightedClientItem(
+    val clientInfo: HighlightedClientInfo = HighlightedClientInfo(),
+    val vitals: HighlightedClientVitals = HighlightedClientVitals(),
+    val emergencyContactInfo: HighlightedEmergencyContactInfo = HighlightedEmergencyContactInfo(),
+)
+
 
 
 
