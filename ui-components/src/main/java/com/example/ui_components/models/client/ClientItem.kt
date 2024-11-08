@@ -5,7 +5,6 @@ import com.example.ui_components.models.client.components.ClientNote
 import com.example.ui_components.models.client.components.ClientRecord
 import com.example.ui_components.models.client.components.ClientVitals
 import com.example.ui_components.models.client.components.EmergencyContactInfo
-import com.example.ui_components.models.core.user.components.ConnectionKey
 import com.google.firebase.firestore.DocumentReference
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
