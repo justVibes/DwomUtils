@@ -14,7 +14,6 @@ import java.util.UUID
 
 @Serializable
 data class ClientItem(
-    @Transient val connectionKey: ConnectionKey = ConnectionKey(),
     var clientId: String = "${UUID.randomUUID()}",
     var serviceProviderUid: String = "",
     var serviceProviderName: String = "",
