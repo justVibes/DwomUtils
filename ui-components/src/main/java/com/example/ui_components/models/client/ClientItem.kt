@@ -22,6 +22,7 @@ data class ClientItem(
     var vitals: ClientVitals = ClientVitals(),
     var clientInfo: ClientInfo = ClientInfo(),
     var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(clientId = clientId),
+    var clientCopyOwnerEmail: String = "",
     @Transient var originalDocRef: DocumentReference? = null,
     @Transient var clientCopyDocRefs: List<DocumentReference> = emptyList(),
     @Transient var tempClientCopies: List<ClientItemCopy> = emptyList(), /*This is for local usage.*/

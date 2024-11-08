@@ -151,7 +151,7 @@ fun RegularCard(
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(if (punchDefaults.punchSize != Dp.Unspecified) punchDefaults.punchSize else (leadingImage.photoSize.value * .1).dp)
+                            .size(if (punchDefaults.punchSize != Dp.Unspecified) punchDefaults.punchSize else (leadingImage.photoSize.value * .25).dp)
                             .clip(CircleShape)
                             .background(punchDefaults.color.invoke())
                     )
