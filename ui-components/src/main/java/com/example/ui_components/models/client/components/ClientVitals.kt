@@ -17,8 +17,8 @@ data class ClientVitals(
     val bloodOxygen: String = "",
     val bodyTemperatureCel: String = "",
 ) {
-    object MapToHighlighted {
-        fun from(original: ClientVitals, modified: ClientVitals): HighlightedClientVitals {
+    object Config {
+        fun mapToHighlighted(original: ClientVitals, modified: ClientVitals): HighlightedClientVitals {
             return HighlightedClientVitals(
                 clientId = stringComparisonEditType(original.clientId, modified.clientId),
                 heartRate = stringComparisonEditType(original.heartRate, modified.heartRate),
@@ -28,6 +28,16 @@ data class ClientVitals(
                 bodyTemperatureCel = stringComparisonEditType(original.bodyTemperatureCel, modified.bodyTemperatureCel),
             )
         }
+
+        fun trimmedFields(form: ClientVitals) =
+            ClientVitals(
+                clientId = form.clientId.trim(),
+                heartRate = form.heartRate.trim(),
+                respiratoryRate = form.respiratoryRate.trim(),
+                bloodPressure = form.bloodPressure.trim(),
+                bloodOxygen = form.bloodOxygen.trim(),
+                bodyTemperatureCel = form.bodyTemperatureCel.trim(),
+            )
     }
 }
 

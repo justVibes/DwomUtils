@@ -16,8 +16,8 @@ data class EmergencyContactInfo(
     var email: String = "",
     var presentAddress: String = "",
 ) {
-    object MapToHighlighted {
-        fun from(
+    object Config {
+        fun mapToHighlighted(
             original: EmergencyContactInfo,
             modified: EmergencyContactInfo
         ): HighlightedEmergencyContactInfo {
@@ -32,6 +32,15 @@ data class EmergencyContactInfo(
                 ),
             )
         }
+
+        fun trimmedFields(form: EmergencyContactInfo) =
+            EmergencyContactInfo(
+                clientId = form.clientId.trim(),
+                name = form.name.trim(),
+                phoneNumber = form.phoneNumber.trim(),
+                email = form.email.trim(),
+                presentAddress = form.presentAddress.trim(),
+            )
     }
 }
 

@@ -26,8 +26,8 @@ data class ClientInfo(
     var localPhoneNumber: String = "",
     var emailAddress: String = "",
 ) {
-    object MapToHighlighted {
-        fun from(original: ClientInfo, modified: ClientInfo) = HighlightedClientInfo(
+    object Config {
+        fun mapToHighlighted(original: ClientInfo, modified: ClientInfo) = HighlightedClientInfo(
             clientId = stringComparisonEditType(original.clientId, modified.clientId),
             tagName = stringComparisonEditType(original.tagName, modified.tagName),
             photoUrl = stringComparisonEditType(original.photoUrl, modified.photoUrl),
@@ -43,6 +43,24 @@ data class ClientInfo(
             localPhoneNumber = stringComparisonEditType(original.localPhoneNumber, modified.localPhoneNumber),
             emailAddress = stringComparisonEditType(original.emailAddress, modified.emailAddress),
         )
+
+        fun trimmedFields(form: ClientInfo) =
+            ClientInfo(
+                clientId = form.clientId.trim(),
+                tagName = form.tagName.trim(),
+                photoUrl = form.photoUrl.trim(),
+                firstName = form.firstName.trim(),
+                lastName = form.lastName.trim(),
+                sex = form.sex.trim(),
+                birthDate = form.birthDate.trim(),
+                birthPlace = form.birthPlace.trim(),
+                height = form.height.trim(),
+                weight = form.weight.trim(),
+                presentAddress = form.presentAddress.trim(),
+                occupation = form.occupation.trim(),
+                localPhoneNumber = form.localPhoneNumber.trim(),
+                emailAddress = form.emailAddress.trim(),
+            )
     }
 }
 

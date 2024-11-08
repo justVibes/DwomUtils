@@ -1,5 +1,6 @@
 package com.example.ui_components.models.client
 
+import com.example.ui_components.models.client.components.ClientCopyOwner
 import com.example.ui_components.models.client.components.ClientInfo
 import com.example.ui_components.models.client.components.ClientNote
 import com.example.ui_components.models.client.components.ClientRecord
@@ -23,7 +24,7 @@ data class ClientItem(
     var clientInfo: ClientInfo = ClientInfo(),
     var vitals: ClientVitals = ClientVitals(),
     var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
-    var clientCopyOwnerEmail: String = "",
+    @Transient var clientCopyOwner: ClientCopyOwner? = null,
     @Transient var originalDocRef: DocumentReference? = null,
     @Transient var clientCopyDocRefs: List<DocumentReference> = emptyList(),
     @Transient var tempClientCopies: List<ClientItemCopy> = emptyList(), /*This is for local usage.*/
@@ -32,20 +33,27 @@ data class ClientItem(
     var labResults: List<String> = emptyList(),
     var history: List<ClientRecord> = emptyList()
 ) {
-    object MapToHighlighted {
-        fun from(original: ClientItem, modified: ClientItem): HighlightedClientItem {
+    object Config {
+        fun mapToHighlighted(original: ClientItem, modified: ClientItem): HighlightedClientItem {
             return HighlightedClientItem(
-                clientInfo = ClientInfo.MapToHighlighted.from(
+                clientInfo = ClientInfo.Config.mapToHighlighted(
                     original.clientInfo,
                     modified.clientInfo
                 ),
-                vitals = ClientVitals.MapToHighlighted.from(original.vitals, modified.vitals),
-                emergencyContactInfo = EmergencyContactInfo.MapToHighlighted.from(
+                vitals = ClientVitals.Config.mapToHighlighted(original.vitals, modified.vitals),
+                emergencyContactInfo = EmergencyContactInfo.Config.mapToHighlighted(
                     original.emergencyContactInfo,
                     modified.emergencyContactInfo
                 )
             )
         }
+
+        fun trimmedFields(form: ClientItem) =
+            form.copy(
+                clientInfo = ClientInfo.Config.trimmedFields(form.clientInfo),
+                vitals = ClientVitals.Config.trimmedFields(form.vitals),
+                emergencyContactInfo = EmergencyContactInfo.Config.trimmedFields(form.emergencyContactInfo)
+            )
     }
 }
 
