@@ -9,6 +9,7 @@ import com.example.ui_components.models.client.components.EmergencyContactInfo
 import com.example.ui_components.models.client.components.HighlightedClientInfo
 import com.example.ui_components.models.client.components.HighlightedClientVitals
 import com.example.ui_components.models.client.components.HighlightedEmergencyContactInfo
+import com.example.ui_components.models.core.establishment.components.EstablishmentWorker
 import com.google.firebase.firestore.DocumentReference
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -20,16 +21,41 @@ data class ClientItem(
     var clientId: String = "${UUID.randomUUID()}",
     var serviceProviderUid: String = "",
     var serviceProviderName: String = "",
-    var authorizedEditors: List<String> = emptyList(),
     var clientInfo: ClientInfo = ClientInfo(),
     var vitals: ClientVitals = ClientVitals(),
     var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
-    @Transient var clientCopyOwner: ClientCopyOwner? = null,
-    @Transient var originalDocRef: DocumentReference? = null,
-    @Transient var clientCopyDocRefs: List<DocumentReference> = emptyList(),
-    @Transient var tempClientCopies: List<ClientItemCopy> = emptyList(), /*This is for local usage.*/
-    var tempNotes: List<ClientNote> = emptyList(), /*This is for local usage.*/
+
+    /*
+    * References the notes created for this client, which is stored in a sub collection
+    * of the client's document
+    */
     @Transient var noteRefs: List<DocumentReference> = emptyList(),
+
+    /* If this version of the client is a copy then 'clientCopyOwner' is initialized */
+    @Transient var clientCopyOwner: ClientCopyOwner? = null,
+
+    /* This is the location of the current client's info */
+    @Transient var originalDocRef: DocumentReference? = null,
+
+    /*
+    * This list can only contain references to workers that are apart of the same
+    * establishment as the service provider who created the client.
+    */
+    @Transient var authorizedEditorRefs: List<DocumentReference> = emptyList(),
+
+    /*
+    * This is for local usage.
+    * It's used to visualize the authorized editors for the service provider who created the client (the owner),
+    * so that they (the owner) can add or remove them (the editors).
+    */
+    @Transient var tempAuthorizedEditors: List<ClientCopyOwner> = emptyList(),
+
+    /*
+    * This is for local usage.
+    * It's for editing and viewing notes.
+    */
+    var tempNotes: List<ClientNote> = emptyList(),
+
     var labResults: List<String> = emptyList(),
     var history: List<ClientRecord> = emptyList()
 ) {
