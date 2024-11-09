@@ -9,7 +9,6 @@ import com.example.ui_components.models.client.components.EmergencyContactInfo
 import com.example.ui_components.models.client.components.HighlightedClientInfo
 import com.example.ui_components.models.client.components.HighlightedClientVitals
 import com.example.ui_components.models.client.components.HighlightedEmergencyContactInfo
-import com.example.ui_components.models.core.establishment.components.EstablishmentWorker
 import com.google.firebase.firestore.DocumentReference
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
