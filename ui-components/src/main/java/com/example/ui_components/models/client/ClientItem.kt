@@ -40,14 +40,14 @@ data class ClientItem(
     * This list can only contain references to workers that are apart of the same
     * establishment as the service provider who created the client.
     */
-    @Transient var authorizedEditorRefs: List<DocumentReference> = emptyList(),
+    @Transient var authorizedCopyOwnerRefs: List<DocumentReference> = emptyList(),
 
     /*
     * This is for local usage.
     * It's used to visualize the authorized editors for the service provider who created the client (the owner),
     * so that they (the owner) can add or remove them (the editors).
     */
-    @Transient var tempAuthorizedEditors: List<ClientCopyOwner> = emptyList(),
+    @Transient var tempAuthorizedCopyOwners: List<ClientCopyOwner> = emptyList(),
 
     /*
     * This is for local usage.

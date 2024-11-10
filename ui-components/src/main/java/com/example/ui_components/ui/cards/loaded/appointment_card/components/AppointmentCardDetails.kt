@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.cards.appointment_card.components
+package com.example.ui_components.ui.cards.loaded.appointment_card.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

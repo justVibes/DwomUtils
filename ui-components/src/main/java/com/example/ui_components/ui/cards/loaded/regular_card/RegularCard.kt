@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.cards
+package com.example.ui_components.ui.cards.loaded.regular_card
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
@@ -29,11 +29,11 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.example.ui_components.R
-import com.example.ui_components.ui.cards.components.CardTextContent
-import com.example.ui_components.ui.cards.components.LeadingImage
-import com.example.ui_components.ui.cards.components.PunchDefaults
-import com.example.ui_components.ui.cards.components.RegularCardColors
-import com.example.ui_components.ui.cards.components.TrailingIcon
+import com.example.ui_components.ui.cards.loaded.regular_card.components.CardTextContent
+import com.example.ui_components.ui.cards.loaded.regular_card.components.LeadingImage
+import com.example.ui_components.ui.cards.loaded.regular_card.components.PunchDefaults
+import com.example.ui_components.ui.cards.loaded.regular_card.components.RegularCardColors
+import com.example.ui_components.ui.cards.loaded.regular_card.components.TrailingIcon
 import com.example.ui_components.ui.core.TextStyling
 
 @Composable

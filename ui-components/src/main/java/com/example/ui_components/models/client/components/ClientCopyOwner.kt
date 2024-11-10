@@ -19,5 +19,5 @@ data class ClientCopyOwner (
     * It's used to visually represent the worker that owns this copy, for the benefit of the service provider
     * that created the client (the owner).
     */
-    val tempOwner: EstablishmentWorker? = null
+    var tempOwner: EstablishmentWorker? = null
 )

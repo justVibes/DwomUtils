@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.cards.components
+package com.example.ui_components.ui.cards.loaded.regular_card.components
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

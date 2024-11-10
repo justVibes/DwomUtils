@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.cards.appointment_card
+package com.example.ui_components.ui.cards.loaded.appointment_card
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -15,11 +15,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.ui_components.models.gigrequest.GigRequest
-import com.example.ui_components.ui.cards.appointment_card.components.AppointmentCardDetails
-import com.example.ui_components.ui.cards.appointment_card.components.AppointmentSummaryCard
-import com.example.ui_components.ui.cards.appointment_card.components.HeaderRow
-import com.example.ui_components.ui.cards.appointment_card.components.RescheduleAndCancelBtns
-import com.example.ui_components.ui.cards.appointment_card.components.ServiceProviderCard
+import com.example.ui_components.ui.cards.loaded.appointment_card.components.AppointmentCardDetails
+import com.example.ui_components.ui.cards.loaded.appointment_card.components.AppointmentSummaryCard
+import com.example.ui_components.ui.cards.loaded.appointment_card.components.HeaderRow
+import com.example.ui_components.ui.cards.loaded.appointment_card.components.RescheduleAndCancelBtns
+import com.example.ui_components.ui.cards.loaded.appointment_card.components.ServiceProviderCard
 
 
 @Composable
