@@ -5,5 +5,5 @@ import com.example.ui_components.theme.ConfirmBlue
 import com.example.ui_components.theme.Delete
 
 enum class EditType(val color: Color){
-     REMOVED(Delete), MODIFIED(ConfirmBlue), NONE(Color.Transparent)
+     MODIFIED(ConfirmBlue.copy(alpha = .3f)), NONE(Color.Transparent)
 }
