@@ -55,7 +55,7 @@ fun ViewImportedFileAlertDialog(
         onDismissRequest = { onHideDialog() },
         confirmButton = {},
         title = {
-            if (Build.VERSION.SDK_INT >= 35 && pdfConfig != null) {
+            if (Build.VERSION.SDK_INT >= 35 && pdfConfig != null && scale == 1f) {
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = pdfConfig.searchText,
