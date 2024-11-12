@@ -8,10 +8,10 @@ plugins {
 
 android {
     namespace = "com.example.ui_components"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -61,6 +61,9 @@ dependencies {
 
     //Json serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+    //Apache POI
+    implementation("org.apache.poi:poi-ooxml:5.2.3")
 }
 
 publishing {

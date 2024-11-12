@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.dialogs
+package com.example.ui_components.ui.dialogs.textfields_alert_dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,8 +35,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.ui_components.theme.ConfirmBlue
-import com.example.ui_components.ui.dialogs.components.models.ConditionModel
-import com.example.ui_components.ui.dialogs.components.models.FieldModel
+import com.example.ui_components.ui.dialogs.textfields_alert_dialog.components.ConditionModel
+import com.example.ui_components.ui.dialogs.textfields_alert_dialog.components.FieldModel
 
 @Composable
 fun TextFieldsAlertDialog(

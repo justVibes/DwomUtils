@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.dialogs.components.models
+package com.example.ui_components.ui.dialogs.textfields_alert_dialog.components
 
 data class FieldModel(
     val identifier: String,

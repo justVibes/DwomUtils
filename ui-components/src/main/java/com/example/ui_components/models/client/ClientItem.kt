@@ -10,8 +10,12 @@ import com.example.ui_components.models.client.components.HighlightedClientInfo
 import com.example.ui_components.models.client.components.HighlightedClientVitals
 import com.example.ui_components.models.client.components.HighlightedEmergencyContactInfo
 import com.google.firebase.firestore.DocumentReference
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.apache.poi.xwpf.usermodel.XWPFDocument
 import java.util.UUID
 
 
@@ -77,8 +81,65 @@ data class ClientItem(
             form.copy(
                 clientInfo = ClientInfo.Config.trimmedFields(form.clientInfo),
                 vitals = ClientVitals.Config.trimmedFields(form.vitals),
-                emergencyContactInfo = EmergencyContactInfo.Config.trimmedFields(form.emergencyContactInfo)
+                emergencyContactInfo = EmergencyContactInfo.Config.trimmedFields(form.emergencyContactInfo),
+                tempNotes = form.tempNotes.map { ClientNote.Config.trimmedFields(it) }
             )
+
+        fun mapToString(form: ClientItem): String {
+            val formattedForm = trimmedFields(form)
+            return """
+                Client Info.
+                ${ClientInfo.Config.mapToString(form.clientInfo)}
+                
+                Emergency Contact Info.
+                ${EmergencyContactInfo.Config.mapToString(form.emergencyContactInfo)}
+                
+                Vitals
+                ${ClientVitals.Config.mapToString(form.vitals)}
+                
+                Notes
+                ${form.tempNotes.joinToString("\n\n") { ClientNote.Config.mapToString(it) }}
+            """.trimIndent()
+        }
+
+
+        suspend fun mapToXWPFDoc(form: ClientItem): XWPFDocument {
+            val wordDocument = XWPFDocument()
+            val paragraph = wordDocument.createParagraph()
+            val run = paragraph.createRun()
+            val sections = listOf(
+                "Client Info." to ClientInfo.Config.mapToListOfPairs(form.clientInfo),
+                "Emergency Contact Info." to EmergencyContactInfo.Config.mapToListOfPairs(form.emergencyContactInfo),
+                "Vitals" to ClientVitals.Config.mapToListOfPairs(form.vitals),
+            )
+            run.setText("Client created by ${form.serviceProviderName}")
+            run.addBreak()
+            run.addBreak()
+
+            withContext(Dispatchers.Default) {
+                async {
+                    sections.forEach { section ->
+                        run.setText(section.first)
+                        run.addBreak()
+                        section.second.forEach { sectionContent ->
+                            run.setText("${sectionContent.first}: ${sectionContent.second}")
+                            run.addBreak()
+                        }
+                        run.addBreak()
+                    }
+                    run.setText("Notes")
+                    form.tempNotes.forEach { note ->
+                        ClientNote.Config.mapToListOfPairs(note).forEach { noteSection ->
+                            run.setText("${noteSection.first}: ${noteSection.second}")
+                            run.addBreak()
+                        }
+                        run.addBreak()
+                    }
+                }
+            }.await()
+
+            return wordDocument
+        }
     }
 }
 

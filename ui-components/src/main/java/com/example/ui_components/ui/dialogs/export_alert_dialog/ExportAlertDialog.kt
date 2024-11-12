@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.dialogs
+package com.example.ui_components.ui.dialogs.export_alert_dialog
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,17 +26,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.ui_components.theme.ConfirmBlue
 import com.example.ui_components.theme.Export
 import com.example.ui_components.ui.core.CustomColor
-import com.example.ui_components.ui.dialogs.components.ExportDocumentTypes
+import com.example.ui_components.ui.dialogs.export_alert_dialog.components.ExportDocumentTypes
 
 @Composable
 fun ExportAlertDialog(
+    modifier: Modifier = Modifier,
     isExporting: Boolean,
     selectedDocType: ExportDocumentTypes? = null,
     onDocTypeClicked: (ExportDocumentTypes) -> Unit,
@@ -43,6 +47,7 @@ fun ExportAlertDialog(
     onHideDialog: () -> Unit
 ) {
     AlertDialog(
+        modifier = modifier,
         onDismissRequest = { if (!isExporting) onHideDialog() },
         confirmButton = {
             Row(
@@ -127,16 +132,19 @@ fun ExportAlertDialog(
                     val docTypes = listOf(
                         ExportDocumentTypes.PDF,
                         ExportDocumentTypes.WORD,
-                        ExportDocumentTypes.EXCEL,
                     )
                     docTypes.forEach { docType ->
                         Box(
                             Modifier
-                                .size(90.dp)
+                                .aspectRatio(1f)
+                                .weight(1f)
                                 .clip(MaterialTheme.shapes.small)
                                 .background(
-                                    if (docType != selectedDocType) CustomColor.cardFadedGray()
-                                    else MaterialTheme.colorScheme.onSurface.copy(alpha = .7f)
+                                    when (docType) {
+                                        is ExportDocumentTypes.PDF -> MaterialTheme.colorScheme.outline.copy(.5f)
+                                        selectedDocType -> ConfirmBlue
+                                        else -> CustomColor.cardFadedGray()
+                                    }
                                 )
                                 .clickable { onDocTypeClicked(docType) }
                                 .padding(5.dp),
@@ -146,7 +154,8 @@ fun ExportAlertDialog(
                                 modifier = Modifier.fillMaxSize(),
                                 painter = painterResource(docType.icon),
                                 contentDescription = null,
-                                contentScale = ContentScale.Fit
+                                contentScale = ContentScale.Fit,
+                                colorFilter = ColorFilter.tint(color = if(docType is ExportDocumentTypes.PDF) MaterialTheme.colorScheme.outline else Color.Unspecified)
                             )
                         }
 
