@@ -1,14 +1,15 @@
 package com.example.ui_components.models.client
 
 import com.example.ui_components.models.client.components.ClientCopyOwner
-import com.example.ui_components.models.client.components.ClientInfo
+import com.example.ui_components.models.client.components.info.ClientInfo
 import com.example.ui_components.models.client.components.ClientNote
-import com.example.ui_components.models.client.components.ClientRecord
+import com.example.ui_components.models.client.components.record.ClientRecord
 import com.example.ui_components.models.client.components.ClientVitals
 import com.example.ui_components.models.client.components.EmergencyContactInfo
-import com.example.ui_components.models.client.components.HighlightedClientInfo
+import com.example.ui_components.models.client.components.info.HighlightedClientInfo
 import com.example.ui_components.models.client.components.HighlightedClientVitals
 import com.example.ui_components.models.client.components.HighlightedEmergencyContactInfo
+import com.example.ui_components.models.client.components.LabResult
 import com.google.firebase.firestore.DocumentReference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -17,7 +18,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import java.util.UUID
-
 
 @Serializable
 data class ClientItem(
@@ -59,7 +59,7 @@ data class ClientItem(
     */
     var tempNotes: List<ClientNote> = emptyList(),
 
-    var labResults: List<String> = emptyList(),
+    @Transient var labResults: List<LabResult> = emptyList(),
     var history: List<ClientRecord> = emptyList()
 ) {
     object Config {

@@ -1,4 +1,4 @@
-package com.example.ui_components.models.client.components.components
+package com.example.ui_components.models.client.components.core
 
 import androidx.compose.ui.graphics.Color
 import com.example.ui_components.theme.ConfirmBlue

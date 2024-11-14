@@ -1,8 +1,9 @@
-package com.example.ui_components.models.client.components
+package com.example.ui_components.models.client.components.record
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.ui_components.models.client.components.components.Prescription
+import com.example.ui_components.models.client.components.ServiceProviderDetails
+import com.example.ui_components.models.client.components.record.components.Prescription
 import kotlinx.serialization.Serializable
 import java.util.UUID
 

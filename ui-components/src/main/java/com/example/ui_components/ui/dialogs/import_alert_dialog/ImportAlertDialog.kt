@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.ui_components.theme.ConfirmBlue
 import com.example.ui_components.ui.core.CustomColor
@@ -35,7 +37,9 @@ import com.example.ui_components.ui.dialogs.import_alert_dialog.components.Impor
 @Composable
 fun ImportAlertDialog(
     modifier: Modifier = Modifier,
+    subject: String = "Client Data",
     selectedDocType: ImportDocumentTypes? = null,
+    imageSizes: Dp = 100.dp,
     onDocTypeClicked: (ImportDocumentTypes) -> Unit,
     onImportClicked: () -> Unit,
     onHideDialog: () -> Unit
@@ -51,7 +55,9 @@ fun ImportAlertDialog(
                 repeat(2) { index ->
                     val btn: Pair<Pair<String, Color>, Pair<Color, Float>> = when (index) {
                         0 -> ((if (selectedDocType != null) "Find a ${selectedDocType.name}..." else "Import") to ConfirmBlue) to (Color.Black to .4f)
-                        1 -> ("Cancel" to Color.Transparent) to (Color.White to .25f)
+                        1 -> ("Cancel" to Color.Transparent) to (MaterialTheme.colorScheme.onSurface.copy(
+                            alpha = .5f
+                        ) to .25f)
 
                         else -> ("{47:35}" to Color.Unspecified) to (Color.Unspecified to 1f)
                     }
@@ -60,7 +66,9 @@ fun ImportAlertDialog(
                         modifier = Modifier.weight(1f),
                         border = BorderStroke(
                             width = 1.dp,
-                            color = if (btn.first.second == Color.Transparent) btn.second.first else Color.Transparent
+                            color = MaterialTheme.colorScheme.onSurface.copy(
+                                alpha = .5f
+                            )
                         ),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = btn.first.second,
@@ -74,13 +82,10 @@ fun ImportAlertDialog(
                         },
                         enabled = selectedDocType != null
                     ) {
-                        if (index != 0) {
-                            Text(
-                                text = btn.first.first,
-                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
-                            )
-                        }
-
+                        Text(
+                            text = btn.first.first,
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+                        )
                     }
                     if (index != 1) {
                         Spacer(modifier = Modifier.width(10.dp))
@@ -89,14 +94,15 @@ fun ImportAlertDialog(
             }
         },
         title = {
-            Text(text = "Import Client Data", fontWeight = FontWeight.Bold)
+            Text(text = "Import $subject", fontWeight = FontWeight.Bold)
         },
         text = {
             Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Text(
-                    text = "Select the document type that will be imported"
+                    text = "Select the document type that will be imported",
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
                 )
 
                 Row(
@@ -111,8 +117,7 @@ fun ImportAlertDialog(
                     docTypes.forEach { docType ->
                         Box(
                             Modifier
-                                .aspectRatio(1f)
-                                .weight(1f)
+                                .size(imageSizes)
                                 .clip(MaterialTheme.shapes.small)
                                 .background(
                                     if (docType != selectedDocType) CustomColor.cardFadedGray()

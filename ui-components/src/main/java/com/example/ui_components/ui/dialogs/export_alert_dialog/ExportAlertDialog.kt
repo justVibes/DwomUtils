@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,11 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.ui_components.theme.ConfirmBlue
 import com.example.ui_components.theme.Export
@@ -42,6 +41,7 @@ fun ExportAlertDialog(
     modifier: Modifier = Modifier,
     isExporting: Boolean,
     selectedDocType: ExportDocumentTypes? = null,
+    imageSizes: Dp = 100.dp,
     onDocTypeClicked: (ExportDocumentTypes) -> Unit,
     onExportClicked: () -> Unit,
     onHideDialog: () -> Unit
@@ -57,7 +57,9 @@ fun ExportAlertDialog(
                 repeat(2) { index ->
                     val btn: Pair<Pair<String, Color>, Pair<Color, Float>> = when (index) {
                         0 -> ("Export" to Export) to (Color.Black to .4f)
-                        1 -> ("Cancel" to Color.Transparent) to (Color.White to .25f)
+                        1 -> ("Cancel" to Color.Transparent) to (MaterialTheme.colorScheme.onSurface.copy(
+                            alpha = .5f
+                        )  to .25f)
 
                         else -> ("{47:35}" to Color.Unspecified) to (Color.Unspecified to 1f)
                     }
@@ -66,7 +68,9 @@ fun ExportAlertDialog(
                         modifier = Modifier.weight(1f),
                         border = BorderStroke(
                             width = 1.dp,
-                            color = if (btn.first.second == Color.Transparent) btn.second.first else Color.Transparent
+                            color = MaterialTheme.colorScheme.onSurface.copy(
+                                alpha = .5f
+                            )
                         ),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = btn.first.second,
@@ -103,7 +107,7 @@ fun ExportAlertDialog(
                         } else if (index == 0) {
                             Text(
                                 text = btn.first.first,
-                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                             )
                         }
                     }
@@ -136,17 +140,20 @@ fun ExportAlertDialog(
                     docTypes.forEach { docType ->
                         Box(
                             Modifier
-                                .aspectRatio(1f)
-                                .weight(1f)
+                                .size(imageSizes)
                                 .clip(MaterialTheme.shapes.small)
                                 .background(
                                     when (docType) {
-                                        is ExportDocumentTypes.PDF -> MaterialTheme.colorScheme.outline.copy(.5f)
+                                        is ExportDocumentTypes.PDF -> MaterialTheme.colorScheme.outline.copy()
                                         selectedDocType -> ConfirmBlue
                                         else -> CustomColor.cardFadedGray()
                                     }
                                 )
-                                .clickable { onDocTypeClicked(docType) }
+                                .clickable(docType != ExportDocumentTypes.PDF) {
+                                    onDocTypeClicked(
+                                        docType
+                                    )
+                                }
                                 .padding(5.dp),
                             contentAlignment = Alignment.Center
                         ) {
@@ -154,12 +161,11 @@ fun ExportAlertDialog(
                                 modifier = Modifier.fillMaxSize(),
                                 painter = painterResource(docType.icon),
                                 contentDescription = null,
-                                contentScale = ContentScale.Fit,
-                                colorFilter = ColorFilter.tint(color = if(docType is ExportDocumentTypes.PDF) MaterialTheme.colorScheme.outline else Color.Unspecified)
+                                contentScale = ContentScale.Fit
                             )
                         }
 
-                        if(docType != docTypes.last()){
+                        if (docType != docTypes.last()) {
                             Spacer(Modifier.width(10.dp))
                         }
                     }

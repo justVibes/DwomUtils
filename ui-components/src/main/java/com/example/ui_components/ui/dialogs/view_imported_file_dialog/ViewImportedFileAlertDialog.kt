@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
@@ -132,6 +133,7 @@ fun ViewImportedFileAlertDialog(
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .padding(15.dp)
                             .graphicsLayer(
                                 scaleX = scale,
                                 scaleY = scale,
@@ -141,7 +143,7 @@ fun ViewImportedFileAlertDialog(
                             .transformable(state),
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        itemsIndexed(pdfConfig.renderedPages) { index, page ->
+                        itemsIndexed(pdfConfig.selectedPdf) { index, page ->
                             PdfPage(
                                 modifier = Modifier
                                     .fillMaxWidth(),

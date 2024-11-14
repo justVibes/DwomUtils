@@ -1,9 +1,9 @@
-package com.example.ui_components.models.client.components
+package com.example.ui_components.models.client.components.info
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.ui_components.models.client.components.components.EditType
-import com.example.ui_components.models.client.components.components.stringComparisonEditType
+import com.example.ui_components.models.client.components.core.EditType
+import com.example.ui_components.models.client.components.core.stringComparisonEditType
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -15,7 +15,7 @@ data class ClientInfo(
     var photoUrl: String = "",
     var firstName: String = "",
     var lastName: String = "",
-    var sex: String = "",
+    var sex: String = "", /*Use 'ValidGenders' enum to initialize*/
     val birthDate: String = "",
     var birthPlace: String = "",
     var height: String = "",

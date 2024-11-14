@@ -2,8 +2,8 @@ package com.example.ui_components.models.client.components
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.ui_components.models.client.components.components.EditType
-import com.example.ui_components.models.client.components.components.stringComparisonEditType
+import com.example.ui_components.models.client.components.core.EditType
+import com.example.ui_components.models.client.components.core.stringComparisonEditType
 import kotlinx.serialization.Serializable
 
 @Serializable

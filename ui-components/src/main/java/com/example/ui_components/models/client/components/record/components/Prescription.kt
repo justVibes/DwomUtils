@@ -1,4 +1,4 @@
-package com.example.ui_components.models.client.components.components
+package com.example.ui_components.models.client.components.record.components
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

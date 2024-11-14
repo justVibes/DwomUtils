@@ -6,7 +6,7 @@ import com.example.ui_components.file_modifiers.PdfBitmapConverter
 data class PdfConfig (
     val searchText: String = "",
     val pdfBitmapConverter: PdfBitmapConverter,
-    val renderedPages: List<Bitmap>,
+    val selectedPdf: List<Bitmap>,
     val searchResults: List<PdfSearchResults>,
     val onSearchTextUpdated: (String) -> Unit,
     val onSearchResultsUpdated: (List<PdfSearchResults>) -> Unit,
