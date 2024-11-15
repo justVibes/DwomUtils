@@ -29,6 +29,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
@@ -125,9 +126,8 @@ fun ViewImportedFileAlertDialog(
         },
         text = {
             BoxWithConstraints(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(.5f / 1f)
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
             ) {
                 val state = rememberTransformableState { zoomChange, offsetChange, _ ->
                     scale = (scale * zoomChange).coerceIn(1f, 5f)
@@ -145,6 +145,7 @@ fun ViewImportedFileAlertDialog(
                 if (pdfConfig != null) {
                     LazyColumn(
                         modifier = Modifier
+                            .aspectRatio(.5f / 1f)
                             .fillMaxWidth()
                             .padding(15.dp)
                             .graphicsLayer(
@@ -167,7 +168,16 @@ fun ViewImportedFileAlertDialog(
                     }
                 } else if (photoUrl != null) {
                     AsyncImage(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .graphicsLayer(
+                                scaleX = scale,
+                                scaleY = scale,
+                                translationX = offset.x,
+                                translationY = offset.y
+                            )
+                            .transformable(state)
+                        ,
                         contentScale = ContentScale.Fit,
                         model = photoUrl.toUri(),
                         contentDescription = null,

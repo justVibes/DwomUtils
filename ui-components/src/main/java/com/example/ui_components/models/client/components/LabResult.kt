@@ -1,6 +1,8 @@
 package com.example.ui_components.models.client.components
 
 import android.graphics.Bitmap
+import android.net.Uri
+import com.google.firebase.firestore.Exclude
 import com.google.firebase.storage.StorageReference
 
 data class LabResult(
@@ -14,8 +16,9 @@ data class LabResult(
     */
     var resultUrl: String = "",
     var storageRef: StorageReference? = null, /*A reference to the location of the 'resultUrl'*/
-    var tempPdf: List<Bitmap> = emptyList(), /*This is for local usage (To render pdfs).*/
-    val isDeleted: Boolean = false /* This is used to track all the lab results that were deleted */
+    val isDeleted: Boolean = false, /* This is used to track all the lab results that were deleted */
+    @Exclude var resultUri: Uri = Uri.EMPTY,
+    @Exclude var tempPdf: List<Bitmap> = emptyList() /*This is for local usage (To render pdfs).*/
 )
 
 enum class LabResultTypes {

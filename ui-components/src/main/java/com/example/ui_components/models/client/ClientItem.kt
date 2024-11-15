@@ -11,6 +11,7 @@ import com.example.ui_components.models.client.components.HighlightedClientVital
 import com.example.ui_components.models.client.components.HighlightedEmergencyContactInfo
 import com.example.ui_components.models.client.components.LabResult
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.Exclude
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -51,17 +52,15 @@ data class ClientItem(
     * It's used to visualize the authorized editors for the service provider who created the client (the owner),
     * so that they (the owner) can add or remove them (the editors).
     */
-    @Transient var tempAuthorizedCopyOwners: List<ClientCopyOwner> = emptyList(),
+    @Exclude @Transient var tempAuthorizedCopyOwners: List<ClientCopyOwner> = emptyList(),
 
     /*
     * This is for local usage.
     * It's for editing and viewing notes.
     */
-    var tempNotes: List<ClientNote> = emptyList(),
-
+    @Exclude var tempNotes: List<ClientNote> = emptyList(),
     @Transient var labResults: List<LabResult> = emptyList(),
-
-    var history: List<ClientRecord> = emptyList()
+    @Exclude var history: List<ClientRecord> = emptyList()
 ) {
     object Config {
         fun mapToHighlighted(original: ClientItem, modified: ClientItem): HighlightedClientItem {
