@@ -126,7 +126,9 @@ fun ViewImportedFileAlertDialog(
         },
         text = {
             BoxWithConstraints(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp),
                 contentAlignment = Alignment.Center
             ) {
                 val state = rememberTransformableState { zoomChange, offsetChange, _ ->
