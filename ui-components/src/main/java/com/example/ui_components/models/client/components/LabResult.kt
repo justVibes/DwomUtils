@@ -1,9 +1,7 @@
 package com.example.ui_components.models.client.components
 
 import android.graphics.Bitmap
-import android.net.Uri
 import com.google.firebase.firestore.Exclude
-import com.google.firebase.storage.StorageReference
 
 data class LabResult(
     var resultType: String = "", /*Use the 'LabResultTypes' enum class to initialize*/
