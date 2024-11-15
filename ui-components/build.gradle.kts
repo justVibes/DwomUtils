@@ -45,10 +45,10 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.material3)
-    implementation("androidx.compose.material3:material3-window-size-class-android:1.3.0")
+    implementation("androidx.compose.material3:material3-window-size-class-android:1.3.1")
 
     //Coil
-    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation(libs.coil.compose)
 
     //Dagger Hilt
     implementation ("com.google.dagger:hilt-android:2.49")
@@ -57,6 +57,7 @@ dependencies {
     kapt ("com.google.dagger:hilt-compiler:2.45")
 
     //Firebase-firestore
+    implementation(libs.firebase.storage.ktx)
     implementation("com.google.firebase:firebase-firestore:25.1.0")
 
     //Json serialization

@@ -60,6 +60,7 @@ data class ClientItem(
     var tempNotes: List<ClientNote> = emptyList(),
 
     @Transient var labResults: List<LabResult> = emptyList(),
+
     var history: List<ClientRecord> = emptyList()
 ) {
     object Config {
