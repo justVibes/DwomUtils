@@ -69,7 +69,7 @@ fun ViewImportedFileAlertDialog(
                 ) {
                     CloseBtn { onHideDialog() }
                 }
-                if (Build.VERSION.SDK_INT >= 35 && pdfConfig != null && scale == 1f) {
+                if (Build.VERSION.SDK_INT >= 35 && pdfConfig != null && scale in (1f..1.5f)) {
                     OutlinedTextField(
                         modifier = Modifier.fillMaxWidth(),
                         value = pdfConfig.searchText,
@@ -147,8 +147,7 @@ fun ViewImportedFileAlertDialog(
                 if (pdfConfig != null) {
                     LazyColumn(
                         modifier = Modifier
-                            .aspectRatio(.5f / 1f)
-                            .fillMaxWidth()
+                            .fillMaxSize()
                             .padding(15.dp)
                             .graphicsLayer(
                                 scaleX = scale,

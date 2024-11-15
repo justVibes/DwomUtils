@@ -53,7 +53,7 @@ fun ImportAlertDialog(
             ) {
                 repeat(2) { index ->
                     val btn: Pair<Pair<String, Color>, Pair<Color, Float>> = when (index) {
-                        0 -> ((if (selectedDocType != null) "Find a ${selectedDocType.name}..." else "Import") to ConfirmBlue) to (Color.Black to .4f)
+                        0 -> ((if (selectedDocType != null) "Find a ${selectedDocType.name.lowercase()}..." else "Import") to ConfirmBlue) to (Color.Black to .4f)
                         1 -> ("Cancel" to Color.Transparent) to (MaterialTheme.colorScheme.onSurface.copy(
                             alpha = .5f
                         ) to .25f)
@@ -79,7 +79,7 @@ fun ImportAlertDialog(
                                 1 -> onHideDialog()
                             }
                         },
-                        enabled = selectedDocType != null
+                        enabled = if(index == 0)selectedDocType != null else true
                     ) {
                         Text(
                             text = btn.first.first,

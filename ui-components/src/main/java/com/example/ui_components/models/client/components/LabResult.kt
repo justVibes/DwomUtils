@@ -15,9 +15,8 @@ data class LabResult(
     *   the uri into a list of bitmaps, then temporarily store that list in 'tempPdf'.
     */
     var resultUrl: String = "",
-    var storageRef: StorageReference? = null, /*A reference to the location of the 'resultUrl'*/
+    var storagePath: String? = null, /*A reference to the location of the 'resultUrl'*/
     val isDeleted: Boolean = false, /* This is used to track all the lab results that were deleted */
-    @Exclude var resultUri: Uri = Uri.EMPTY,
     @Exclude var tempPdf: List<Bitmap> = emptyList() /*This is for local usage (To render pdfs).*/
 )
 
