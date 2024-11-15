@@ -5,6 +5,8 @@ import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,6 +36,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
+import com.example.ui_components.ui.core.core_ui.CloseBtn
 import com.example.ui_components.ui.dialogs.view_imported_file_dialog.components.PdfConfig
 import com.example.ui_components.ui.dialogs.view_imported_file_dialog.components.PdfSearchResults
 import com.example.ui_components.ui.dialogs.view_imported_file_dialog.components.ui.PdfPage
@@ -56,58 +59,68 @@ fun ViewImportedFileAlertDialog(
         onDismissRequest = { onHideDialog() },
         confirmButton = {},
         title = {
-            if (Build.VERSION.SDK_INT >= 35 && pdfConfig != null && scale == 1f) {
-                OutlinedTextField(
+            Column(
+                verticalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
+                Row(
                     modifier = Modifier.fillMaxWidth(),
-                    value = pdfConfig.searchText,
-                    trailingIcon = {
-                        if (pdfConfig.searchText.isNotEmpty()) {
-                            IconButton(
-                                onClick = { pdfConfig.onClearClicked() }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Close,
-                                    contentDescription = null
-                                )
-                            }
-                        }
-                    },
-                    onValueChange = { newText ->
-                        pdfConfig.onSearchTextUpdated(newText)
-
-                        pdfConfig.pdfBitmapConverter.renderer?.let { renderer ->
-                            scope.launch(Dispatchers.Default) {
-                                val searchResults = (0..<renderer.pageCount).map { pageNumber ->
-                                    renderer.openPage(pageNumber).use { page ->
-                                        val results = page.searchText(newText)
-                                        val matchedRects = results.map {
-                                            it.bounds.first()
-                                        }
-
-                                        PdfSearchResults(
-                                            pageNumber,
-                                            matchedRects
-                                        )
-                                    }
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    CloseBtn { onHideDialog() }
+                }
+                if (Build.VERSION.SDK_INT >= 35 && pdfConfig != null && scale == 1f) {
+                    OutlinedTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = pdfConfig.searchText,
+                        trailingIcon = {
+                            if (pdfConfig.searchText.isNotEmpty()) {
+                                IconButton(
+                                    onClick = { pdfConfig.onClearClicked() }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Close,
+                                        contentDescription = null
+                                    )
                                 }
-                                pdfConfig.onSearchResultsUpdated(searchResults)
                             }
+                        },
+                        onValueChange = { newText ->
+                            pdfConfig.onSearchTextUpdated(newText)
+
+                            pdfConfig.pdfBitmapConverter.renderer?.let { renderer ->
+                                scope.launch(Dispatchers.Default) {
+                                    val searchResults = (0..<renderer.pageCount).map { pageNumber ->
+                                        renderer.openPage(pageNumber).use { page ->
+                                            val results = page.searchText(newText)
+                                            val matchedRects = results.map {
+                                                it.bounds.first()
+                                            }
+
+                                            PdfSearchResults(
+                                                pageNumber,
+                                                matchedRects
+                                            )
+                                        }
+                                    }
+                                    pdfConfig.onSearchResultsUpdated(searchResults)
+                                }
+                            }
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurface
+                            )
+                        },
+                        placeholder = {
+                            Text(
+                                text = "Search Pdf...",
+                                style = MaterialTheme.typography.titleMedium
+                            )
                         }
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
-                    },
-                    placeholder = {
-                        Text(
-                            text = "Search Pdf...",
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                    }
-                )
+                    )
+                }
             }
         },
         text = {
@@ -152,7 +165,7 @@ fun ViewImportedFileAlertDialog(
                             )
                         }
                     }
-                }else if (photoUrl != null){
+                } else if (photoUrl != null) {
                     AsyncImage(
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Fit,

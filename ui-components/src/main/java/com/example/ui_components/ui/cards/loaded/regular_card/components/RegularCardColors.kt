@@ -3,7 +3,7 @@ package com.example.ui_components.ui.cards.loaded.regular_card.components
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.example.ui_components.ui.core.CustomColor
+import com.example.ui_components.ui.core.core_logic.CustomColor
 
 data class RegularCardColors(
     val unfocusedContainerColor: @Composable () -> Color = { CustomColor.cardFadedGray() },

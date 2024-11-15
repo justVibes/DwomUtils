@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.ui_components.ui.core.CustomColor
+import com.example.ui_components.ui.core.core_logic.CustomColor
 
 data class LeadingImage(
     val isProfileImage: Boolean = false,

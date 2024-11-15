@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.core
+package com.example.ui_components.ui.core.core_logic
 
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass

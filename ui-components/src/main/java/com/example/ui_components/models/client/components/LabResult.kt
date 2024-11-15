@@ -14,9 +14,10 @@ data class LabResult(
     */
     var resultUrl: String = "",
     var storageRef: StorageReference? = null, /*A reference to the location of the 'resultUrl'*/
-    var tempPdf: List<Bitmap> = emptyList() /*This is for local usage (To render pdfs).*/
+    var tempPdf: List<Bitmap> = emptyList(), /*This is for local usage (To render pdfs).*/
+    val isDeleted: Boolean = false /* This is used to track all the lab results that were deleted */
 )
 
-enum class LabResultTypes{
+enum class LabResultTypes {
     PDF, PHOTO
 }

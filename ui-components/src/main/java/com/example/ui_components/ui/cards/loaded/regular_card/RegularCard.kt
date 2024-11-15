@@ -34,7 +34,7 @@ import com.example.ui_components.ui.cards.loaded.regular_card.components.Leading
 import com.example.ui_components.ui.cards.loaded.regular_card.components.PunchDefaults
 import com.example.ui_components.ui.cards.loaded.regular_card.components.RegularCardColors
 import com.example.ui_components.ui.cards.loaded.regular_card.components.TrailingIcon
-import com.example.ui_components.ui.core.TextStyling
+import com.example.ui_components.ui.core.core_logic.TextStyling
 
 @Composable
 fun RegularCard(

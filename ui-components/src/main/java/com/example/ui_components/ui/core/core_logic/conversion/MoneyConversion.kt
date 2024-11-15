@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.core.conversion
+package com.example.ui_components.ui.core.core_logic.conversion
 
 object MoneyConversion {
     fun kFormat(amount: String): String {

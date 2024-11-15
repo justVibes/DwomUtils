@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.example.ui_components.models.gigrequest.GigRequest
-import com.example.ui_components.ui.core.AppointmentDateTimeUtil.requestLifespan
-import com.example.ui_components.ui.core.TextStyling
+import com.example.ui_components.ui.core.core_logic.AppointmentDateTimeUtil.requestLifespan
+import com.example.ui_components.ui.core.core_logic.TextStyling
 
 @Composable
 fun AppointmentSummaryCard(
