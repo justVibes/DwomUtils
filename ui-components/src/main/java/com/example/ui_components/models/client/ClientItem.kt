@@ -98,13 +98,13 @@ data class ClientItem(
             val formattedForm = trimmedFields(form)
             return """
                 Client Info.
-                ${ClientInfo.Config.mapToString(form.clientInfo)}
+                ${ClientInfo.Config.mapToString(formattedForm.clientInfo)}
                 
                 Emergency Contact Info.
-                ${EmergencyContactInfo.Config.mapToString(form.emergencyContactInfo)}
+                ${EmergencyContactInfo.Config.mapToString(formattedForm.emergencyContactInfo)}
                 
                 Vitals
-                ${ClientVitals.Config.mapToString(form.vitals)}
+                ${ClientVitals.Config.mapToString(formattedForm.vitals)}
                 
                 Notes
                 ${form.tempNotes.joinToString("\n\n") { ClientNote.Config.mapToString(it) }}

@@ -44,20 +44,20 @@ data class EmergencyContactInfo(
         fun mapToString(form: EmergencyContactInfo): String {
             val formattedForm = trimmedFields(form)
             return """
-                Name: ${form.name.ifEmpty { "n/a" }}
-                Phone-number: ${form.phoneNumber.ifEmpty { "n/a" }}
-                Email: ${form.email.ifEmpty { "n/a" }}
-                Present Address: ${form.presentAddress.ifEmpty { "n/a" }}
+                Name: ${formattedForm.name.ifEmpty { "n/a" }}
+                Phone-number: ${formattedForm.phoneNumber.ifEmpty { "n/a" }}
+                Email: ${formattedForm.email.ifEmpty { "n/a" }}
+                Present Address: ${formattedForm.presentAddress.ifEmpty { "n/a" }}
             """.trimIndent()
         }
 
         fun mapToListOfPairs(form: EmergencyContactInfo): List<Pair<String, String>> {
             val formattedForm = trimmedFields(form)
             return listOf(
-                Pair("Name", form.name.ifEmpty { "n/a" }),
-                Pair("Phone-number", form.phoneNumber.ifEmpty { "n/a" }),
-                Pair("Email", form.email.ifEmpty { "n/a" }),
-                Pair("Present Address", form.presentAddress.ifEmpty { "n/a" }),
+                Pair("Name", formattedForm.name.ifEmpty { "n/a" }),
+                Pair("Phone-number", formattedForm.phoneNumber.ifEmpty { "n/a" }),
+                Pair("Email", formattedForm.email.ifEmpty { "n/a" }),
+                Pair("Present Address", formattedForm.presentAddress.ifEmpty { "n/a" }),
             )
         }
     }

@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.core.stringComparison
-import com.google.android.gms.common.api.Api.Client
 import kotlinx.serialization.Serializable
 import java.util.Calendar
 import java.util.UUID
@@ -44,18 +43,18 @@ data class ClientNote(
         fun mapToString(form: ClientNote): String {
             val formattedForm = trimmedFields(form)
             return """
-                Author: ${form.author.ifEmpty { "n/a" }}
-                Title: ${form.title.ifEmpty { "n/a" }}
-                Note: ${form.note.ifEmpty { "n/a" }}
+                Author: ${formattedForm.author.ifEmpty { "n/a" }}
+                Title: ${formattedForm.title.ifEmpty { "n/a" }}
+                Note: ${formattedForm.note.ifEmpty { "n/a" }}
             """.trimIndent()
         }
 
         fun mapToListOfPairs(form: ClientNote): List<Pair<String, String>> {
             val formattedForm = trimmedFields(form)
             return listOf(
-                Pair("Author", form.author.ifEmpty { "n/a" }),
-                Pair("Title", form.title.ifEmpty { "n/a" }),
-                Pair("Note", form.note.ifEmpty { "n/a" }),
+                Pair("Author", formattedForm.author.ifEmpty { "n/a" }),
+                Pair("Title", formattedForm.title.ifEmpty { "n/a" }),
+                Pair("Note", formattedForm.note.ifEmpty { "n/a" }),
             )
         }
     }
