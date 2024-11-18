@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.example.ui_components.R
+import com.example.ui_components.theme.Teal
 import com.example.ui_components.ui.cards.loaded.regular_card.components.CardTextContent
 import com.example.ui_components.ui.cards.loaded.regular_card.components.LeadingImage
 import com.example.ui_components.ui.cards.loaded.regular_card.components.PunchDefaults
@@ -43,6 +44,7 @@ fun RegularCard(
     header: CardTextContent,
     subHeader: CardTextContent,
     trailingIcon: TrailingIcon? = null,
+    trailingContent: (@Composable () -> Unit)? = null,
     colors: RegularCardColors = RegularCardColors(),
     shadowElevation: Dp = Dp.Unspecified,
     isSelected: Boolean = false,
@@ -95,6 +97,15 @@ fun RegularCard(
                     error = placeholderImg,
                     contentScale = ContentScale.Crop
                 )
+                if (leadingImage.isUpdateBubbleVisible) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .size((leadingImage.photoSize.value * .25).dp)
+                            .clip(CircleShape)
+                            .background(Teal)
+                    )
+                }
             }
         },
         headlineContent = {
@@ -132,33 +143,41 @@ fun RegularCard(
             }
         },
         trailingContent = {
-            if (trailingIcon != null) {
-                Icon(
-                    modifier = Modifier
-                        .size(trailingIcon.size)
-                        .clip(CircleShape)
-                        .background(trailingIcon.backgroundColor.invoke())
-                        .clickable { trailingIcon.onClick() }
-                        .padding(10.dp),
-                    imageVector = trailingIcon.icon,
-                    contentDescription = null,
-                    tint = trailingIcon.iconColor.invoke()
-                )
-            } else if (punchDefaults != null) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(((leadingImage.photoSize.value.toInt() / 2) * .7).dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Box(
+            when {
+                trailingContent != null -> {
+                    trailingContent.invoke()
+                }
+
+                trailingIcon != null -> {
+                    Icon(
                         modifier = Modifier
-                            .size(if (punchDefaults.punchSize != Dp.Unspecified) punchDefaults.punchSize else (leadingImage.photoSize.value * .25).dp)
+                            .size(trailingIcon.size)
                             .clip(CircleShape)
-                            .background(punchDefaults.color.invoke())
+                            .background(trailingIcon.backgroundColor.invoke())
+                            .clickable { trailingIcon.onClick() }
+                            .padding(10.dp),
+                        imageVector = trailingIcon.icon,
+                        contentDescription = null,
+                        tint = trailingIcon.iconColor.invoke()
                     )
-                    Text(
-                        text = punchDefaults.supportText,
-                        style = punchDefaults.supportTextStyle.invoke()
-                    )
+                }
+
+                punchDefaults != null -> {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(((leadingImage.photoSize.value.toInt() / 2) * .7).dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(if (punchDefaults.punchSize != Dp.Unspecified) punchDefaults.punchSize else (leadingImage.photoSize.value * .25).dp)
+                                .clip(CircleShape)
+                                .background(punchDefaults.color.invoke())
+                        )
+                        Text(
+                            text = punchDefaults.supportText,
+                            style = punchDefaults.supportTextStyle.invoke()
+                        )
+                    }
                 }
             }
         },

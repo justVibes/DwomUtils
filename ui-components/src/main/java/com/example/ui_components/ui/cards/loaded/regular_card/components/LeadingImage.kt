@@ -27,4 +27,5 @@ data class LeadingImage(
             CustomColor.photoFadedGray()
         }
     },
+    val isUpdateBubbleVisible: Boolean = false
 )

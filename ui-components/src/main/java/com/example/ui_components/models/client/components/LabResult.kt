@@ -15,6 +15,9 @@ data class LabResult(
     var resultUrl: String = "",
     var storagePath: String? = null, /*A reference to the location of the 'resultUrl'*/
     val isDeleted: Boolean = false, /* This is used to track all the lab results that were deleted */
+    val creationDateTime: String = "",
+    val authorName: String = "",
+    val title: String = "",
     @Exclude var tempPdf: List<Bitmap> = emptyList() /*This is for local usage (To render pdfs).*/
 )
 

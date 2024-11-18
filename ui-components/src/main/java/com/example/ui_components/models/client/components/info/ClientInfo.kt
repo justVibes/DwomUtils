@@ -3,7 +3,7 @@ package com.example.ui_components.models.client.components.info
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.client.components.core.EditType
-import com.example.ui_components.models.client.components.core.stringComparisonEditType
+import com.example.ui_components.models.client.components.core.stringComparison
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -28,26 +28,26 @@ data class ClientInfo(
 ) {
     object Config {
         fun mapToHighlighted(original: ClientInfo, modified: ClientInfo) = HighlightedClientInfo(
-            clientId = stringComparisonEditType(original.clientId, modified.clientId),
-            tagName = stringComparisonEditType(original.tagName, modified.tagName),
-            photoUrl = stringComparisonEditType(original.photoUrl, modified.photoUrl),
-            firstName = stringComparisonEditType(original.firstName, modified.firstName),
-            lastName = stringComparisonEditType(original.lastName, modified.lastName),
-            sex = stringComparisonEditType(original.sex, modified.sex),
-            birthDate = stringComparisonEditType(original.birthDate, modified.birthDate),
-            birthPlace = stringComparisonEditType(original.birthPlace, modified.birthPlace),
-            height = stringComparisonEditType(original.height, modified.height),
-            weight = stringComparisonEditType(original.weight, modified.weight),
-            presentAddress = stringComparisonEditType(
+            clientId = stringComparison(original.clientId, modified.clientId),
+            tagName = stringComparison(original.tagName, modified.tagName),
+            photoUrl = stringComparison(original.photoUrl, modified.photoUrl),
+            firstName = stringComparison(original.firstName, modified.firstName),
+            lastName = stringComparison(original.lastName, modified.lastName),
+            sex = stringComparison(original.sex, modified.sex),
+            birthDate = stringComparison(original.birthDate, modified.birthDate),
+            birthPlace = stringComparison(original.birthPlace, modified.birthPlace),
+            height = stringComparison(original.height, modified.height),
+            weight = stringComparison(original.weight, modified.weight),
+            presentAddress = stringComparison(
                 original.presentAddress,
                 modified.presentAddress
             ),
-            occupation = stringComparisonEditType(original.occupation, modified.occupation),
-            localPhoneNumber = stringComparisonEditType(
+            occupation = stringComparison(original.occupation, modified.occupation),
+            localPhoneNumber = stringComparison(
                 original.localPhoneNumber,
                 modified.localPhoneNumber
             ),
-            emailAddress = stringComparisonEditType(original.emailAddress, modified.emailAddress),
+            emailAddress = stringComparison(original.emailAddress, modified.emailAddress),
         )
 
         fun trimmedFields(form: ClientInfo) =

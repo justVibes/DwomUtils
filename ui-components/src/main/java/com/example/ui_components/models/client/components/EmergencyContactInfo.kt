@@ -3,7 +3,7 @@ package com.example.ui_components.models.client.components
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.client.components.core.EditType
-import com.example.ui_components.models.client.components.core.stringComparisonEditType
+import com.example.ui_components.models.client.components.core.stringComparison
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -22,11 +22,11 @@ data class EmergencyContactInfo(
             modified: EmergencyContactInfo
         ): HighlightedEmergencyContactInfo {
             return HighlightedEmergencyContactInfo(
-                clientId = stringComparisonEditType(original.clientId, modified.clientId),
-                name = stringComparisonEditType(original.name, modified.name),
-                phoneNumber = stringComparisonEditType(original.phoneNumber, modified.phoneNumber),
-                email = stringComparisonEditType(original.email, modified.email),
-                presentAddress = stringComparisonEditType(
+                clientId = stringComparison(original.clientId, modified.clientId),
+                name = stringComparison(original.name, modified.name),
+                phoneNumber = stringComparison(original.phoneNumber, modified.phoneNumber),
+                email = stringComparison(original.email, modified.email),
+                presentAddress = stringComparison(
                     original.presentAddress,
                     modified.presentAddress
                 ),
