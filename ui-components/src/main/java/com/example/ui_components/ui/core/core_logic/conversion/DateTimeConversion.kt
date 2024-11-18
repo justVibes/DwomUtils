@@ -21,4 +21,11 @@ object DateTimeConversion {
             SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(updDate)
         return if (date == 0L) "" else formattedDate
     }
+
+    fun mmIddIyy(date: Long, addAnExtraDay: Boolean = false): String {
+        val updDate = Date(date + (if (addAnExtraDay) 86400000L else 0L))
+        val formattedDate =
+            SimpleDateFormat("MM/dd/yy", Locale.getDefault()).format(updDate)
+        return if (date == 0L) "" else formattedDate
+    }
 }

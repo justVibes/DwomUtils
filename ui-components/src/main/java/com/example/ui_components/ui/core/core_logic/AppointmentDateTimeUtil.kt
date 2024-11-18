@@ -8,7 +8,6 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-@RequiresApi(Build.VERSION_CODES.O)
 object AppointmentDateTimeUtil {
     fun daysUntilAppointment(appointmentDate: String): String {
         val format = "MMM dd, yyyy HH:mm a"
