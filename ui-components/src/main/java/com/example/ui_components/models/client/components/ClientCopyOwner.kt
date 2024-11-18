@@ -20,5 +20,6 @@ data class ClientCopyOwner (
     * It's used to visually represent the worker that owns this copy, for the benefit of the service provider
     * that created the client (the owner).
     */
-    @Exclude var tempOwner: EstablishmentWorker? = null
+    @Exclude var tempOwner: EstablishmentWorker? = null,
+    @Exclude var isRevoked: Boolean = false
 )
