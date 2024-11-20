@@ -15,7 +15,6 @@ object AppointmentDateTimeUtil {
         val currentDate = dateTimeFormatter.format(LocalDateTime.now())
 
         val formattedAppointmentDate = convertToArmyTime(appointmentDate)
-//        val formattedCurrentDate = convertToArmyTime(currentDate)
 
 
         val toDate = LocalDateTime.parse(formattedAppointmentDate, dateTimeFormatter)
