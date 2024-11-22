@@ -8,6 +8,6 @@ data class GlobalMessage(
     * This should contain a list of the emails that should see this message.
     * If 'targets' is empty and 'isVisible' is true then the global message can be seen by everyone*/
     val targets: List<String> = emptyList(),
-    val isPublic: Boolean = false,
+    val canView: Boolean = false,
     val isCloseable: Boolean = false
 )
