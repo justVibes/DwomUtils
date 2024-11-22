@@ -60,4 +60,11 @@ object WindowSizes {
             else -> 16.sp
         }
     }
+
+    fun regularFloatWidth(windowSizeClass: WindowSizeClass): Float = when (windowSizeClass.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> .7f
+        WindowWidthSizeClass.Medium -> .5f
+        WindowWidthSizeClass.Expanded -> .3f
+        else -> .5f
+    }
 }

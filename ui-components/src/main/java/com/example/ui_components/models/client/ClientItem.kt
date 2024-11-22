@@ -1,17 +1,17 @@
 package com.example.ui_components.models.client
 
 import com.example.ui_components.models.client.components.ClientCopyOwner
-import com.example.ui_components.models.client.components.info.ClientInfo
 import com.example.ui_components.models.client.components.ClientNote
-import com.example.ui_components.models.client.components.record.ClientRecord
 import com.example.ui_components.models.client.components.ClientVitals
 import com.example.ui_components.models.client.components.EmergencyContactInfo
 import com.example.ui_components.models.client.components.HighlightedClientNote
-import com.example.ui_components.models.client.components.info.HighlightedClientInfo
 import com.example.ui_components.models.client.components.HighlightedClientVitals
 import com.example.ui_components.models.client.components.HighlightedEmergencyContactInfo
 import com.example.ui_components.models.client.components.LabResult
 import com.example.ui_components.models.client.components.core.EditType
+import com.example.ui_components.models.client.components.info.ClientInfo
+import com.example.ui_components.models.client.components.info.HighlightedClientInfo
+import com.example.ui_components.models.client.components.record.ClientRecord
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 import kotlinx.coroutines.Dispatchers

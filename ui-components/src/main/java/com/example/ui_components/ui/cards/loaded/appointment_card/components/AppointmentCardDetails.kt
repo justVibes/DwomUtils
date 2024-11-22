@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.ui_components.ui.core.core_logic.conversion.DateTimeConversion
 import com.example.ui_components.models.gigrequest.GigRequest
+import com.example.ui_components.ui.core.core_logic.conversion.DateTimeConversion
 
 @Composable
 fun AppointmentCardDetails(
