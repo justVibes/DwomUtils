@@ -13,48 +13,31 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.ui_components.ui.indicators.top_indicator.components.TopIndicatorContainerDefaults
 import com.example.ui_components.ui.indicators.top_indicator.components.TopIndicatorIconDefaults
 import com.example.ui_components.ui.indicators.top_indicator.components.TopIndicatorTextDefaults
 
-val defaultIconColor @Composable get() = MaterialTheme.colorScheme.surface.copy(alpha = .8f)
-val defaultContainerColor @Composable get() = MaterialTheme.colorScheme.surface.copy(alpha = .1f)
-
 @Composable
 fun TopIndicator(
     modifier: Modifier = Modifier,
     mainContent: (@Composable () -> Unit)? = null,
-    mainText: TopIndicatorTextDefaults = TopIndicatorTextDefaults(
-        title = "",
-        style = MaterialTheme.typography.titleMedium.copy(
-            color = MaterialTheme.colorScheme.onSurface,
-            fontWeight = FontWeight.Medium
-        )
-    ),
+    mainText: TopIndicatorTextDefaults? = null,
     leadingContent: (@Composable () -> Unit)? = null,
     leadingIcon: TopIndicatorIconDefaults = TopIndicatorIconDefaults(
         icon = Icons.AutoMirrored.Default.ArrowBack,
-        iconColor = defaultIconColor,
-        bgColor = defaultContainerColor
     ),
     trailingContent: (@Composable () -> Unit)? = null,
     trailingIcon: TopIndicatorIconDefaults = TopIndicatorIconDefaults(
         icon = Icons.Default.Home,
-        iconColor = defaultIconColor,
-        bgColor = defaultContainerColor
     ),
-    containerDefaults: TopIndicatorContainerDefaults = TopIndicatorContainerDefaults(
-        color = defaultContainerColor
-    ),
+    containerDefaults: TopIndicatorContainerDefaults = TopIndicatorContainerDefaults(),
     onLeadingIconClicked: () -> Unit,
     onTrailingIconClicked: () -> Unit,
 ) {
@@ -63,7 +46,7 @@ fun TopIndicator(
             .fillMaxWidth()
             .wrapContentHeight()
             .clip(containerDefaults.shape)
-            .background(containerDefaults.color)
+            .background(color = containerDefaults.color.invoke())
             .padding(10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -77,8 +60,8 @@ fun TopIndicator(
             null -> {
                 Text(
                     modifier = Modifier.padding(10.dp),
-                    text = mainText.formattedTitle,
-                    style = mainText.style,
+                    text = mainText!!.formattedTitle,
+                    style = mainText.style.invoke(),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -103,7 +86,7 @@ private fun GetIndicatorBtn(
         modifier = Modifier
             .wrapContentSize()
             .clip(icon.shape)
-            .background(icon.bgColor)
+            .background(icon.bgColor.invoke())
             .clickable { onClick() }
             .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -115,7 +98,7 @@ private fun GetIndicatorBtn(
                 .clip(icon.shape),
             imageVector = icon.icon,
             contentDescription = null,
-            tint = icon.iconColor
+            tint = icon.iconColor.invoke()
         )
     }
 }
