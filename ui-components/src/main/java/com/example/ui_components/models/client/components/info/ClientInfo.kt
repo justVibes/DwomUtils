@@ -1,6 +1,7 @@
 package com.example.ui_components.models.client.components.info
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.core.stringComparison
@@ -13,7 +14,7 @@ data class ClientInfo(
     @PrimaryKey
     var clientId: String = "",
     var tagName: String = "",
-    var photo: ClientPhoto = ClientPhoto(),
+    @Ignore var photo: ClientPhoto = ClientPhoto(),
     var firstName: String = "",
     var lastName: String = "",
     var sex: String = "", /*Use 'ValidGenders' enum to initialize*/
