@@ -1,20 +1,15 @@
 package com.example.ui_components.models.client.components.info
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.core.stringComparison
 import com.example.ui_components.models.client.components.info.components.ClientPhoto
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity
 data class ClientInfo(
-    @PrimaryKey
     var clientId: String = "",
     var tagName: String = "",
-    @Ignore var photo: ClientPhoto = ClientPhoto(),
+    var photo: ClientPhoto = ClientPhoto(),
     var firstName: String = "",
     var lastName: String = "",
     var sex: String = "", /*Use 'ValidGenders' enum to initialize*/
@@ -101,6 +96,28 @@ data class ClientInfo(
                 "EmailAddress" to formattedForm.emailAddress.ifEmpty { "n/a" },
             )
         }
+
+        fun mapToStripped(form: ClientInfo): ClientInfoStripped {
+            val formattedForm = trimmedFields(form)
+            return ClientInfoStripped(
+                clientId = formattedForm.clientId,
+                tagName = formattedForm.tagName,
+                photo = formattedForm.photo.url,
+                firstName = formattedForm.firstName,
+                lastName = formattedForm.lastName,
+                sex = formattedForm.sex, /*Use 'ValidGenders' enum to initialize*/
+                birthDate = formattedForm.birthDate,
+                birthPlace = formattedForm.birthPlace,
+                height = formattedForm.height,
+                weight = formattedForm.weight,
+                presentAddress = formattedForm.presentAddress,
+                occupation = formattedForm.occupation,
+                age = 0, /*Generated based on the given birth date*/
+                localPhoneNumber = formattedForm.localPhoneNumber,
+                emailAddress = formattedForm.emailAddress,
+            )
+        }
+
     }
 }
 
@@ -121,4 +138,5 @@ data class HighlightedClientInfo(
     var localPhoneNumber: EditType = EditType.NONE,
     var emailAddress: EditType = EditType.NONE,
 )
+
 
