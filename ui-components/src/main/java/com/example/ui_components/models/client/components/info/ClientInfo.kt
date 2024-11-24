@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.core.stringComparison
+import com.example.ui_components.models.client.components.info.components.ClientPhoto
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -12,7 +13,7 @@ data class ClientInfo(
     @PrimaryKey
     var clientId: String = "",
     var tagName: String = "",
-    var photoUrl: String = "",
+    var photo: ClientPhoto = ClientPhoto(),
     var firstName: String = "",
     var lastName: String = "",
     var sex: String = "", /*Use 'ValidGenders' enum to initialize*/
@@ -30,7 +31,6 @@ data class ClientInfo(
         fun mapToHighlighted(original: ClientInfo, modified: ClientInfo) = HighlightedClientInfo(
             clientId = stringComparison(original.clientId, modified.clientId),
             tagName = stringComparison(original.tagName, modified.tagName),
-            photoUrl = stringComparison(original.photoUrl, modified.photoUrl),
             firstName = stringComparison(original.firstName, modified.firstName),
             lastName = stringComparison(original.lastName, modified.lastName),
             sex = stringComparison(original.sex, modified.sex),
@@ -54,7 +54,6 @@ data class ClientInfo(
             form.copy(
                 clientId = form.clientId.trim(),
                 tagName = form.tagName.trim(),
-                photoUrl = form.photoUrl.trim(),
                 firstName = form.firstName.trim(),
                 lastName = form.lastName.trim(),
                 sex = form.sex.trim(),
@@ -85,7 +84,7 @@ data class ClientInfo(
             """.trimIndent()
         }
 
-        fun mapToListOfPairs(form: ClientInfo): List<Pair<String, String>>{
+        fun mapToListOfPairs(form: ClientInfo): List<Pair<String, String>> {
             val formattedForm = trimmedFields(form)
             return listOf(
                 "Firstname" to formattedForm.firstName.ifEmpty { "n/a" },

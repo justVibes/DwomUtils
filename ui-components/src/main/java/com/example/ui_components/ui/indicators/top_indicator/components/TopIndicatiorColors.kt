@@ -4,6 +4,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 
 object TopIndicatorColors {
-    val defaultIconColor @Composable get() = MaterialTheme.colorScheme.surface.copy(alpha = .8f)
-    val defaultContainerColor @Composable get() = MaterialTheme.colorScheme.surface.copy(alpha = .1f)
+    val defaultIconColor @Composable get() = MaterialTheme.colorScheme.onSurface.copy(alpha = .8f)
+    val defaultContainerColor @Composable get() = MaterialTheme.colorScheme.onSurface.copy(alpha = .1f)
 }
