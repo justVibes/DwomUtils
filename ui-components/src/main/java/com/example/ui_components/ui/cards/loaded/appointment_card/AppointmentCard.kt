@@ -63,7 +63,7 @@ fun AppointmentCard(
             onShowDetailsClicked = onShowDetailsClicked
         )
 
-        if (request.selectedServiceProvider.uid.isNotEmpty()) {
+        if (request.selectedWorker != null) {
             ServiceProviderCard(mainCardBg, request)
         } else {
             AppointmentSummaryCard(Modifier, request, mainCardBg)

@@ -1,6 +1,7 @@
 package com.example.ui_components.ui.cards.loaded.regular_card
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -84,63 +85,46 @@ fun RegularCard(
                     .padding(5.dp),
                 contentAlignment = Alignment.Center
             ) {
-                val placeholderImg =
-                    if (!leadingImage.isProfileImage) painterResource(R.drawable.ic_image_placeholder)
-                    else painterResource(R.drawable.ic_person)
-                AsyncImage(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(CircleShape),
-                    model = leadingImage.photoUrl.toUri(),
-                    contentDescription = null,
-                    placeholder = placeholderImg,
-                    error = placeholderImg,
-                    contentScale = ContentScale.Crop
-                )
-                if (leadingImage.isUpdateBubbleVisible) {
-                    Box(
+                if (leadingImage.resPhoto != 0) {
+                    Image(
                         modifier = Modifier
-                            .align(Alignment.TopStart)
-                            .size((leadingImage.photoSize.value * .25).dp)
-                            .clip(CircleShape)
-                            .background(Teal)
+                            .fillMaxSize()
+                            .clip(CircleShape),
+                        painter = painterResource(leadingImage.resPhoto),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop
                     )
+                } else {
+                    val placeholderImg =
+                        if (!leadingImage.isProfileImage) painterResource(R.drawable.ic_image_placeholder)
+                        else painterResource(R.drawable.ic_person)
+                    AsyncImage(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(CircleShape),
+                        model = leadingImage.photoUrl.toUri(),
+                        contentDescription = null,
+                        placeholder = placeholderImg,
+                        error = placeholderImg,
+                        contentScale = ContentScale.Crop
+                    )
+                    if (leadingImage.isUpdateBubbleVisible) {
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.TopStart)
+                                .size((leadingImage.photoSize.value * .25).dp)
+                                .clip(CircleShape)
+                                .background(Teal)
+                        )
+                    }
                 }
             }
         },
         headlineContent = {
-            if (header.separateText) {
-                TextStyling.ColorDifference(
-                    text = header.text,
-                    color = header.style.invoke().color,
-                    style = header.style.invoke(),
-                    separator = header.separator,
-                )
-            } else {
-                Text(
-                    text = header.text,
-                    style = header.style.invoke(),
-                    maxLines = header.maxLines,
-                    overflow = header.overflow
-                )
-            }
+            GetTextContent(header)
         },
         supportingContent = {
-            if (subHeader.separateText) {
-                TextStyling.ColorDifference(
-                    text = subHeader.text,
-                    color = subHeader.style.invoke().color,
-                    style = subHeader.style.invoke(),
-                    separator = subHeader.separator
-                )
-            } else {
-                Text(
-                    text = subHeader.text,
-                    style = subHeader.style.invoke(),
-                    maxLines = subHeader.maxLines,
-                    overflow = subHeader.overflow
-                )
-            }
+            GetTextContent(subHeader)
         },
         trailingContent = {
             when {
@@ -183,6 +167,36 @@ fun RegularCard(
         },
         shadowElevation = shadowElevation
     )
+}
+
+@Composable
+private fun GetTextContent(header: CardTextContent) {
+    when {
+        header.annotatedText != null -> {
+            Text(
+                text = header.annotatedText,
+                style = header.style.invoke()
+            )
+        }
+
+        header.separateText -> {
+            TextStyling.ColorDifference(
+                text = header.text,
+                color = header.style.invoke().color,
+                style = header.style.invoke(),
+                separator = header.separator,
+            )
+        }
+
+        else -> {
+            Text(
+                text = header.text,
+                style = header.style.invoke(),
+                maxLines = header.maxLines,
+                overflow = header.overflow
+            )
+        }
+    }
 }
 
 

@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.core.establishment.Establishment
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.Exclude
 
 data class TypeOfWorkerModel(
     var formattedWorkerTitle: String = "",
@@ -12,9 +13,9 @@ data class TypeOfWorkerModel(
     var typeOfAppointment: String = "",
     var needsEstablishment: Boolean = false,
     var estCategory: String = "",
-    var establishments: List<DocumentReference> = emptyList(),
     var icon: String = "",
-    var tempEstablishments: List<Establishment> = emptyList() /*This is for local usage*/
+    var establishmentSummaryRefs: List<DocumentReference> = emptyList(),
+    @Exclude var tempEstablishments: List<Establishment> = emptyList() /*This is for local usage*/
 ) {
     object MapToStripped {
         fun from(form: TypeOfWorkerModel) =
@@ -52,7 +53,7 @@ data class TypeOfWorkerModelStripped(
                 typeOfAppointment = form.typeOfAppointment,
                 needsEstablishment = form.needsEstablishment,
                 estCategory = form.estCategory,
-                establishments = establishmentsRef,
+                establishmentSummaryRefs = establishmentsRef,
                 tempEstablishments = tempEstablishments
             )
     }

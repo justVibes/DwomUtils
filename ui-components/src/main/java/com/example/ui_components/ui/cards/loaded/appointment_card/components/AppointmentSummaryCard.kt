@@ -1,6 +1,5 @@
 package com.example.ui_components.ui.cards.loaded.appointment_card.components
 
-import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -63,7 +62,7 @@ fun AppointmentSummaryCard(
                         alpha = .5f
                     )
                 ),
-            model = request.requestInfo.selectedImages.firstOrNull()?.image?.toUri(),
+            model = request.jobInfo.referencePhotos.firstOrNull()?.url?.toUri(),
             contentDescription = null,
             contentScale = ContentScale.Crop
         )
@@ -75,7 +74,7 @@ fun AppointmentSummaryCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 TextStyling.ColorDifference(
-                    text = request.requestInfo.selectedRequestOptions.first().title + "|" + request.requestInfo.selectedRequestOptions.first().option,
+                    text = request.jobInfo.selectedRequestOptions.first().title + "|" + request.jobInfo.selectedRequestOptions.first().option,
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.SemiBold
                     ),
@@ -95,15 +94,13 @@ fun AppointmentSummaryCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = request.requestInfo.selectedRequestOptions[1].option,
+                    text = request.jobInfo.selectedRequestOptions[1].option,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                    Text(
-                        text = requestLifespan(request.requestInfo.creationDate),
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = .3f)
-                    )
-                }
+                Text(
+                    text = requestLifespan(request.jobInfo.creationDate),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = .3f)
+                )
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.example.ui_components.ui.cards.loaded.appointment_card.components
 
-import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -61,7 +60,7 @@ fun ServiceProviderCard(
                         alpha = .5f
                     )
                 ),
-            model = request.selectedServiceProvider.pfp.toUri(),
+            model = request.selectedWorker!!.photoUrl.toUri(),
             contentDescription = null
         )
         Column(
@@ -73,7 +72,7 @@ fun ServiceProviderCard(
             ) {
 
                 TextStyling.ColorDifference(
-                    text = request.selectedServiceProvider.tagName,
+                    text = request.selectedWorker!!.tagName,
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.SemiBold
@@ -93,15 +92,13 @@ fun ServiceProviderCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = request.requestInfo.typeOfWorker.formattedWorkerTitle,
+                    text = request.jobInfo.requiredTypeOfWorker!!.formattedWorkerTitle,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                    Text(
-                        text = daysUntilAppointment(request.requestInfo.appointmentDate),
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = .3f)
-                    )
-                }
+                Text(
+                    text = daysUntilAppointment(request.jobInfo.dateToDoJob),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = .3f)
+                )
             }
         }
     }

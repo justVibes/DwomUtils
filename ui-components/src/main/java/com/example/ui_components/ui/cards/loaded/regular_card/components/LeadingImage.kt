@@ -1,5 +1,6 @@
 package com.example.ui_components.ui.cards.loaded.regular_card.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -11,6 +12,7 @@ import com.example.ui_components.ui.core.core_logic.CustomColor
 data class LeadingImage(
     val isProfileImage: Boolean = false,
     val photoUrl: String = "",
+    @DrawableRes val resPhoto: Int = 0,
     val photoSize: Dp = 50.dp,
     val backgroundColor: @Composable () -> Color = {
         if (isSystemInDarkTheme()) {

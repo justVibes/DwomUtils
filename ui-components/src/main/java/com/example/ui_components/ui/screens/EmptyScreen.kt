@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui_components.R
@@ -29,6 +30,7 @@ fun EmptyScreen(
     windowSizeClass: WindowSizeClass,
     subject: String = "",
     message: String = "",
+    action: String = "",
     @DrawableRes defaultPhoto: Int = R.drawable.ic_search_document,
     isPeronSearch: Boolean = false,
     isNoRequests: Boolean = false
@@ -66,10 +68,18 @@ fun EmptyScreen(
         )
         Spacer(Modifier.height(15.dp))
         Text(
-            text = message.ifEmpty { "No ${subject.lowercase()} found" },
+            text = message.ifEmpty { "No ${subject.first().uppercase()}${subject.drop(1).lowercase()} Found" },
             fontSize = textSize,
             fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = .5f)
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = .5f),
+            textAlign = TextAlign.Center
+        )
+        Text(
+            text = action,
+            fontSize = textSize,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = .25f),
+            textAlign = TextAlign.Center
         )
     }
 }

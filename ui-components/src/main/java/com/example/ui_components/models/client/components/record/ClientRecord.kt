@@ -2,9 +2,10 @@ package com.example.ui_components.models.client.components.record
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.ui_components.models.client.components.ServiceProviderDetails
 import com.example.ui_components.models.client.components.record.components.Prescription
+import com.example.ui_components.models.core.establishment.components.EstablishmentWorker
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import java.util.UUID
 
 @Serializable
@@ -15,7 +16,7 @@ data class ClientRecord(
     var prescriptions: List<Prescription> = emptyList(),
     var recommendations: List<String> = emptyList(),
     var appointmentDate: String = "",
-    var serviceProviderDetails: ServiceProviderDetails = ServiceProviderDetails()
+    @Transient var serviceProviderDetails: EstablishmentWorker? = null
 ) {
     object MapToStripped {
         fun from(form: ClientRecord) =
@@ -39,7 +40,7 @@ data class ClientRecordStripped(
     var doctorPhotoUrl: String = ""
 ){
     object MapToOriginal {
-        fun from(form: ClientRecordStripped, prescriptions: List<Prescription>, recommendations: List<String>, serviceProviderDetails: ServiceProviderDetails) =
+        fun from(form: ClientRecordStripped, prescriptions: List<Prescription>, recommendations: List<String>, estWorkerDetails: EstablishmentWorker) =
             ClientRecord(
                 recordId = form.recordId,
                 clientId = form.clientId,
@@ -47,7 +48,7 @@ data class ClientRecordStripped(
                 appointmentDate = form.appointmentDate,
                 prescriptions = prescriptions,
                 recommendations = recommendations,
-                serviceProviderDetails = serviceProviderDetails
+                serviceProviderDetails = estWorkerDetails
             )
     }
 }

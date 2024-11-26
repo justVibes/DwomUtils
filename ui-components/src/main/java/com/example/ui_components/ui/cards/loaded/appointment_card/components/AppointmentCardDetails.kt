@@ -30,10 +30,10 @@ fun AppointmentCardDetails(
     ) {
         CardDetail(
             secondaryCardBg = secondaryCardBg,
-            detail = "Request ID#: " to gigRequest.requestInfo.requestId,
+            detail = "Request ID#: " to gigRequest.jobInfo.requestId,
             mimicMainCardBg = mimicMainCardBg
         )
-        gigRequest.requestInfo.selectedRequestOptions.forEach { option ->
+        gigRequest.jobInfo.selectedRequestOptions.forEach { option ->
             CardDetail(
                 secondaryCardBg = secondaryCardBg,
                 detail = (option.title + ": ") to option.option,
@@ -42,9 +42,12 @@ fun AppointmentCardDetails(
         }
         repeat(3) { index ->
             val detail = when (index) {
-                0 -> "Date: " to DateTimeConversion.mmmDDYYYFormat(gigRequest.requestInfo.appointmentDate.toLong())
-                1 -> "Time: " to DateTimeConversion.hhMMAFormat(gigRequest.requestInfo.appointmentTime.toLong())
-                2 -> "Budget: " to "$" + gigRequest.requestInfo.staticPrice.ifEmpty { "${gigRequest.requestInfo.minBudget} - $${gigRequest.requestInfo.maxBudget}" }
+                0 -> "Date: " to DateTimeConversion.mmmDDYYYFormat(gigRequest.jobInfo.dateToDoJob.toLong())
+                1 -> "Time: " to DateTimeConversion.hhMMAFormat(gigRequest.jobInfo.timeToDoJob.toLong())
+                2 -> "Budget: " to gigRequest.jobInfo.payment!!.let {
+                    "$" + it.staticPrice.ifEmpty { "${it.minBudget} - $${it.maxBudget}" }
+                }
+
                 else -> "{172:59}" to "{172:72}"
             }
             CardDetail(secondaryCardBg, detail, mimicMainCardBg)
