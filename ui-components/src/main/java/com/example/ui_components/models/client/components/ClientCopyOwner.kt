@@ -5,6 +5,8 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 
 data class ClientCopyOwner (
+    /* This creates a quick reference to the copy owner */
+    val ownerUid: String = "",
     /*
     * The reference to the owner of this copy.
     * NB: The owner of the copy must be apart of the same establishment as the service provider who
