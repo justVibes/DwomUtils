@@ -8,7 +8,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 
 data class CardTextContent(
-    val text: String,
+    val text: String = "",
     val annotatedText: AnnotatedString? = null,
     val separator: Char = ' ',
     val isHeader: Boolean = false,
