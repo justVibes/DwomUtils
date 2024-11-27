@@ -10,5 +10,5 @@ data class NonEstWorkerInfo(
     var formattedWorkerTitle: String = "",
     var typeOfAppointment: String = "",
     var endProduct: String = "",
-    var portfolio: List<PortfolioFile>
+    var portfolio: List<PortfolioFile> = emptyList()
 )

@@ -30,10 +30,10 @@ fun AppointmentCardDetails(
     ) {
         CardDetail(
             secondaryCardBg = secondaryCardBg,
-            detail = "Request ID#: " to gigRequest.jobInfo.requestId,
+            detail = "Request ID#: " to gigRequest.jobInfo.jobUid,
             mimicMainCardBg = mimicMainCardBg
         )
-        gigRequest.jobInfo.selectedRequestOptions.forEach { option ->
+        gigRequest.jobInfo.selectedJobOptions.forEach { option ->
             CardDetail(
                 secondaryCardBg = secondaryCardBg,
                 detail = (option.title + ": ") to option.option,

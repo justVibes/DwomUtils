@@ -74,7 +74,7 @@ fun AppointmentSummaryCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 TextStyling.ColorDifference(
-                    text = request.jobInfo.selectedRequestOptions.first().title + "|" + request.jobInfo.selectedRequestOptions.first().option,
+                    text = request.jobInfo.selectedJobOptions.first().title + "|" + request.jobInfo.selectedJobOptions.first().option,
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.SemiBold
                     ),
@@ -94,7 +94,7 @@ fun AppointmentSummaryCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = request.jobInfo.selectedRequestOptions[1].option,
+                    text = request.jobInfo.selectedJobOptions[1].option,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
