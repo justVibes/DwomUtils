@@ -76,7 +76,7 @@ fun EmptyScreen(
         )
         Text(
             text = action,
-            fontSize = textSize*.5,
+            fontSize = textSize*.65,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = .25f),
             textAlign = TextAlign.Center
