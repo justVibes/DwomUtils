@@ -1,6 +1,6 @@
 package com.example.ui_components.models.gigrequest
 
-import com.example.ui_components.models.core.user.components.Freelancer
+import com.example.ui_components.models.core.freelancer.Freelancer
 import com.example.ui_components.models.gigrequest.job_info.JobInfo
 
 data class GigRequest(
