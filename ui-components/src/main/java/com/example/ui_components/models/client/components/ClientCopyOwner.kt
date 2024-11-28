@@ -1,6 +1,6 @@
 package com.example.ui_components.models.client.components
 
-import com.example.ui_components.models.core.establishment.components.EstablishmentWorker
+import com.example.ui_components.models.core.company.components.Employee
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 
@@ -22,6 +22,6 @@ data class ClientCopyOwner (
     * It's used to visually represent the worker that owns this copy, for the benefit of the service provider
     * that created the client (the owner).
     */
-    @Exclude var tempOwner: EstablishmentWorker? = null,
+    @Exclude var tempOwner: Employee? = null,
     @Exclude var isRevoked: Boolean = false
 )

@@ -3,7 +3,7 @@ package com.example.ui_components.models.client.components.record
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.client.components.record.components.Prescription
-import com.example.ui_components.models.core.establishment.components.EstablishmentWorker
+import com.example.ui_components.models.core.company.components.Employee
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import java.util.UUID
@@ -16,7 +16,7 @@ data class ClientRecord(
     var prescriptions: List<Prescription> = emptyList(),
     var recommendations: List<String> = emptyList(),
     var appointmentDate: String = "",
-    @Transient var serviceProviderDetails: EstablishmentWorker? = null
+    @Transient var serviceProviderDetails: Employee? = null
 ) {
     object MapToStripped {
         fun from(form: ClientRecord) =
@@ -40,7 +40,7 @@ data class ClientRecordStripped(
     var doctorPhotoUrl: String = ""
 ){
     object MapToOriginal {
-        fun from(form: ClientRecordStripped, prescriptions: List<Prescription>, recommendations: List<String>, estWorkerDetails: EstablishmentWorker) =
+        fun from(form: ClientRecordStripped, prescriptions: List<Prescription>, recommendations: List<String>, employeeDetails: Employee) =
             ClientRecord(
                 recordId = form.recordId,
                 clientId = form.clientId,
@@ -48,7 +48,7 @@ data class ClientRecordStripped(
                 appointmentDate = form.appointmentDate,
                 prescriptions = prescriptions,
                 recommendations = recommendations,
-                serviceProviderDetails = estWorkerDetails
+                serviceProviderDetails = employeeDetails
             )
     }
 }

@@ -1,6 +1,6 @@
 package com.example.ui_components.models.gigrequest
 
-import com.example.ui_components.models.core.user.components.NonEstWorkerInfo
+import com.example.ui_components.models.core.user.components.Freelancer
 import com.example.ui_components.models.gigrequest.job_info.JobInfo
 
 data class GigRequest(
@@ -17,7 +17,7 @@ data class GigRequest(
     /* This contains information about the user that created the job offer */
     val jobProviderDetails: JobProviderDetails = JobProviderDetails(),
     /* This represents the worker that the job provider selected */
-    var selectedWorker: NonEstWorkerInfo? = null,
+    var selectedWorker: Freelancer? = null,
     /* This represents the workers that are applying for the job */
-    var jobApplicants: List<NonEstWorkerInfo> = emptyList(),
+    var jobApplicants: List<Freelancer> = emptyList(),
 )

@@ -1,4 +1,4 @@
-package com.example.ui_components.models.core.user.components
+package com.example.ui_components.models.core.freelancer.components
 
 import com.google.firebase.firestore.DocumentReference
 

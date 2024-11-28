@@ -1,6 +1,8 @@
-package com.example.ui_components.models.core.user.components
+package com.example.ui_components.models.core.freelancer
 
-data class NonEstWorkerInfo(
+import com.example.ui_components.models.core.freelancer.components.PortfolioFile
+
+data class Freelancer(
     var uid: String = "",
     var photoUrl: String = "",
     var tagName: String = "",

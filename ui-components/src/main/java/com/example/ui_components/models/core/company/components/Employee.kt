@@ -1,45 +1,42 @@
-package com.example.ui_components.models.core.establishment.components
+package com.example.ui_components.models.core.company.components
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.Exclude
 
-
-data class EstablishmentWorker(
+data class Employee(
     var email: String = "",
     var name: String = "",
     var photoUrl: String = "",
-    var establishmentId: String = "",
+    var info: EmployeeInfo? = null,
     var bookedAppointments: List<DocumentReference> = emptyList(),
-    var tempBookedAppointments: List<BookedAppointment> = emptyList(), /*This is for local usage*/
-
+    @Exclude var tempBookedAppointments: List<BookedAppointment> = emptyList(), /*This is for local usage*/
 ) {
     object MapToStripped {
-        fun from(form: EstablishmentWorker) =
-            EstablishmentWorkerStripped(
+        fun from(form: Employee) =
+            EmployeeStripped(
                 email = form.email,
                 name = form.name,
                 photoUrl = form.photoUrl,
-                establishmentId = form.establishmentId,
             )
     }
 }
 
 @Entity
-data class EstablishmentWorkerStripped(
+data class EmployeeStripped(
     @PrimaryKey
     var email: String = "",
     var name: String = "",
     var photoUrl: String = "",
-    var establishmentId: String = "",
+    var companyId: String = "",
 ) {
     object MapToOriginal {
-        fun from(form: EstablishmentWorkerStripped, bookedAppointmentsRef: List<DocumentReference>, tempBookedAppointments: List<BookedAppointment>) =
-            EstablishmentWorker(
+        fun from(form: EmployeeStripped, bookedAppointmentsRef: List<DocumentReference>, tempBookedAppointments: List<BookedAppointment>) =
+            Employee(
                 email = form.email,
                 name = form.name,
                 photoUrl = form.photoUrl,
-                establishmentId = form.establishmentId,
                 bookedAppointments = bookedAppointmentsRef,
                 tempBookedAppointments = tempBookedAppointments
             )

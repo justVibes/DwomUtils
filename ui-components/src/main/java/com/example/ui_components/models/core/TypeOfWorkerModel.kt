@@ -2,7 +2,7 @@ package com.example.ui_components.models.core
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.ui_components.models.core.establishment.Establishment
+import com.example.ui_components.models.core.company.Company
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 
@@ -11,11 +11,11 @@ data class TypeOfWorkerModel(
     var abvWorkerTitle: String = "",
     var endProduct: String = "",
     var typeOfAppointment: String = "",
-    var needsEstablishment: Boolean = false,
-    var estCategory: String = "",
+    var hasEmployer: Boolean = false,
+    var companyCategory: String = "",
     var icon: String = "",
-    var establishmentSummaryRefs: List<DocumentReference> = emptyList(),
-    @Exclude var tempEstablishments: List<Establishment> = emptyList() /*This is for local usage*/
+    var companySummaryRefs: List<DocumentReference> = emptyList(),
+    @Exclude var tempCompanies: List<Company> = emptyList() /*This is for local usage*/
 ) {
     object MapToStripped {
         fun from(form: TypeOfWorkerModel) =
@@ -24,8 +24,8 @@ data class TypeOfWorkerModel(
                 abvWorkerTitle = form.abvWorkerTitle,
                 endProduct = form.endProduct,
                 typeOfAppointment = form.typeOfAppointment,
-                needsEstablishment = form.needsEstablishment,
-                estCategory = form.estCategory,
+                hasEmployer = form.hasEmployer,
+                companyCategory = form.companyCategory,
             )
     }
 }
@@ -37,24 +37,24 @@ data class TypeOfWorkerModelStripped(
     var abvWorkerTitle: String = "",
     var endProduct: String = "",
     var typeOfAppointment: String = "",
-    var needsEstablishment: Boolean = false,
-    var estCategory: String = "",
+    var hasEmployer: Boolean = false,
+    var companyCategory: String = "",
 ) {
     object MapToOriginal {
         fun from(
             form: TypeOfWorkerModelStripped,
             establishmentsRef: List<DocumentReference>,
-            tempEstablishments: List<Establishment>
+            tempCompanies: List<Company>
         ) =
             TypeOfWorkerModel(
                 formattedWorkerTitle = form.formattedWorkerTitle,
                 abvWorkerTitle = form.abvWorkerTitle,
                 endProduct = form.endProduct,
                 typeOfAppointment = form.typeOfAppointment,
-                needsEstablishment = form.needsEstablishment,
-                estCategory = form.estCategory,
-                establishmentSummaryRefs = establishmentsRef,
-                tempEstablishments = tempEstablishments
+                hasEmployer = form.hasEmployer,
+                companyCategory = form.companyCategory,
+                companySummaryRefs = establishmentsRef,
+                tempCompanies = tempCompanies
             )
     }
 }
