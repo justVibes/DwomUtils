@@ -92,7 +92,7 @@ fun ServiceProviderCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = request.jobInfo.requiredTypeOfWorker!!.formattedWorkerTitle,
+                    text = request.jobInfo.requiredTypeOfWorker!!.workerTitle.formatted,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
