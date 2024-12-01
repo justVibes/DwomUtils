@@ -16,7 +16,7 @@ data class ClientNote(
     var author: String = "",
     var title: String = "",
     var note: String = "",
-    val accessEmails: List<String>,
+    val accessEmails: List<String> = emptyList(),
 ) {
     object Config {
         fun mapToStripped(form: ClientNote) = ClientNoteStripped(
