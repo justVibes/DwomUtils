@@ -10,18 +10,25 @@ import java.util.Calendar
 import java.util.UUID
 
 @Serializable
-@Entity
 data class ClientNote(
-    @PrimaryKey
     val noteId: String = "${UUID.randomUUID()}",
     val creationDate: Long = Calendar.getInstance().timeInMillis,
     var clientId: String = "",
     var author: String = "",
     var title: String = "",
     var note: String = "",
-    @Ignore val accessEmails: List<String> = emptyList(),
+    val accessEmails: List<String>,
 ) {
     object Config {
+        fun mapToStripped(form: ClientNote) = ClientNoteStripped(
+            noteId = form.noteId,
+            creationDate = form.creationDate,
+            clientId = form.clientId,
+            author = form.author,
+            title = form.title,
+            note = form.note,
+        )
+
         fun mapToHighlighted(original: ClientNote, modified: ClientNote): HighlightedClientNote {
             val formattedForm: (ClientNote) -> ClientNote = { note ->
                 trimmedFields(note)
@@ -59,6 +66,29 @@ data class ClientNote(
                 Pair("Note", formattedForm.note.ifEmpty { "n/a" }),
             )
         }
+    }
+}
+
+@Entity
+data class ClientNoteStripped(
+    @PrimaryKey
+    val noteId: String = "${UUID.randomUUID()}",
+    val creationDate: Long = Calendar.getInstance().timeInMillis,
+    var clientId: String = "",
+    var author: String = "",
+    var title: String = "",
+    var note: String = "",
+){
+    object Config {
+        fun mapToOriginal(form: ClientNoteStripped, accessEmails: List<String>) = ClientNote(
+            noteId = form.noteId,
+            creationDate = form.creationDate,
+            clientId = form.clientId,
+            author = form.author,
+            title = form.title,
+            note = form.note,
+            accessEmails = accessEmails
+        )
     }
 }
 
