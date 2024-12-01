@@ -13,7 +13,7 @@ data class ClientNote(
     val noteId: String = "${UUID.randomUUID()}",
     val creationDate: Long = Calendar.getInstance().timeInMillis,
     var clientId: String = "",
-    var author: String = "",
+    var authorEmail: String = "",
     var title: String = "",
     var note: String = "",
     val accessEmails: List<String> = emptyList(),
@@ -23,7 +23,7 @@ data class ClientNote(
             noteId = form.noteId,
             creationDate = form.creationDate,
             clientId = form.clientId,
-            author = form.author,
+            author = form.authorEmail,
             title = form.title,
             note = form.note,
         )
@@ -43,7 +43,7 @@ data class ClientNote(
 
         fun trimmedFields(form: ClientNote) =
             form.apply {
-                author = author.trim()
+                authorEmail = authorEmail.trim()
                 title = title.trim()
                 note = note.trim()
             }
@@ -51,7 +51,7 @@ data class ClientNote(
         fun mapToString(form: ClientNote): String {
             val formattedForm = trimmedFields(form)
             return """
-                Author: ${formattedForm.author.ifEmpty { "n/a" }}
+                Author: ${formattedForm.authorEmail.ifEmpty { "n/a" }}
                 Title: ${formattedForm.title.ifEmpty { "n/a" }}
                 Note: ${formattedForm.note.ifEmpty { "n/a" }}
             """.trimIndent()
@@ -60,7 +60,7 @@ data class ClientNote(
         fun mapToListOfPairs(form: ClientNote): List<Pair<String, String>> {
             val formattedForm = trimmedFields(form)
             return listOf(
-                Pair("Author", formattedForm.author.ifEmpty { "n/a" }),
+                Pair("Author", formattedForm.authorEmail.ifEmpty { "n/a" }),
                 Pair("Title", formattedForm.title.ifEmpty { "n/a" }),
                 Pair("Note", formattedForm.note.ifEmpty { "n/a" }),
             )
@@ -83,7 +83,7 @@ data class ClientNoteStripped(
             noteId = form.noteId,
             creationDate = form.creationDate,
             clientId = form.clientId,
-            author = form.author,
+            authorEmail = form.author,
             title = form.title,
             note = form.note,
             accessEmails = accessEmails
