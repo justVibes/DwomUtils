@@ -1,6 +1,6 @@
 package com.example.ui_components.models.gigrequest.job_info
 
-import com.example.ui_components.models.core.TypeOfWorkerModel
+import com.example.ui_components.models.core.type_of_worker.TypeOfWorkerModel
 import com.example.ui_components.models.gigrequest.job_info.components.JobOption
 import com.example.ui_components.models.gigrequest.job_info.components.JobPayment
 import com.example.ui_components.models.gigrequest.job_info.components.RequestImage

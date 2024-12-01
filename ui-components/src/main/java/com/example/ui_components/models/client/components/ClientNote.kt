@@ -1,6 +1,7 @@
 package com.example.ui_components.models.client.components
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.core.stringComparison
@@ -18,6 +19,7 @@ data class ClientNote(
     var author: String = "",
     var title: String = "",
     var note: String = "",
+    @Ignore val accessEmails: List<String> = emptyList(),
 ) {
     object Config {
         fun mapToHighlighted(original: ClientNote, modified: ClientNote): HighlightedClientNote {

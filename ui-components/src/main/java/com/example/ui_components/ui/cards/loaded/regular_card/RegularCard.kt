@@ -24,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -76,18 +75,17 @@ fun RegularCard(
             supportingColor = contentColor
         ),
         leadingContent = {
-            @Composable
-            fun Modifier.bgModifier() = composed {
-                fillMaxSize()
-                clip(CircleShape)
-                background(leadingImage.backgroundColor.invoke())
-                border(
+            val imgModifier = Modifier
+                .fillMaxSize()
+                .clip(CircleShape)
+                .background(leadingImage.backgroundColor.invoke())
+                .border(
                     width = 2.dp,
                     color = leadingImage.borderColor.invoke(),
                     shape = CircleShape
                 )
-                padding(5.dp)
-            }
+                .padding(5.dp)
+
 
 
             Box(
@@ -96,7 +94,7 @@ fun RegularCard(
             ) {
                 if (leadingImage.resPhoto != 0) {
                     Image(
-                        modifier = Modifier.bgModifier(),
+                        modifier = imgModifier,
                         painter = painterResource(leadingImage.resPhoto),
                         contentDescription = null,
                         contentScale = ContentScale.Crop
@@ -106,7 +104,7 @@ fun RegularCard(
                         if (!leadingImage.isProfileImage) painterResource(R.drawable.ic_image_placeholder)
                         else painterResource(R.drawable.ic_person)
                     AsyncImage(
-                        modifier = Modifier.bgModifier(),
+                        modifier = imgModifier,
                         model = leadingImage.photoUrl.toUri(),
                         contentDescription = null,
                         placeholder = placeholderImg,

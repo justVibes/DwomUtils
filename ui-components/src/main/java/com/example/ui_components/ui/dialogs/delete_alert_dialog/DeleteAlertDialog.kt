@@ -93,7 +93,8 @@ fun DeleteAlertDialog(
 
                             Spacer(Modifier.width(15.dp))
                             CircularProgressIndicator(
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier.size(20.dp),
+                                color = MaterialTheme.colorScheme.outline
                             )
                         } else if (index == 0) {
                             Text(
