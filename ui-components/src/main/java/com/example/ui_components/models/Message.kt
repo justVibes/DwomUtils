@@ -7,7 +7,7 @@ data class Message(
     val sender: Employee? = null,
     val receiver: Employee? = null,
     val text: String = "",
-    val client: ClientFileMessage? = null,
+    val client: ClientFile? = null,
     val timeStamp: Long = Calendar.getInstance().timeInMillis,
     val collectionPath: String? = null
 ) {
