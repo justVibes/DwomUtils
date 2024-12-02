@@ -27,7 +27,7 @@ import java.util.UUID
 data class ClientItem(
     var clientId: String = "${UUID.randomUUID()}",
     var serviceProvider: ServiceProvider? = null,
-    var accessorEmails: Set<String> = emptySet(),
+    var accessorEmails: List<String> = emptyList(),
     var clientInfo: ClientInfo = ClientInfo(),
     var vitals: ClientVitals = ClientVitals(),
     var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
