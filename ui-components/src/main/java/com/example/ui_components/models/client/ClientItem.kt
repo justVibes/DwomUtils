@@ -8,6 +8,7 @@ import com.example.ui_components.models.client.components.HighlightedClientNote
 import com.example.ui_components.models.client.components.HighlightedClientVitals
 import com.example.ui_components.models.client.components.HighlightedEmergencyContactInfo
 import com.example.ui_components.models.client.components.LabResult
+import com.example.ui_components.models.client.components.ServiceProvider
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.info.ClientInfo
 import com.example.ui_components.models.client.components.info.HighlightedClientInfo
@@ -25,8 +26,8 @@ import java.util.UUID
 @Serializable
 data class ClientItem(
     var clientId: String = "${UUID.randomUUID()}",
-    var serviceProviderUid: String = "",
-    var serviceProviderName: String = "",
+    var serviceProvider: ServiceProvider? = null,
+    var accessorEmails: Set<String> = emptySet(),
     var clientInfo: ClientInfo = ClientInfo(),
     var vitals: ClientVitals = ClientVitals(),
     var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
@@ -121,7 +122,7 @@ data class ClientItem(
                 "Emergency Contact Info." to EmergencyContactInfo.Config.mapToListOfPairs(form.emergencyContactInfo),
                 "Vitals" to ClientVitals.Config.mapToListOfPairs(form.vitals),
             )
-            run.setText("Client created by ${form.serviceProviderName}")
+            run.setText("Client created by ${form.serviceProvider!!.name}")
             run.addBreak()
             run.addBreak()
 
@@ -151,7 +152,6 @@ data class ClientItem(
         }
     }
 }
-
 
 data class HighlightedClientItem(
     val clientInfo: HighlightedClientInfo = HighlightedClientInfo(),
