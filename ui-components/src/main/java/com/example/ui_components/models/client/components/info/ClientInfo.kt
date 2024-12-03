@@ -30,24 +30,24 @@ data class ClientInfo(
         fun mapToLocal(form: ClientInfo): LocalClientInfo {
             val formattedForm = trimmedFields(form)
             return LocalClientInfo().apply {
-                tagName = formattedForm?.tagName ?: ""
+                tagName = formattedForm.tagName
                 photo = LocalClientPhoto().apply {
-                    url = formattedForm?.photo?.url ?: ""
-                    updatedUrl = formattedForm?.photo?.updatedUrl ?: ""
-                    storagePath = formattedForm?.photo?.storagePath ?: ""
+                    url = formattedForm.photo.url
+                    updatedUrl = formattedForm.photo.updatedUrl
+                    storagePath = formattedForm.photo.storagePath
                 }
-                firstName = formattedForm?.firstName ?: ""
-                lastName = formattedForm?.lastName ?: ""
-                sex = formattedForm?.sex ?: "" /*Use 'ValidGenders' enum to initialize*/
-                birthDate = formattedForm?.birthDate ?: 0L
-                birthPlace = formattedForm?.birthPlace ?: ""
-                height = formattedForm?.height ?: ""
-                weight = formattedForm?.weight ?: ""
-                presentAddress = formattedForm?.presentAddress ?: ""
-                occupation = formattedForm?.occupation ?: ""
+                firstName = formattedForm.firstName
+                lastName = formattedForm.lastName
+                sex = formattedForm.sex  /*Use 'ValidGenders' enum to initialize*/
+                birthDate = formattedForm.birthDate
+                birthPlace = formattedForm.birthPlace
+                height = formattedForm.height
+                weight = formattedForm.weight
+                presentAddress = formattedForm.presentAddress
+                occupation = formattedForm.occupation
                 age = 0 /*Generated based on the given birth date*/
-                localPhoneNumber = formattedForm?.localPhoneNumber ?: ""
-                emailAddress = formattedForm?.emailAddress ?: ""
+                localPhoneNumber = formattedForm.localPhoneNumber
+                emailAddress = formattedForm.emailAddress
             }
         }
 
