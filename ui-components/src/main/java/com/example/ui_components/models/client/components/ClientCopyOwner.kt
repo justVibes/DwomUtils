@@ -4,6 +4,7 @@ import com.example.ui_components.models.core.company.components.Employee
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 
+@Deprecated("Remove redundant class")
 data class ClientCopyOwner (
     /* This creates a quick reference to the copy owner */
     val ownerEmail: String = "",

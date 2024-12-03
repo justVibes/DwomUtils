@@ -1,6 +1,7 @@
-package com.example.ui_components.models.client.components
+package com.example.ui_components.models.client.components.lab_result
 
 import android.graphics.Bitmap
+import com.example.ui_components.models.client.components.lab_result.variants.LocalLabResult
 import com.google.firebase.firestore.Exclude
 import java.util.Calendar
 
@@ -16,12 +17,20 @@ data class LabResult(
     var resultUrl: String = "",
     var storagePath: String? = null, /*A reference to the location of the 'resultUrl'*/
     val isDeleted: Boolean = false, /* This is used to track all the deleted labResults that live on the server */
-    val creationDateTime: String = "${Calendar.getInstance().timeInMillis}",
+    val creationDateTime: Long = Calendar.getInstance().timeInMillis,
     val authorName: String = "",
     val title: String = "",
     @Exclude var tempPdf: List<Bitmap> = emptyList() /*This is for local usage (To render pdfs).*/
-)
-
-enum class LabResultTypes {
-    PDF, PHOTO
+) {
+    object Config {
+        fun mapToLocal(form: LabResult) = LocalLabResult().apply {
+            resultType = form.resultType
+            resultUrl = form.resultUrl
+            storagePath = form.storagePath
+            isDeleted = form.isDeleted
+            creationDateTime = form.creationDateTime
+            authorName = form.authorName
+        }
+    }
 }
+

@@ -78,18 +78,21 @@ fun RegularCard(
             val imgModifier = Modifier
                 .fillMaxSize()
                 .clip(CircleShape)
-                .background(leadingImage.backgroundColor.invoke())
-                .border(
-                    width = 2.dp,
-                    color = leadingImage.borderColor.invoke(),
-                    shape = CircleShape
-                )
-                .padding(5.dp)
+
 
 
 
             Box(
-                modifier = Modifier.size(leadingImage.photoSize),
+                modifier = Modifier
+                    .size(leadingImage.photoSize)
+                    .clip(CircleShape)
+                    .background(leadingImage.backgroundColor.invoke())
+                    .border(
+                        width = 2.dp,
+                        color = leadingImage.borderColor.invoke(),
+                        shape = CircleShape
+                    )
+                    .padding(5.dp),
                 contentAlignment = Alignment.Center
             ) {
                 if (leadingImage.resPhoto != 0) {

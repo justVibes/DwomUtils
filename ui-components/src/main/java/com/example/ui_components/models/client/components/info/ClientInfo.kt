@@ -1,59 +1,84 @@
 package com.example.ui_components.models.client.components.info
 
-import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.core.stringComparison
 import com.example.ui_components.models.client.components.info.components.ClientPhoto
+import com.example.ui_components.models.client.components.info.components.LocalClientPhoto
+import com.example.ui_components.models.client.components.info.variants.HighlightedClientInfo
+import com.example.ui_components.models.client.components.info.variants.LocalClientInfo
+import com.example.ui_components.ui.core.core_logic.conversion.DateTimeConversion
 import kotlinx.serialization.Serializable
+import java.util.Calendar
 
 @Serializable
 data class ClientInfo(
-    var clientId: String = "",
     var tagName: String = "",
     var photo: ClientPhoto = ClientPhoto(),
     var firstName: String = "",
     var lastName: String = "",
     var sex: String = "", /*Use 'ValidGenders' enum to initialize*/
-    val birthDate: String = "",
+    val birthDate: Long = 0L,
     var birthPlace: String = "",
     var height: String = "",
     var weight: String = "",
     var presentAddress: String = "",
     var occupation: String = "",
-    var age: Int = 0, /*Generated based on the given birth date*/
+    var age: Int = (Calendar.getInstance().timeInMillis - birthDate).toInt(), /*Generated based on the given birth date*/
     var localPhoneNumber: String = "",
     var emailAddress: String = "",
 ) {
     object Config {
-        fun mapToHighlighted(original: ClientInfo, modified: ClientInfo) = HighlightedClientInfo(
-            clientId = stringComparison(original.clientId, modified.clientId),
-            tagName = stringComparison(original.tagName, modified.tagName),
-            firstName = stringComparison(original.firstName, modified.firstName),
-            lastName = stringComparison(original.lastName, modified.lastName),
-            sex = stringComparison(original.sex, modified.sex),
-            birthDate = stringComparison(original.birthDate, modified.birthDate),
-            birthPlace = stringComparison(original.birthPlace, modified.birthPlace),
-            height = stringComparison(original.height, modified.height),
-            weight = stringComparison(original.weight, modified.weight),
+        fun mapToLocal(form: ClientInfo): LocalClientInfo {
+            val formattedForm = trimmedFields(form)
+            return LocalClientInfo().apply {
+                tagName = formattedForm?.tagName ?: ""
+                photo = LocalClientPhoto().apply {
+                    url = formattedForm?.photo?.url ?: ""
+                    updatedUrl = formattedForm?.photo?.updatedUrl ?: ""
+                    storagePath = formattedForm?.photo?.storagePath ?: ""
+                }
+                firstName = formattedForm?.firstName ?: ""
+                lastName = formattedForm?.lastName ?: ""
+                sex = formattedForm?.sex ?: "" /*Use 'ValidGenders' enum to initialize*/
+                birthDate = formattedForm?.birthDate ?: 0L
+                birthPlace = formattedForm?.birthPlace ?: ""
+                height = formattedForm?.height ?: ""
+                weight = formattedForm?.weight ?: ""
+                presentAddress = formattedForm?.presentAddress ?: ""
+                occupation = formattedForm?.occupation ?: ""
+                age = 0 /*Generated based on the given birth date*/
+                localPhoneNumber = formattedForm?.localPhoneNumber ?: ""
+                emailAddress = formattedForm?.emailAddress ?: ""
+            }
+        }
+
+        fun mapToHighlighted(original: ClientInfo?, modified: ClientInfo?) = HighlightedClientInfo(
+            tagName = stringComparison(original?.tagName, modified?.tagName),
+            firstName = stringComparison(original?.firstName, modified?.firstName),
+            lastName = stringComparison(original?.lastName, modified?.lastName),
+            sex = stringComparison(original?.sex, modified?.sex),
+            birthDate = stringComparison("${original?.birthDate}", "${modified?.birthDate}"),
+            birthPlace = stringComparison(original?.birthPlace, modified?.birthPlace),
+            height = stringComparison(original?.height, modified?.height),
+            weight = stringComparison(original?.weight, modified?.weight),
             presentAddress = stringComparison(
-                original.presentAddress,
-                modified.presentAddress
+                original?.presentAddress,
+                modified?.presentAddress
             ),
-            occupation = stringComparison(original.occupation, modified.occupation),
+            occupation = stringComparison(original?.occupation, modified?.occupation),
             localPhoneNumber = stringComparison(
-                original.localPhoneNumber,
-                modified.localPhoneNumber
+                original?.localPhoneNumber,
+                modified?.localPhoneNumber
             ),
-            emailAddress = stringComparison(original.emailAddress, modified.emailAddress),
+            emailAddress = stringComparison(original?.emailAddress, modified?.emailAddress),
         )
 
-        fun trimmedFields(form: ClientInfo) =
-            form.copy(
-                clientId = form.clientId.trim(),
+        fun trimmedFields(form: ClientInfo?) =
+            form?.copy(
                 tagName = form.tagName.trim(),
                 firstName = form.firstName.trim(),
                 lastName = form.lastName.trim(),
                 sex = form.sex.trim(),
-                birthDate = form.birthDate.trim(),
+                birthDate = form.birthDate,
                 birthPlace = form.birthPlace.trim(),
                 height = form.height.trim(),
                 weight = form.weight.trim(),
@@ -61,7 +86,7 @@ data class ClientInfo(
                 occupation = form.occupation.trim(),
                 localPhoneNumber = form.localPhoneNumber.trim(),
                 emailAddress = form.emailAddress.trim(),
-            )
+            ) ?: ClientInfo()
 
         fun mapToString(form: ClientInfo): String {
             val formattedForm = trimmedFields(form)
@@ -69,7 +94,9 @@ data class ClientInfo(
                 Firstname: ${formattedForm.firstName.ifEmpty { "n/a" }}
                 Lastname: ${formattedForm.lastName.ifEmpty { "n/a" }}
                 Sex: ${formattedForm.sex.ifEmpty { "n/a" }}
-                D.O.B : ${formattedForm.birthDate.ifEmpty { "n/a" }}
+                D.O.B : ${
+                DateTimeConversion.mmmDDYYYFormat(formattedForm.birthDate).ifEmpty { "n/a" }
+            }
                 Place of birth: ${formattedForm.birthPlace.ifEmpty { "n/a" }}
                 Height: ${formattedForm.height.ifEmpty { "n/a" }}
                 Weight: ${formattedForm.weight.ifEmpty { "n/a" }}
@@ -86,7 +113,8 @@ data class ClientInfo(
                 "Firstname" to formattedForm.firstName.ifEmpty { "n/a" },
                 "Lastname" to formattedForm.lastName.ifEmpty { "n/a" },
                 "Sex" to formattedForm.sex.ifEmpty { "n/a" },
-                "D.O.B" to formattedForm.birthDate.ifEmpty { "n/a" },
+                "D.O.B" to DateTimeConversion.mmmDDYYYFormat(formattedForm.birthDate)
+                    .ifEmpty { "n/a" },
                 "Place of birth" to formattedForm.birthPlace.ifEmpty { "n/a" },
                 "Height" to formattedForm.height.ifEmpty { "n/a" },
                 "Weight" to formattedForm.weight.ifEmpty { "n/a" },
@@ -97,46 +125,8 @@ data class ClientInfo(
             )
         }
 
-        fun mapToStripped(form: ClientInfo): ClientInfoStripped {
-            val formattedForm = trimmedFields(form)
-            return ClientInfoStripped(
-                clientId = formattedForm.clientId,
-                tagName = formattedForm.tagName,
-                photo = formattedForm.photo.url,
-                firstName = formattedForm.firstName,
-                lastName = formattedForm.lastName,
-                sex = formattedForm.sex, /*Use 'ValidGenders' enum to initialize*/
-                birthDate = formattedForm.birthDate,
-                birthPlace = formattedForm.birthPlace,
-                height = formattedForm.height,
-                weight = formattedForm.weight,
-                presentAddress = formattedForm.presentAddress,
-                occupation = formattedForm.occupation,
-                age = 0, /*Generated based on the given birth date*/
-                localPhoneNumber = formattedForm.localPhoneNumber,
-                emailAddress = formattedForm.emailAddress,
-            )
-        }
-
     }
 }
 
-
-data class HighlightedClientInfo(
-    var clientId: EditType = EditType.NONE,
-    var tagName: EditType = EditType.NONE,
-    var photoUrl: EditType = EditType.NONE,
-    var firstName: EditType = EditType.NONE,
-    var lastName: EditType = EditType.NONE,
-    var sex: EditType = EditType.NONE,
-    val birthDate: EditType = EditType.NONE,
-    var birthPlace: EditType = EditType.NONE,
-    var height: EditType = EditType.NONE,
-    var weight: EditType = EditType.NONE,
-    var presentAddress: EditType = EditType.NONE,
-    var occupation: EditType = EditType.NONE,
-    var localPhoneNumber: EditType = EditType.NONE,
-    var emailAddress: EditType = EditType.NONE,
-)
 
 

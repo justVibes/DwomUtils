@@ -89,7 +89,7 @@ fun ViewImportedFileAlertDialog(
 
                             pdfConfig.pdfBitmapConverter.renderer?.let { renderer ->
                                 scope.launch(Dispatchers.Default) {
-                                    val searchResults = (0..<renderer.pageCount).map { pageNumber ->
+                                    val searchResults = (0 until renderer.pageCount).map { pageNumber ->
                                         renderer.openPage(pageNumber).use { page ->
                                             val results = page.searchText(newText)
                                             val matchedRects = results.map {

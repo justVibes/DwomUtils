@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("maven-publish")
     id ("kotlin-kapt")
+    id ("io.realm.kotlin")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
 }
 
@@ -27,17 +28,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.4.3"
     }
 }
 
@@ -65,6 +66,10 @@ dependencies {
 
     //Apache POI
     implementation("org.apache.poi:poi-ooxml:5.2.3")
+
+    // Mongo Realm
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation ("io.realm.kotlin:library-base:1.6.1")
 }
 
 publishing {

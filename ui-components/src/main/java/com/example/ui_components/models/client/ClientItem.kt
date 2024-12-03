@@ -1,20 +1,18 @@
 package com.example.ui_components.models.client
 
 import com.example.ui_components.models.client.components.ClientCopyOwner
-import com.example.ui_components.models.client.components.ClientNote
-import com.example.ui_components.models.client.components.ClientVitals
-import com.example.ui_components.models.client.components.EmergencyContactInfo
-import com.example.ui_components.models.client.components.HighlightedClientNote
-import com.example.ui_components.models.client.components.HighlightedClientVitals
-import com.example.ui_components.models.client.components.HighlightedEmergencyContactInfo
-import com.example.ui_components.models.client.components.LabResult
-import com.example.ui_components.models.client.components.ServiceProvider
 import com.example.ui_components.models.client.components.core.EditType
+import com.example.ui_components.models.client.components.emergency_contact_info.EmergencyContactInfo
 import com.example.ui_components.models.client.components.info.ClientInfo
-import com.example.ui_components.models.client.components.info.HighlightedClientInfo
+import com.example.ui_components.models.client.components.lab_result.LabResult
+import com.example.ui_components.models.client.components.note.ClientNote
+import com.example.ui_components.models.client.components.note.variants.HighlightedClientNote
 import com.example.ui_components.models.client.components.record.ClientRecord
+import com.example.ui_components.models.client.components.service_provider.ServiceProvider
+import com.example.ui_components.models.client.components.vitals.ClientVitals
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
+import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -28,18 +26,15 @@ data class ClientItem(
     var clientId: String = "${UUID.randomUUID()}",
     var serviceProvider: ServiceProvider? = null,
     var accessorEmails: List<String> = emptyList(),
-    var clientInfo: ClientInfo = ClientInfo(),
-    var vitals: ClientVitals = ClientVitals(),
-    var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
+    var clientInfo: ClientInfo? = null,
+    var vitals: ClientVitals? = null,
+    var emergencyContactInfo: EmergencyContactInfo? = null,
 
     /*
     * References the notes created for this client, which is stored in a sub collection
     * of the client's document
     */
     @Transient var noteRefs: List<DocumentReference> = emptyList(),
-
-    /* If this version of the client is a copy then 'clientCopyOwner' is initialized */
-    @Transient var clientCopyOwner: ClientCopyOwner? = null,
 
     /* This is the location of the current client's info */
     @Transient var originalDocRef: DocumentReference? = null,
@@ -63,9 +58,28 @@ data class ClientItem(
     */
     @Exclude var tempNotes: List<ClientNote> = emptyList(),
     @Transient var labResults: List<LabResult> = emptyList(),
-    @Exclude var history: List<ClientRecord> = emptyList()
+    @Exclude var history: List<ClientRecord> = emptyList() /* This is yet to be added */
 ) {
     object Config {
+        fun mapToLocal(form: ClientItem) = LocalClientItem().apply {
+            clientId = form.clientId
+            serviceProvider = form.serviceProvider?.let {
+                ServiceProvider.Config.mapToLocal(it)
+            }
+            accessorEmails = form.accessorEmails.toRealmList()
+            clientInfo = form.clientInfo?.let {
+                ClientInfo.Config.mapToLocal(it)
+            }
+            vitals = form.vitals?.let {
+                ClientVitals.Config.mapToLocal(it)
+            }
+            emergencyContactInfo = form.emergencyContactInfo?.let {
+                EmergencyContactInfo.Config.mapToLocal(it)
+            }
+            notes = form.tempNotes.map { ClientNote.Config.mapToLocal(it) }
+            labResults = form.labResults.map { LabResult.Config.mapToLocal(it) }
+        }
+
         fun mapToHighlighted(original: ClientItem, modified: ClientItem): HighlightedClientItem {
             return HighlightedClientItem(
                 clientInfo = ClientInfo.Config.mapToHighlighted(
@@ -77,10 +91,10 @@ data class ClientItem(
                     original.emergencyContactInfo,
                     modified.emergencyContactInfo
                 ),
-                notes = modified.tempNotes.mapIndexed {index, note ->
+                notes = modified.tempNotes.mapIndexed { index, note ->
                     try {
                         ClientNote.Config.mapToHighlighted(note, original.tempNotes[index])
-                    }catch (e: IndexOutOfBoundsException){
+                    } catch (e: IndexOutOfBoundsException) {
                         HighlightedClientNote(isNew = EditType.ADDED)
                     }
                 }
@@ -99,13 +113,17 @@ data class ClientItem(
             val formattedForm = trimmedFields(form)
             return """
                 Client Info.
-                ${ClientInfo.Config.mapToString(formattedForm.clientInfo)}
+                ${formattedForm.clientInfo?.let { ClientInfo.Config.mapToString(it) } ?: "n/a"}
                 
                 Emergency Contact Info.
-                ${EmergencyContactInfo.Config.mapToString(formattedForm.emergencyContactInfo)}
+                ${
+                formattedForm.emergencyContactInfo?.let {
+                    EmergencyContactInfo.Config.mapToString(it)
+                } ?: "n/a"
+            }
                 
                 Vitals
-                ${ClientVitals.Config.mapToString(formattedForm.vitals)}
+                ${formattedForm.vitals?.let { ClientVitals.Config.mapToString(it) } ?: "n/a"}
                 
                 Notes
                 ${form.tempNotes.joinToString("\n\n") { ClientNote.Config.mapToString(it) }}
@@ -118,9 +136,13 @@ data class ClientItem(
             val paragraph = wordDocument.createParagraph()
             val run = paragraph.createRun()
             val sections = listOf(
-                "Client Info." to ClientInfo.Config.mapToListOfPairs(form.clientInfo),
-                "Emergency Contact Info." to EmergencyContactInfo.Config.mapToListOfPairs(form.emergencyContactInfo),
-                "Vitals" to ClientVitals.Config.mapToListOfPairs(form.vitals),
+                "Client Info." to (form.clientInfo?.let { ClientInfo.Config.mapToListOfPairs(it) }
+                    ?: emptyList()),
+                "Emergency Contact Info." to (form.emergencyContactInfo?.let {
+                    EmergencyContactInfo.Config.mapToListOfPairs(it)
+                } ?: emptyList()),
+                "Vitals" to (form.vitals?.let { ClientVitals.Config.mapToListOfPairs(it) }
+                    ?: emptyList()),
             )
             run.setText("Client created by ${form.serviceProvider!!.name}")
             run.addBreak()
@@ -153,12 +175,7 @@ data class ClientItem(
     }
 }
 
-data class HighlightedClientItem(
-    val clientInfo: HighlightedClientInfo = HighlightedClientInfo(),
-    val vitals: HighlightedClientVitals = HighlightedClientVitals(),
-    val emergencyContactInfo: HighlightedEmergencyContactInfo = HighlightedEmergencyContactInfo(),
-    val notes: List<HighlightedClientNote> = emptyList()
-)
+
 
 
 

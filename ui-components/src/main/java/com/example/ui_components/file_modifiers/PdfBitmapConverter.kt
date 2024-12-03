@@ -27,7 +27,7 @@ class PdfBitmapConverter @Inject constructor(
                 ?.use { descriptor ->
                     with(PdfRenderer(descriptor)) {
                         renderer = this
-                        return@withContext (0..<pageCount).map { index ->
+                        return@withContext (0 until  pageCount).map { index ->
                             async {
                                 openPage(index).use { page ->
                                     val bitmap = Bitmap.createBitmap(
