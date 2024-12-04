@@ -16,11 +16,12 @@ class LocalClientItem : RealmObject {
     var clientId: String = ""
     var serviceProvider: LocalServiceProvider? = null
     var accessorEmails: RealmList<String> = realmListOf()
-    var clientInfo: LocalClientInfo? = null
-    var vitals: LocalClientVitals? = null
-    var emergencyContactInfo: LocalEmergencyContactInfo? = null
+    var clientInfo: LocalClientInfo = LocalClientInfo()
+    var vitals: LocalClientVitals = LocalClientVitals()
+    var emergencyContactInfo: LocalEmergencyContactInfo = LocalEmergencyContactInfo()
     var notes: List<LocalClientNote> = realmListOf()
     var labResults: List<LocalLabResult> = realmListOf()
+
     /* Use this to differentiate between client files that the user owns and downloaded client files */
     var isDownloaded: Boolean = false
 
@@ -31,9 +32,9 @@ class LocalClientItem : RealmObject {
                 LocalServiceProvider.Config.mapToOriginal(it)
             },
             accessorEmails = form.accessorEmails,
-            clientInfo = form.clientInfo?.let { LocalClientInfo.Config.mapToOriginal(it) },
-            vitals = form.vitals?.let { LocalClientVitals.Config.mapToOriginal(it) },
-            emergencyContactInfo = form.emergencyContactInfo?.let {
+            clientInfo = form.clientInfo.let { LocalClientInfo.Config.mapToOriginal(it) },
+            vitals = form.vitals.let { LocalClientVitals.Config.mapToOriginal(it) },
+            emergencyContactInfo = form.emergencyContactInfo.let {
                 LocalEmergencyContactInfo.Config.mapToOriginal(it)
             },
             tempNotes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },

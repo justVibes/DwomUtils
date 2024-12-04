@@ -26,9 +26,9 @@ data class ClientItem(
     var clientId: String = "${UUID.randomUUID()}",
     var serviceProvider: ServiceProvider? = null,
     var accessorEmails: List<String> = emptyList(),
-    var clientInfo: ClientInfo? = null,
-    var vitals: ClientVitals? = null,
-    var emergencyContactInfo: EmergencyContactInfo? = null,
+    var clientInfo: ClientInfo = ClientInfo(),
+    var vitals: ClientVitals = ClientVitals(),
+    var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
 
     /*
     * References the notes created for this client, which is stored in a sub collection
@@ -38,19 +38,6 @@ data class ClientItem(
 
     /* This is the location of the current client's info */
     @Transient var originalDocRef: DocumentReference? = null,
-
-    /*
-    * This list can only contain references to workers that are apart of the same
-    * establishment as the service provider who created the client.
-    */
-    @Transient var authorizedCopyOwnerRefs: List<DocumentReference> = emptyList(),
-
-    /*
-    * This is for local usage.
-    * It's used to visualize the authorized editors for the service provider who created the client (the owner),
-    * so that they (the owner) can add or remove them (the editors).
-    */
-    @Exclude @Transient var tempAuthorizedCopyOwners: List<ClientCopyOwner> = emptyList(),
 
     /*
     * This is for local usage.
@@ -67,13 +54,13 @@ data class ClientItem(
                 ServiceProvider.Config.mapToLocal(it)
             }
             accessorEmails = form.accessorEmails.toRealmList()
-            clientInfo = form.clientInfo?.let {
+            clientInfo = form.clientInfo.let {
                 ClientInfo.Config.mapToLocal(it)
             }
-            vitals = form.vitals?.let {
+            vitals = form.vitals.let {
                 ClientVitals.Config.mapToLocal(it)
             }
-            emergencyContactInfo = form.emergencyContactInfo?.let {
+            emergencyContactInfo = form.emergencyContactInfo.let {
                 EmergencyContactInfo.Config.mapToLocal(it)
             }
             notes = form.tempNotes.map { ClientNote.Config.mapToLocal(it) }
@@ -113,17 +100,17 @@ data class ClientItem(
             val formattedForm = trimmedFields(form)
             return """
                 Client Info.
-                ${formattedForm.clientInfo?.let { ClientInfo.Config.mapToString(it) } ?: "n/a"}
+                ${formattedForm.clientInfo.let { ClientInfo.Config.mapToString(it) }}
                 
                 Emergency Contact Info.
                 ${
-                formattedForm.emergencyContactInfo?.let {
+                formattedForm.emergencyContactInfo.let {
                     EmergencyContactInfo.Config.mapToString(it)
-                } ?: "n/a"
+                } 
             }
                 
                 Vitals
-                ${formattedForm.vitals?.let { ClientVitals.Config.mapToString(it) } ?: "n/a"}
+                ${formattedForm.vitals.let { ClientVitals.Config.mapToString(it) }}
                 
                 Notes
                 ${form.tempNotes.joinToString("\n\n") { ClientNote.Config.mapToString(it) }}
@@ -136,13 +123,11 @@ data class ClientItem(
             val paragraph = wordDocument.createParagraph()
             val run = paragraph.createRun()
             val sections = listOf(
-                "Client Info." to (form.clientInfo?.let { ClientInfo.Config.mapToListOfPairs(it) }
-                    ?: emptyList()),
-                "Emergency Contact Info." to (form.emergencyContactInfo?.let {
+                "Client Info." to form.clientInfo.let { ClientInfo.Config.mapToListOfPairs(it) },
+                "Emergency Contact Info." to form.emergencyContactInfo.let {
                     EmergencyContactInfo.Config.mapToListOfPairs(it)
-                } ?: emptyList()),
-                "Vitals" to (form.vitals?.let { ClientVitals.Config.mapToListOfPairs(it) }
-                    ?: emptyList()),
+                },
+                "Vitals" to form.vitals.let { ClientVitals.Config.mapToListOfPairs(it) },
             )
             run.setText("Client created by ${form.serviceProvider!!.name}")
             run.addBreak()
