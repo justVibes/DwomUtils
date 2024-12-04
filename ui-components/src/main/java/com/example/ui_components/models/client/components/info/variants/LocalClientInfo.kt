@@ -17,6 +17,7 @@ class LocalClientInfo : EmbeddedRealmObject {
     var birthPlace: String = ""
     var height: String = ""
     var weight: String = ""
+
     @Ignore
     var age: Int = (Calendar.getInstance().timeInMillis - birthDate).toInt()
     var presentAddress: String = ""
@@ -30,9 +31,9 @@ class LocalClientInfo : EmbeddedRealmObject {
             return ClientInfo(
                 tagName = formattedForm.tagName,
                 photo = ClientPhoto(
-                    url = formattedForm.photo!!.url,
-                    updatedUrl = formattedForm.photo!!.updatedUrl,
-                    storagePath = formattedForm.photo!!.storagePath
+                    url = formattedForm.photo?.url ?: "",
+                    updatedUrl = formattedForm.photo?.updatedUrl ?: "",
+                    storagePath = formattedForm.photo?.storagePath ?: ""
                 ),
                 firstName = formattedForm.firstName,
                 lastName = formattedForm.lastName,
