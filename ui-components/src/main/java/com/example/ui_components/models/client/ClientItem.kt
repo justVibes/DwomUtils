@@ -1,6 +1,5 @@
 package com.example.ui_components.models.client
 
-import com.example.ui_components.models.client.components.ClientCopyOwner
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.emergency_contact_info.EmergencyContactInfo
 import com.example.ui_components.models.client.components.info.ClientInfo
