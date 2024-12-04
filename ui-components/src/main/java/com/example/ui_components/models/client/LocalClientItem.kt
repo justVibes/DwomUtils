@@ -21,6 +21,8 @@ class LocalClientItem : RealmObject {
     var emergencyContactInfo: LocalEmergencyContactInfo? = null
     var notes: List<LocalClientNote> = realmListOf()
     var labResults: List<LocalLabResult> = realmListOf()
+    /* Use this to differentiate between client files that the user owns and downloaded client files */
+    var isDownloaded: Boolean = false
 
     object Config {
         fun mapToOriginal(form: LocalClientItem) = ClientItem(
