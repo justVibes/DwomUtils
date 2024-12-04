@@ -2,12 +2,15 @@ package com.example.ui_components.models.client
 
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.emergency_contact_info.EmergencyContactInfo
+import com.example.ui_components.models.client.components.history.ClientHistory
 import com.example.ui_components.models.client.components.info.ClientInfo
 import com.example.ui_components.models.client.components.lab_result.LabResult
 import com.example.ui_components.models.client.components.note.ClientNote
 import com.example.ui_components.models.client.components.note.variants.HighlightedClientNote
 import com.example.ui_components.models.client.components.service_provider.ServiceProvider
 import com.example.ui_components.models.client.components.vitals.ClientVitals
+import com.example.ui_components.models.client.variants.HighlightedClientItem
+import com.example.ui_components.models.client.variants.LocalClientItem
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 import io.realm.kotlin.ext.toRealmList
@@ -27,7 +30,7 @@ data class ClientItem(
     val clientInfo: ClientInfo = ClientInfo(),
     val vitals: ClientVitals = ClientVitals(),
     val emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
-    val history: List<ClientItem>? = emptyList(),
+    val history: List<ClientHistory> = emptyList(),
 
     /*
     * References the notes created for this client, which is stored in a sub collection
@@ -47,7 +50,7 @@ data class ClientItem(
     @Transient val labResults: List<LabResult> = emptyList()
 ) {
     object Config {
-        private fun getLocal(form: ClientItem) = LocalClientItem().apply {
+        fun mapToLocal(form: ClientItem) = LocalClientItem().apply {
             clientId = form.clientId
             serviceProvider = form.serviceProvider?.let {
                 ServiceProvider.Config.mapToLocal(it)
@@ -64,13 +67,9 @@ data class ClientItem(
             }
             notes = form.tempNotes.map { ClientNote.Config.mapToLocal(it) }.toRealmList()
             labResults = form.labResults.map { LabResult.Config.mapToLocal(it) }.toRealmList()
+            history = form.history.map { ClientHistory.Config.mapToLocal(it) }.toRealmList()
         }
 
-        private fun getLocalHistory(history: List<ClientItem>?) =
-            history?.map { getLocal(it.copy(history = null)) }
-
-        fun mapToLocal(form: ClientItem) =
-            getLocal(form).apply { history = getLocalHistory(form.history)?.toRealmList() }
 
         fun mapToHighlighted(original: ClientItem, modified: ClientItem): HighlightedClientItem {
             return HighlightedClientItem(

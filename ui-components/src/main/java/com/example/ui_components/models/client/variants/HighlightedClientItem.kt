@@ -1,4 +1,4 @@
-package com.example.ui_components.models.client
+package com.example.ui_components.models.client.variants
 
 import com.example.ui_components.models.client.components.emergency_contact_info.variants.HighlightedEmergencyContactInfo
 import com.example.ui_components.models.client.components.info.variants.HighlightedClientInfo
