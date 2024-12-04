@@ -1,9 +1,7 @@
 package com.example.ui_components.models.client.components.info.components
 
 import com.google.firebase.firestore.Exclude
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class ClientPhoto(
     val url: String = "",
     val storagePath: String = "",

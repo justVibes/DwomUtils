@@ -1,10 +1,13 @@
 package com.example.ui_components.models.client
 
+import com.example.ui_components.models.client.components.emergency_contact_info.EmergencyContactInfo
 import com.example.ui_components.models.client.components.emergency_contact_info.variants.LocalEmergencyContactInfo
+import com.example.ui_components.models.client.components.info.ClientInfo
 import com.example.ui_components.models.client.components.info.variants.LocalClientInfo
 import com.example.ui_components.models.client.components.lab_result.variants.LocalLabResult
 import com.example.ui_components.models.client.components.note.variants.LocalClientNote
 import com.example.ui_components.models.client.components.service_provider.LocalServiceProvider
+import com.example.ui_components.models.client.components.vitals.ClientVitals
 import com.example.ui_components.models.client.components.vitals.variants.LocalClientVitals
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.RealmList
@@ -16,9 +19,9 @@ class LocalClientItem : RealmObject {
     var clientId: String = ""
     var serviceProvider: LocalServiceProvider? = null
     var accessorEmails: RealmList<String> = realmListOf()
-    var clientInfo: LocalClientInfo = LocalClientInfo()
-    var vitals: LocalClientVitals = LocalClientVitals()
-    var emergencyContactInfo: LocalEmergencyContactInfo = LocalEmergencyContactInfo()
+    var clientInfo: LocalClientInfo? = null
+    var vitals: LocalClientVitals? = null
+    var emergencyContactInfo: LocalEmergencyContactInfo? = null
     var notes: List<LocalClientNote> = realmListOf()
     var labResults: List<LocalLabResult> = realmListOf()
 
@@ -32,11 +35,11 @@ class LocalClientItem : RealmObject {
                 LocalServiceProvider.Config.mapToOriginal(it)
             },
             accessorEmails = form.accessorEmails,
-            clientInfo = form.clientInfo.let { LocalClientInfo.Config.mapToOriginal(it) },
-            vitals = form.vitals.let { LocalClientVitals.Config.mapToOriginal(it) },
-            emergencyContactInfo = form.emergencyContactInfo.let {
+            clientInfo = form.clientInfo?.let { LocalClientInfo.Config.mapToOriginal(it) } ?: ClientInfo(),
+            vitals = form.vitals?.let { LocalClientVitals.Config.mapToOriginal(it) } ?: ClientVitals(),
+            emergencyContactInfo = form.emergencyContactInfo?.let {
                 LocalEmergencyContactInfo.Config.mapToOriginal(it)
-            },
+            } ?: EmergencyContactInfo(),
             tempNotes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },
             labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) }
         )

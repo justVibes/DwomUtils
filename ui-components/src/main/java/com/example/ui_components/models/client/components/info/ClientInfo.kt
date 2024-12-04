@@ -7,12 +7,13 @@ import com.example.ui_components.models.client.components.info.variants.Highligh
 import com.example.ui_components.models.client.components.info.variants.LocalClientInfo
 import com.example.ui_components.ui.core.core_logic.conversion.DateTimeConversion
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import java.util.Calendar
 
 @Serializable
 data class ClientInfo(
     var tagName: String = "",
-    var photo: ClientPhoto = ClientPhoto(),
+    @Transient var photo: ClientPhoto = ClientPhoto(),
     var firstName: String = "",
     var lastName: String = "",
     var sex: String = "", /*Use 'ValidGenders' enum to initialize*/
