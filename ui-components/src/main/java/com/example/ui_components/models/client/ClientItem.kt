@@ -6,7 +6,6 @@ import com.example.ui_components.models.client.components.info.ClientInfo
 import com.example.ui_components.models.client.components.lab_result.LabResult
 import com.example.ui_components.models.client.components.note.ClientNote
 import com.example.ui_components.models.client.components.note.variants.HighlightedClientNote
-import com.example.ui_components.models.client.components.record.ClientRecord
 import com.example.ui_components.models.client.components.service_provider.ServiceProvider
 import com.example.ui_components.models.client.components.vitals.ClientVitals
 import com.google.firebase.firestore.DocumentReference
@@ -22,32 +21,33 @@ import java.util.UUID
 
 @Serializable
 data class ClientItem(
-    var clientId: String = "${UUID.randomUUID()}",
-    var serviceProvider: ServiceProvider? = null,
-    var accessorEmails: List<String> = emptyList(),
-    var clientInfo: ClientInfo = ClientInfo(),
-    var vitals: ClientVitals = ClientVitals(),
-    var emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
+    val clientId: String = "${UUID.randomUUID()}",
+    val serviceProvider: ServiceProvider? = null,
+    val accessorEmails: List<String> = emptyList(),
+    val clientInfo: ClientInfo = ClientInfo(),
+    val vitals: ClientVitals = ClientVitals(),
+    val emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
+    val history: List<ClientItem>? = emptyList(),
 
     /*
     * References the notes created for this client, which is stored in a sub collection
     * of the client's document
     */
-    @Transient var noteRefs: List<DocumentReference> = emptyList(),
+    @Transient val noteRefs: List<DocumentReference> = emptyList(),
+    @Transient val historyRefs: List<DocumentReference> = emptyList(),
 
     /* This is the location of the current client's info */
-    @Transient var originalDocRef: DocumentReference? = null,
+    @Transient val originalDocRef: DocumentReference? = null,
 
     /*
     * This is for local usage.
     * It's for editing and viewing notes.
     */
-    @Exclude var tempNotes: List<ClientNote> = emptyList(),
-    @Transient var labResults: List<LabResult> = emptyList(),
-    @Exclude var history: List<ClientRecord> = emptyList() /* This is yet to be added */
+    @Exclude val tempNotes: List<ClientNote> = emptyList(),
+    @Transient val labResults: List<LabResult> = emptyList()
 ) {
     object Config {
-        fun mapToLocal(form: ClientItem) = LocalClientItem().apply {
+        private fun getLocal(form: ClientItem) = LocalClientItem().apply {
             clientId = form.clientId
             serviceProvider = form.serviceProvider?.let {
                 ServiceProvider.Config.mapToLocal(it)
@@ -62,9 +62,15 @@ data class ClientItem(
             emergencyContactInfo = form.emergencyContactInfo.let {
                 EmergencyContactInfo.Config.mapToLocal(it)
             }
-            notes = form.tempNotes.map { ClientNote.Config.mapToLocal(it) }
-            labResults = form.labResults.map { LabResult.Config.mapToLocal(it) }
+            notes = form.tempNotes.map { ClientNote.Config.mapToLocal(it) }.toRealmList()
+            labResults = form.labResults.map { LabResult.Config.mapToLocal(it) }.toRealmList()
         }
+
+        private fun getLocalHistory(history: List<ClientItem>?) =
+            history?.map { getLocal(it.copy(history = null)) }
+
+        fun mapToLocal(form: ClientItem) =
+            getLocal(form).apply { history = getLocalHistory(form.history)?.toRealmList() }
 
         fun mapToHighlighted(original: ClientItem, modified: ClientItem): HighlightedClientItem {
             return HighlightedClientItem(
@@ -105,7 +111,7 @@ data class ClientItem(
                 ${
                 formattedForm.emergencyContactInfo.let {
                     EmergencyContactInfo.Config.mapToString(it)
-                } 
+                }
             }
                 
                 Vitals

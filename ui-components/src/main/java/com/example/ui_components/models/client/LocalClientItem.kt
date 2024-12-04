@@ -22,26 +22,35 @@ class LocalClientItem : RealmObject {
     var clientInfo: LocalClientInfo? = null
     var vitals: LocalClientVitals? = null
     var emergencyContactInfo: LocalEmergencyContactInfo? = null
-    var notes: List<LocalClientNote> = realmListOf()
-    var labResults: List<LocalLabResult> = realmListOf()
+    var notes: RealmList<LocalClientNote> = realmListOf()
+    var labResults: RealmList<LocalLabResult> = realmListOf()
+    var history: RealmList<LocalClientItem>? = realmListOf()
 
     /* Use this to differentiate between client files that the user owns and downloaded client files */
     var isDownloaded: Boolean = false
 
     object Config {
-        fun mapToOriginal(form: LocalClientItem) = ClientItem(
+        private fun getOriginal(form: LocalClientItem) = ClientItem(
             clientId = form.clientId,
             serviceProvider = form.serviceProvider?.let {
                 LocalServiceProvider.Config.mapToOriginal(it)
             },
             accessorEmails = form.accessorEmails,
-            clientInfo = form.clientInfo?.let { LocalClientInfo.Config.mapToOriginal(it) } ?: ClientInfo(),
-            vitals = form.vitals?.let { LocalClientVitals.Config.mapToOriginal(it) } ?: ClientVitals(),
+            clientInfo = form.clientInfo?.let { LocalClientInfo.Config.mapToOriginal(it) }
+                ?: ClientInfo(),
+            vitals = form.vitals?.let { LocalClientVitals.Config.mapToOriginal(it) }
+                ?: ClientVitals(),
             emergencyContactInfo = form.emergencyContactInfo?.let {
                 LocalEmergencyContactInfo.Config.mapToOriginal(it)
             } ?: EmergencyContactInfo(),
             tempNotes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },
-            labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) }
+            labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) },
         )
+
+        private fun getOriginalHistory(localHistory: RealmList<LocalClientItem>?) =
+            localHistory?.map { getOriginal(it.apply { history = null }) }
+
+        fun mapToOriginal(form: LocalClientItem) =
+            getOriginal(form).copy(history = getOriginalHistory(form.history))
     }
 }

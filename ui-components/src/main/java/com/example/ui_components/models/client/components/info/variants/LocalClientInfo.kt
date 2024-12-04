@@ -3,6 +3,7 @@ package com.example.ui_components.models.client.components.info.variants
 import com.example.ui_components.models.client.components.info.ClientInfo
 import com.example.ui_components.models.client.components.info.components.ClientPhoto
 import com.example.ui_components.models.client.components.info.components.LocalClientPhoto
+import com.example.ui_components.models.client.components.medical_info.variants.LocalClientMedicalInfo
 import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.annotations.Ignore
 import java.util.Calendar
@@ -24,6 +25,7 @@ class LocalClientInfo : EmbeddedRealmObject {
     var occupation: String = ""
     var localPhoneNumber: String = ""
     var emailAddress: String = ""
+    var medicalInfo: LocalClientMedicalInfo? = null
 
     object Config {
         fun mapToOriginal(form: LocalClientInfo): ClientInfo {
@@ -47,6 +49,9 @@ class LocalClientInfo : EmbeddedRealmObject {
                 age = form.age,
                 localPhoneNumber = formattedForm.localPhoneNumber,
                 emailAddress = formattedForm.emailAddress,
+                medicalInfo = LocalClientMedicalInfo.Config.mapToOriginal(
+                    formattedForm.medicalInfo ?: LocalClientMedicalInfo()
+                )
             )
         }
 
@@ -62,6 +67,9 @@ class LocalClientInfo : EmbeddedRealmObject {
             occupation = form.occupation.trim()
             localPhoneNumber = form.localPhoneNumber.filter { it.isDigit() }.trim()
             emailAddress = form.emailAddress.trim()
+            medicalInfo = LocalClientMedicalInfo.Config.trimmedFields(
+                form.medicalInfo ?: LocalClientMedicalInfo()
+            )
         }
     }
 }

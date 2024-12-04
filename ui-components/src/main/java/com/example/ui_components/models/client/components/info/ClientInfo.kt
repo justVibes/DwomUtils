@@ -5,6 +5,7 @@ import com.example.ui_components.models.client.components.info.components.Client
 import com.example.ui_components.models.client.components.info.components.LocalClientPhoto
 import com.example.ui_components.models.client.components.info.variants.HighlightedClientInfo
 import com.example.ui_components.models.client.components.info.variants.LocalClientInfo
+import com.example.ui_components.models.client.components.medical_info.ClientMedicalInfo
 import com.example.ui_components.ui.core.core_logic.conversion.DateTimeConversion
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -12,20 +13,21 @@ import java.util.Calendar
 
 @Serializable
 data class ClientInfo(
-    var tagName: String = "",
-    @Transient var photo: ClientPhoto = ClientPhoto(),
-    var firstName: String = "",
-    var lastName: String = "",
-    var sex: String = "", /*Use 'ValidGenders' enum to initialize*/
+    val tagName: String = "",
+    @Transient val photo: ClientPhoto = ClientPhoto(),
+    val firstName: String = "",
+    val lastName: String = "",
+    val sex: String = "", /*Use 'ValidGenders' enum to initialize*/
     val birthDate: Long = 0L,
-    var birthPlace: String = "",
-    var height: String = "",
-    var weight: String = "",
-    var presentAddress: String = "",
-    var occupation: String = "",
-    var age: Int = (Calendar.getInstance().timeInMillis - birthDate).toInt(), /*Generated based on the given birth date*/
-    var localPhoneNumber: String = "",
-    var emailAddress: String = "",
+    val birthPlace: String = "",
+    val height: String = "",
+    val weight: String = "",
+    val presentAddress: String = "",
+    val occupation: String = "",
+    val age: Int = (Calendar.getInstance().timeInMillis - birthDate).toInt(), /*Generated based on the given birth date*/
+    val localPhoneNumber: String = "",
+    val emailAddress: String = "",
+    val medicalInfo : ClientMedicalInfo = ClientMedicalInfo()
 ) {
     object Config {
         fun mapToLocal(form: ClientInfo): LocalClientInfo {
@@ -49,6 +51,7 @@ data class ClientInfo(
                 age = 0 /*Generated based on the given birth date*/
                 localPhoneNumber = formattedForm.localPhoneNumber
                 emailAddress = formattedForm.emailAddress
+                medicalInfo = ClientMedicalInfo.Config.mapToLocal(formattedForm.medicalInfo)
             }
         }
 
@@ -87,6 +90,7 @@ data class ClientInfo(
                 occupation = form.occupation.trim(),
                 localPhoneNumber = form.localPhoneNumber.trim(),
                 emailAddress = form.emailAddress.trim(),
+                medicalInfo = ClientMedicalInfo.Config.trimmedFields(form.medicalInfo)
             ) ?: ClientInfo()
 
         fun mapToString(form: ClientInfo): String {
