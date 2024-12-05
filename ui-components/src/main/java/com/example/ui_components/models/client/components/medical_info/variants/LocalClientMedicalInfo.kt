@@ -8,7 +8,7 @@ import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmList
 
 class LocalClientMedicalInfo : EmbeddedRealmObject {
-    var appointmentReason: String = ""
+    var diagnosis: String = ""
     var prescriptions: RealmList<LocalPrescription> = realmListOf()
     var recommendations: RealmList<String> = realmListOf()
     var appointmentDate: Long = 0L
@@ -17,7 +17,7 @@ class LocalClientMedicalInfo : EmbeddedRealmObject {
         fun mapToOriginal(form: LocalClientMedicalInfo): ClientMedicalInfo {
             val formattedFields = trimmedFields(form)
             return ClientMedicalInfo(
-                appointmentReason = formattedFields.appointmentReason,
+                diagnosis = formattedFields.diagnosis,
                 prescriptions = formattedFields.prescriptions.map {
                     LocalPrescription.Config.mapToOriginal(it)
                 },
@@ -27,7 +27,7 @@ class LocalClientMedicalInfo : EmbeddedRealmObject {
         }
 
         fun trimmedFields(form: LocalClientMedicalInfo) = form.apply {
-            appointmentReason = appointmentReason.trim()
+            diagnosis = diagnosis.trim()
             prescriptions =
                 prescriptions.map { LocalPrescription.Config.trimmedFields(it) }.toRealmList()
             recommendations = recommendations.map { it.trim() }.toRealmList()
