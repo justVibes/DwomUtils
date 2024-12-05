@@ -1,5 +1,6 @@
 package com.example.ui_components.models.client.components.info.variants
 
+import com.example.ui_components.models.client.components.financial_info.variants.LocalClientFinancialInfo
 import com.example.ui_components.models.client.components.info.ClientInfo
 import com.example.ui_components.models.client.components.info.components.ClientPhoto
 import com.example.ui_components.models.client.components.info.components.LocalClientPhoto
@@ -26,6 +27,7 @@ class LocalClientInfo : EmbeddedRealmObject {
     var localPhoneNumber: String = ""
     var emailAddress: String = ""
     var medicalInfo: LocalClientMedicalInfo? = null
+    var financialInfo: LocalClientFinancialInfo? = null
 
     object Config {
         fun mapToOriginal(form: LocalClientInfo): ClientInfo {
@@ -51,6 +53,9 @@ class LocalClientInfo : EmbeddedRealmObject {
                 emailAddress = formattedForm.emailAddress,
                 medicalInfo = LocalClientMedicalInfo.Config.mapToOriginal(
                     formattedForm.medicalInfo ?: LocalClientMedicalInfo()
+                ),
+                financialInfo = LocalClientFinancialInfo.Config.mapToOriginal(
+                    formattedForm.financialInfo ?: LocalClientFinancialInfo()
                 )
             )
         }
@@ -69,6 +74,9 @@ class LocalClientInfo : EmbeddedRealmObject {
             emailAddress = form.emailAddress.trim()
             medicalInfo = LocalClientMedicalInfo.Config.trimmedFields(
                 form.medicalInfo ?: LocalClientMedicalInfo()
+            )
+            financialInfo = LocalClientFinancialInfo.Config.trimmedFields(
+                form.financialInfo ?: LocalClientFinancialInfo()
             )
         }
     }

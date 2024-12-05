@@ -1,6 +1,7 @@
 package com.example.ui_components.models.client.components.info
 
 import com.example.ui_components.models.client.components.core.stringComparison
+import com.example.ui_components.models.client.components.financial_info.ClientFinancialInfo
 import com.example.ui_components.models.client.components.info.components.ClientPhoto
 import com.example.ui_components.models.client.components.info.components.LocalClientPhoto
 import com.example.ui_components.models.client.components.info.variants.HighlightedClientInfo
@@ -27,7 +28,8 @@ data class ClientInfo(
     val age: Int = (Calendar.getInstance().timeInMillis - birthDate).toInt(), /*Generated based on the given birth date*/
     val localPhoneNumber: String = "",
     val emailAddress: String = "",
-    val medicalInfo : ClientMedicalInfo = ClientMedicalInfo()
+    val medicalInfo : ClientMedicalInfo = ClientMedicalInfo(),
+    val financialInfo: ClientFinancialInfo = ClientFinancialInfo()
 ) {
     object Config {
         fun mapToLocal(form: ClientInfo): LocalClientInfo {
@@ -52,6 +54,7 @@ data class ClientInfo(
                 localPhoneNumber = formattedForm.localPhoneNumber
                 emailAddress = formattedForm.emailAddress
                 medicalInfo = ClientMedicalInfo.Config.mapToLocal(formattedForm.medicalInfo)
+                financialInfo = ClientFinancialInfo.Config.mapToLocal(formattedForm.financialInfo)
             }
         }
 
@@ -90,7 +93,8 @@ data class ClientInfo(
                 occupation = form.occupation.trim(),
                 localPhoneNumber = form.localPhoneNumber.trim(),
                 emailAddress = form.emailAddress.trim(),
-                medicalInfo = ClientMedicalInfo.Config.trimmedFields(form.medicalInfo)
+                medicalInfo = ClientMedicalInfo.Config.trimmedFields(form.medicalInfo),
+                financialInfo = ClientFinancialInfo.Config.trimmedFields(form.financialInfo)
             ) ?: ClientInfo()
 
         fun mapToString(form: ClientInfo): String {

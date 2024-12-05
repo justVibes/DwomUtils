@@ -18,7 +18,8 @@ data class ClientMedicalInfo(
                 val formattedFields = trimmedFields(form)
                 appointmentReason = formattedFields.appointmentReason
                 prescriptions =
-                    formattedFields.prescriptions.map { Prescription.Config.mapToLocal(it) }
+                    formattedFields.prescriptions
+                        .map { Prescription.Config.mapToLocal(it) }
                         .toRealmList()
                 recommendations = formattedFields.recommendations.toRealmList()
                 appointmentDate = form.appointmentDate

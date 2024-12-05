@@ -13,7 +13,7 @@ class LocalPrescription : EmbeddedRealmObject {
     object Config {
         fun mapToOriginal(form: LocalPrescription) = Prescription(
             prescriptionId = form.prescriptionId,
-            type = form.type,
+            refills = form.type,
             brand = form.brand,
             issuedBy = form.issuedBy,
             issuedDate = form.issuedDate

@@ -7,4 +7,5 @@ data class HighlightedEmergencyContactInfo(
     val phoneNumber: EditType = EditType.NONE,
     val email: EditType = EditType.NONE,
     val presentAddress: EditType = EditType.NONE,
+    val relationship: EditType = EditType.NONE
 )

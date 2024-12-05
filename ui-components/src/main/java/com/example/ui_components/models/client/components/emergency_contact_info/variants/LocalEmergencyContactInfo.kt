@@ -7,6 +7,7 @@ class LocalEmergencyContactInfo: EmbeddedRealmObject {
     var name: String = ""
     var phoneNumber: String = ""
     var email: String = ""
+    var relationship: String = ""
     var presentAddress: String = ""
 
     object Config {
@@ -16,7 +17,8 @@ class LocalEmergencyContactInfo: EmbeddedRealmObject {
                 name = formattedForm.name,
                 phoneNumber = formattedForm.phoneNumber,
                 email = formattedForm.email,
-                presentAddress = formattedForm.presentAddress
+                presentAddress = formattedForm.presentAddress,
+                relationship = formattedForm.relationship
             )
         }
 
@@ -25,6 +27,7 @@ class LocalEmergencyContactInfo: EmbeddedRealmObject {
             phoneNumber = form.phoneNumber.trim()
             email = form.email.trim()
             presentAddress = form.presentAddress.trim()
+            relationship = form.relationship.trim()
         }
     }
 }

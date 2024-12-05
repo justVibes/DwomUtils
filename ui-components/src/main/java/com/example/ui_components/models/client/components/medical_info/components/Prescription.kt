@@ -7,8 +7,9 @@ import java.util.UUID
 @Serializable
 data class Prescription(
     val prescriptionId: String = "${UUID.randomUUID()}",
-    val type: String = "",
+    val refills: String = "",
     val brand: String = "",
+    val amount: String = "",
     val issuedDate: Long = 0L,
     val issuedBy: String = ""
 ) {
@@ -17,8 +18,8 @@ data class Prescription(
             val formattedForm = trimmedFields(form)
             return LocalPrescription().apply {
                 prescriptionId = formattedForm.prescriptionId
-                type = formattedForm.type
-                brand = formattedForm.type
+                type = formattedForm.refills
+                brand = formattedForm.refills
                 issuedDate = formattedForm.issuedDate
                 issuedBy = formattedForm.issuedBy
             }
@@ -26,7 +27,7 @@ data class Prescription(
 
         fun trimmedFields(form: Prescription) = Prescription(
             prescriptionId = form.prescriptionId.trim(),
-            type = form.type.trim(),
+            refills = form.refills.trim(),
             brand = form.brand.trim(),
             issuedBy = form.issuedBy.trim(),
         )

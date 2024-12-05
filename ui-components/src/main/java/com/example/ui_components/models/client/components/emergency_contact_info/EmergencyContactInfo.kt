@@ -7,10 +7,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EmergencyContactInfo(
-    var name: String = "",
-    var phoneNumber: String = "",
-    var email: String = "",
-    var presentAddress: String = "",
+    val name: String = "",
+    val phoneNumber: String = "",
+    val email: String = "",
+    val relationship: String = "",
+    val presentAddress: String = "",
 ) {
     object Config {
         fun mapToLocal(form: EmergencyContactInfo) = LocalEmergencyContactInfo().apply {
@@ -18,6 +19,7 @@ data class EmergencyContactInfo(
             name = formattedForm.name
             phoneNumber = formattedForm.phoneNumber
             email = formattedForm.email
+            relationship = form.relationship
             presentAddress = formattedForm.presentAddress
         }
 
@@ -33,6 +35,7 @@ data class EmergencyContactInfo(
                     original?.presentAddress,
                     modified?.presentAddress
                 ),
+                relationship = stringComparison(original?.relationship, modified?.relationship)
             )
         }
 
@@ -41,7 +44,8 @@ data class EmergencyContactInfo(
                 name = form.name.trim(),
                 phoneNumber = form.phoneNumber.trim(),
                 email = form.email.trim(),
-                presentAddress = form.presentAddress.trim()
+                presentAddress = form.presentAddress.trim(),
+                relationship = form.relationship.trim()
             ) ?: EmergencyContactInfo()
 
         fun mapToString(form: EmergencyContactInfo): String {
