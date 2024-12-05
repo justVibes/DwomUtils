@@ -15,9 +15,9 @@ class LocalServiceProvider : EmbeddedRealmObject {
             )
         }
 
-        fun trimmedFields(form: LocalServiceProvider) = form.apply {
-            uid = uid.trim()
-            name = name.trim()
+        fun trimmedFields(form: LocalServiceProvider) = LocalServiceProvider().apply {
+            uid = form.uid.trim()
+            name = form.name.trim()
         }
     }
 }

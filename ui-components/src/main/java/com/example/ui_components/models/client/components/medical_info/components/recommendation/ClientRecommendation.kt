@@ -6,13 +6,13 @@ import java.util.UUID
 
 @Serializable
 data class ClientRecommendation(
-    val recommendationId: String = "${UUID.randomUUID()}",
+    val uid: String = "${UUID.randomUUID()}",
     val recommendation: String = "",
     val issueDate: Long = 0L
 ) {
     object Config {
         fun mapToLocal(form: ClientRecommendation) = LocalClientRecommendation().apply {
-            recommendationId = form.recommendationId
+            uid = form.uid
             recommendation = form.recommendation.trim()
             issueDate = form.issueDate
         }

@@ -20,11 +20,11 @@ class LocalClientFinancialInfo : EmbeddedRealmObject {
             )
         }
 
-        fun trimmedFields(form: LocalClientFinancialInfo) = form.apply {
-            insuranceCarrier = insuranceCarrier.trim()
-            insurancePlan = insurancePlan.trim()
-            contactNumber = contactNumber.trim()
-            policyNumber = policyNumber.trim()
+        fun trimmedFields(form: LocalClientFinancialInfo) = LocalClientFinancialInfo().apply {
+            insuranceCarrier = form.insuranceCarrier.trim()
+            insurancePlan = form.insurancePlan.trim()
+            contactNumber = form.contactNumber.trim()
+            policyNumber = form.policyNumber.trim()
         }
     }
 }

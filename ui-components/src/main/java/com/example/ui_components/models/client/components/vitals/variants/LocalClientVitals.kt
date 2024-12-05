@@ -22,12 +22,12 @@ class LocalClientVitals : EmbeddedRealmObject {
             )
         }
 
-        fun trimmedFields(form: LocalClientVitals) = form.apply {
-            heartRate = heartRate.trim()
-            respiratoryRate = respiratoryRate.trim()
-            bloodPressure = bloodPressure.trim()
-            bloodOxygen = bloodOxygen.trim()
-            bodyTemperatureCel = bodyTemperatureCel.trim()
+        fun trimmedFields(form: LocalClientVitals) = LocalClientVitals().apply {
+            heartRate = form.heartRate.trim()
+            respiratoryRate = form.respiratoryRate.trim()
+            bloodPressure = form.bloodPressure.trim()
+            bloodOxygen = form.bloodOxygen.trim()
+            bodyTemperatureCel = form.bodyTemperatureCel.trim()
         }
     }
 }

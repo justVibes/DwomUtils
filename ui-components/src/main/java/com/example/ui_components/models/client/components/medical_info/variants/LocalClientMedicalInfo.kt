@@ -29,12 +29,21 @@ class LocalClientMedicalInfo : EmbeddedRealmObject {
             )
         }
 
-        fun trimmedFields(form: LocalClientMedicalInfo) = form.apply {
-            diagnosis = diagnosis.trim()
+        fun trimmedFields(form: LocalClientMedicalInfo) = LocalClientMedicalInfo().apply {
+            diagnosis = form.diagnosis.trim()
             prescriptions =
-                prescriptions.map { LocalPrescription.Config.trimmedFields(it) }.toRealmList()
+                form.prescriptions.map { LocalPrescription.Config.trimmedFields(it) }.toRealmList()
             recommendations =
-                recommendations.map { it.apply { recommendation.trim() } }.toRealmList()
+                form.recommendations
+                    .map {
+                        LocalClientRecommendation()
+                            .apply {
+                                uid = it.uid.trim()
+                                recommendation = it.recommendation.trim()
+                                issueDate = it.issueDate
+                            }
+                    }
+                    .toRealmList()
         }
     }
 }

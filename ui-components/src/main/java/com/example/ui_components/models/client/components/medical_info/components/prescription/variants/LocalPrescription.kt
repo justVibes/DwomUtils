@@ -19,11 +19,11 @@ class LocalPrescription : EmbeddedRealmObject {
             issuedDate = form.issuedDate
         )
 
-        fun trimmedFields(form: LocalPrescription) = form.apply {
-            prescriptionId = prescriptionId.trim()
-            type = type.trim()
-            brand = brand.trim()
-            issuedBy = issuedBy.trim()
+        fun trimmedFields(form: LocalPrescription) = LocalPrescription().apply {
+            prescriptionId = form.prescriptionId.trim()
+            type = form.type.trim()
+            brand = form.brand.trim()
+            issuedBy = form.issuedBy.trim()
         }
     }
 }

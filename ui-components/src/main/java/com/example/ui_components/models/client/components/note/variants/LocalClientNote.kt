@@ -28,12 +28,12 @@ class LocalClientNote: EmbeddedRealmObject {
             )
         }
 
-        fun trimmedFields(form: LocalClientNote) = form.apply {
-            noteId = noteId.trim()
-            authorEmail = authorEmail.trim()
-            title = title.trim()
-            note = note.trim()
-            accessEmails = accessEmails.map { it.trim() }.toRealmList()
+        fun trimmedFields(form: LocalClientNote) = LocalClientNote().apply {
+            noteId = form.noteId.trim()
+            authorEmail = form.authorEmail.trim()
+            title = form.title.trim()
+            note = form.note.trim()
+            accessEmails = form.accessEmails.map { it.trim() }.toRealmList()
         }
     }
 }
