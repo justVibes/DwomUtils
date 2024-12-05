@@ -1,6 +1,6 @@
-package com.example.ui_components.models.client.components.medical_info.components
+package com.example.ui_components.models.client.components.medical_info.components.prescription
 
-import com.example.ui_components.models.client.components.medical_info.components.variants.LocalPrescription
+import com.example.ui_components.models.client.components.medical_info.components.prescription.variants.LocalPrescription
 import kotlinx.serialization.Serializable
 import java.util.UUID
 

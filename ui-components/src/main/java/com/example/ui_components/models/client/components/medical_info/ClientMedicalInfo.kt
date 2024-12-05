@@ -1,6 +1,7 @@
 package com.example.ui_components.models.client.components.medical_info
 
-import com.example.ui_components.models.client.components.medical_info.components.Prescription
+import com.example.ui_components.models.client.components.medical_info.components.prescription.Prescription
+import com.example.ui_components.models.client.components.medical_info.components.recommendation.ClientRecommendation
 import com.example.ui_components.models.client.components.medical_info.variants.LocalClientMedicalInfo
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.serialization.Serializable
@@ -9,7 +10,7 @@ import kotlinx.serialization.Serializable
 data class ClientMedicalInfo(
     val diagnosis: String = "",
     val prescriptions: List<Prescription> = emptyList(),
-    val recommendations: List<String> = emptyList(),
+    val recommendations: List<ClientRecommendation> = emptyList(),
     val appointmentDate: Long = 0L,
 ) {
     object Config {
@@ -21,14 +22,13 @@ data class ClientMedicalInfo(
                     formattedFields.prescriptions
                         .map { Prescription.Config.mapToLocal(it) }
                         .toRealmList()
-                recommendations = formattedFields.recommendations.toRealmList()
+                recommendations = form.recommendations.map { ClientRecommendation.Config.mapToLocal(it) }.toRealmList()
                 appointmentDate = form.appointmentDate
             }
 
         fun trimmedFields(form: ClientMedicalInfo) = form.copy(
-            diagnosis = form.diagnosis,
+            diagnosis = form.diagnosis.trim(),
             prescriptions = form.prescriptions.map { Prescription.Config.trimmedFields(it) },
-            recommendations = form.recommendations.map { it.trim() },
         )
     }
 }

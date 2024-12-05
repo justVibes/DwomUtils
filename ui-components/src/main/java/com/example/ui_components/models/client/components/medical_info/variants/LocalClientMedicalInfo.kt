@@ -1,7 +1,8 @@
 package com.example.ui_components.models.client.components.medical_info.variants
 
 import com.example.ui_components.models.client.components.medical_info.ClientMedicalInfo
-import com.example.ui_components.models.client.components.medical_info.components.variants.LocalPrescription
+import com.example.ui_components.models.client.components.medical_info.components.prescription.variants.LocalPrescription
+import com.example.ui_components.models.client.components.medical_info.components.recommendation.variants.LocalClientRecommendation
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.types.EmbeddedRealmObject
@@ -10,7 +11,7 @@ import io.realm.kotlin.types.RealmList
 class LocalClientMedicalInfo : EmbeddedRealmObject {
     var diagnosis: String = ""
     var prescriptions: RealmList<LocalPrescription> = realmListOf()
-    var recommendations: RealmList<String> = realmListOf()
+    var recommendations: RealmList<LocalClientRecommendation> = realmListOf()
     var appointmentDate: Long = 0L
 
     object Config {
@@ -21,7 +22,9 @@ class LocalClientMedicalInfo : EmbeddedRealmObject {
                 prescriptions = formattedFields.prescriptions.map {
                     LocalPrescription.Config.mapToOriginal(it)
                 },
-                recommendations = formattedFields.recommendations,
+                recommendations = formattedFields.recommendations.map {
+                    LocalClientRecommendation.Config.mapToOriginal(it)
+                },
                 appointmentDate = form.appointmentDate
             )
         }
@@ -30,7 +33,8 @@ class LocalClientMedicalInfo : EmbeddedRealmObject {
             diagnosis = diagnosis.trim()
             prescriptions =
                 prescriptions.map { LocalPrescription.Config.trimmedFields(it) }.toRealmList()
-            recommendations = recommendations.map { it.trim() }.toRealmList()
+            recommendations =
+                recommendations.map { it.apply { recommendation.trim() } }.toRealmList()
         }
     }
 }

@@ -1,6 +1,6 @@
-package com.example.ui_components.models.client.components.medical_info.components.variants
+package com.example.ui_components.models.client.components.medical_info.components.prescription.variants
 
-import com.example.ui_components.models.client.components.medical_info.components.Prescription
+import com.example.ui_components.models.client.components.medical_info.components.prescription.Prescription
 import io.realm.kotlin.types.EmbeddedRealmObject
 
 class LocalPrescription : EmbeddedRealmObject {
