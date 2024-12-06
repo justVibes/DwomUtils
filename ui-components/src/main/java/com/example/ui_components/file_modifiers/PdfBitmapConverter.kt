@@ -2,7 +2,6 @@ package com.example.ui_components.file_modifiers
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
