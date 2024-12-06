@@ -36,11 +36,6 @@ class PdfBitmapConverter @Inject constructor(
                                         Bitmap.Config.ARGB_8888
                                     )
 
-                                    val canvas = android.graphics.Canvas(bitmap).apply {
-                                        drawColor(Color.WHITE)
-                                        drawBitmap(bitmap, 0f, 0f, null)
-                                    }
-
                                     page.render(
                                         bitmap,
                                         null,

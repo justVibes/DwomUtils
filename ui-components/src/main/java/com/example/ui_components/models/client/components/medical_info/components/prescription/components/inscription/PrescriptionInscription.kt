@@ -1,5 +1,6 @@
-package com.example.ui_components.models.client.components.medical_info.components.prescription.components
+package com.example.ui_components.models.client.components.medical_info.components.prescription.components.inscription
 
+import com.example.ui_components.models.client.components.medical_info.components.prescription.components.inscription.variants.LocalPrescriptionInscription
 import kotlinx.serialization.Serializable
 
 @Serializable

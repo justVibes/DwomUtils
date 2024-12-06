@@ -1,15 +1,17 @@
 package com.example.ui_components.models.client.components.medical_info.components.prescription.variants
 
 import com.example.ui_components.models.client.components.medical_info.components.prescription.Prescription
-import com.example.ui_components.models.client.components.medical_info.components.prescription.components.LocalPrescriptionInscription
+import com.example.ui_components.models.client.components.medical_info.components.prescription.components.medicine.variants.LocalPrescriptionMedicine
+import io.realm.kotlin.ext.realmListOf
+import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.types.EmbeddedRealmObject
+import io.realm.kotlin.types.RealmList
 
 class LocalPrescription : EmbeddedRealmObject {
     var prescriptionId: String = ""
-    var refills: String = ""
-    var inscription: LocalPrescriptionInscription? = null
-    var signatura: String = ""
-    var subscription: String = ""
+    var medicines: RealmList<LocalPrescriptionMedicine> = realmListOf()
+    var clientName: String = ""
+    var clientAddress: String = ""
     var issuedDate: Long = 0L
     var issuedBy: String = ""
 
@@ -18,12 +20,9 @@ class LocalPrescription : EmbeddedRealmObject {
             val formattedForm = trimmedFields(form)
             return Prescription(
                 prescriptionId = formattedForm.prescriptionId,
-                refills = formattedForm.refills,
-                inscription = LocalPrescriptionInscription.Config.mapToLocal(
-                    formattedForm.inscription ?: LocalPrescriptionInscription()
-                ),
-                signatura = formattedForm.signatura,
-                subscription = formattedForm.subscription,
+                medicines = formattedForm.medicines.map { LocalPrescriptionMedicine.Config.mapToOriginal(it) },
+                clientName = formattedForm.clientName,
+                clientAddress = formattedForm.clientAddress,
                 issuedBy = formattedForm.issuedBy,
                 issuedDate = formattedForm.issuedDate
             )
@@ -31,12 +30,9 @@ class LocalPrescription : EmbeddedRealmObject {
 
         fun trimmedFields(form: LocalPrescription) = LocalPrescription().apply {
             prescriptionId = form.prescriptionId.trim()
-            refills = form.refills.trim()
-            inscription = LocalPrescriptionInscription.Config.trimmedFields(
-                form.inscription ?: LocalPrescriptionInscription()
-            )
-            signatura = form.signatura.trim()
-            subscription = form.subscription.trim()
+            medicines = form.medicines.map { LocalPrescriptionMedicine.Config.trimmedFields(it) }.toRealmList()
+            clientName = form.clientName.trim()
+            clientAddress = form.clientAddress.trim()
             issuedBy = form.issuedBy.trim()
         }
     }
