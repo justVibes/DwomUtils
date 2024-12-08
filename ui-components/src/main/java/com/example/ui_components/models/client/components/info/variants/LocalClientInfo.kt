@@ -35,9 +35,9 @@ class LocalClientInfo : EmbeddedRealmObject {
             return ClientInfo(
                 tagName = formattedForm.tagName,
                 photo = ClientPhoto(
-                    url = formattedForm.photo?.url ?: "",
-                    updatedUrl = formattedForm.photo?.updatedUrl ?: "",
-                    storagePath = formattedForm.photo?.storagePath ?: ""
+                    url = form.photo?.url ?: "",
+                    updatedUrl = form.photo?.updatedUrl ?: "",
+                    storagePath = form.photo?.storagePath ?: ""
                 ),
                 firstName = formattedForm.firstName,
                 lastName = formattedForm.lastName,
