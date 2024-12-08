@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PrescriptionMedicine(
-    val refills: String = "",
+    val refills: String = "0",
     val inscription: PrescriptionInscription = PrescriptionInscription(),
     val signatura: String = "",
     val subscription: String = "",

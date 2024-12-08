@@ -1,12 +1,12 @@
 package com.example.ui_components.ui.dialogs
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -19,7 +19,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -27,6 +30,7 @@ fun DefaultAlertDialog(
     modifier: Modifier = Modifier,
     title: String,
     desc: String,
+    action: String = "",
     mainActionBtn: ActionBtnDefaults,
     subActionBtn: ActionBtnDefaults = ActionBtnDefaults("Cancel") {},
     isProcessing: Boolean = false,
@@ -53,11 +57,7 @@ fun DefaultAlertDialog(
                             containerColor = if (idx == 0) btn.color.invoke() else Transparent,
                             contentColor = if (idx == 0) White else btn.color.invoke()
                         ),
-                        shape = MaterialTheme.shapes.small,
-                        border = BorderStroke(
-                            width = 1.dp,
-                            color = if (idx == 0) Transparent else btn.color.invoke()
-                        ),
+                        shape = CircleShape,
                         enabled = !isProcessing
                     ) {
                         Text(
@@ -79,7 +79,16 @@ fun DefaultAlertDialog(
             Text(text = title, fontWeight = FontWeight.Bold)
         },
         text = {
-            Text(desc)
+            Text(
+                text = buildAnnotatedString {
+                    append(desc)
+                    if (action.isNotEmpty()) {
+                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                            append(" $action")
+                        }
+                    }
+                }
+            )
         }
     )
 }

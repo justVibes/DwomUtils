@@ -20,6 +20,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.apache.poi.xwpf.usermodel.XWPFDocument
+import java.util.Calendar
 import java.util.UUID
 
 @Serializable
@@ -70,6 +71,16 @@ data class ClientItem(
             history = form.history.map { ClientHistory.Config.mapToLocal(it) }.toRealmList()
         }
 
+        fun mapToHistory(form: ClientItem): ClientHistory {
+            val formattedForm = trimmedFields(form)
+            return ClientHistory(
+                serviceProvider = formattedForm.serviceProvider,
+                clientInfo = formattedForm.clientInfo,
+                vitals = formattedForm.vitals,
+                emergencyContactInfo = formattedForm.emergencyContactInfo,
+                datePosted = Calendar.getInstance().timeInMillis
+            )
+        }
 
         fun mapToHighlighted(original: ClientItem, modified: ClientItem): HighlightedClientItem {
             return HighlightedClientItem(

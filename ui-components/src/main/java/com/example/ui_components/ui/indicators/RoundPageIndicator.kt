@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PageIndicator(
+fun RoundPageIndicator(
     amountOfPages: Int,
     currentPage: Int,
     color: Color = MaterialTheme.colorScheme.primary
