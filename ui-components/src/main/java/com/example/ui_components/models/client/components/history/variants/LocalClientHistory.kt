@@ -3,9 +3,16 @@ package com.example.ui_components.models.client.components.history.variants
 import com.example.ui_components.models.client.components.emergency_contact_info.variants.LocalEmergencyContactInfo
 import com.example.ui_components.models.client.components.history.ClientHistory
 import com.example.ui_components.models.client.components.info.variants.LocalClientInfo
+import com.example.ui_components.models.client.components.lab_result.LabResult
+import com.example.ui_components.models.client.components.lab_result.variants.LocalLabResult
+import com.example.ui_components.models.client.components.note.ClientNote
+import com.example.ui_components.models.client.components.note.variants.LocalClientNote
 import com.example.ui_components.models.client.components.service_provider.LocalServiceProvider
 import com.example.ui_components.models.client.components.vitals.variants.LocalClientVitals
+import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.EmbeddedRealmObject
+import io.realm.kotlin.types.RealmList
+import kotlinx.serialization.Transient
 
 class LocalClientHistory : EmbeddedRealmObject {
     var datePosted: Long = 0L
@@ -13,6 +20,8 @@ class LocalClientHistory : EmbeddedRealmObject {
     var clientInfo: LocalClientInfo? = null
     var vitals: LocalClientVitals? = null
     var emergencyContactInfo: LocalEmergencyContactInfo? = null
+    var notes: RealmList<LocalClientNote> = realmListOf()
+    var labResults: RealmList<LocalLabResult> = realmListOf()
 
     object Config {
         fun mapToOriginal(form: LocalClientHistory) = ClientHistory(
@@ -24,7 +33,9 @@ class LocalClientHistory : EmbeddedRealmObject {
             vitals = LocalClientVitals.Config.mapToOriginal(form.vitals ?: LocalClientVitals()),
             emergencyContactInfo = LocalEmergencyContactInfo.Config.mapToOriginal(
                 form.emergencyContactInfo ?: LocalEmergencyContactInfo()
-            )
+            ),
+            notes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },
+            labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) }
         )
     }
 }
