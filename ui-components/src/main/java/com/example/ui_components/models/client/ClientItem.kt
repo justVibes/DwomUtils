@@ -78,7 +78,9 @@ data class ClientItem(
                 clientInfo = formattedForm.clientInfo,
                 vitals = formattedForm.vitals,
                 emergencyContactInfo = formattedForm.emergencyContactInfo,
-                datePosted = Calendar.getInstance().timeInMillis
+                datePosted = Calendar.getInstance().timeInMillis,
+                notes = formattedForm.tempNotes,
+                labResults = formattedForm.labResults
             )
         }
 
