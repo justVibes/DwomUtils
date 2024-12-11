@@ -1,6 +1,6 @@
 package com.example.ui_components.models.client.components
 
-import com.example.ui_components.models.core.company.components.Employee
+import com.example.ui_components.models.core.company.components.employee.Employee
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 

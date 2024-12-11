@@ -1,11 +1,15 @@
 package com.example.ui_components.models.core.company
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.example.ui_components.models.core.company.components.CompanySummary
-import com.example.ui_components.models.core.company.components.Employee
-import com.google.firebase.firestore.DocumentReference
+import com.example.ui_components.models.core.company.components.company_summary.CompanySummary
+import com.example.ui_components.models.core.company.components.company_summary.variants.LocalCompanySummary
+import com.example.ui_components.models.core.company.components.employee.Employee
+import com.example.ui_components.models.core.company.components.employee.variants.LocalEmployee
+import com.example.ui_components.models.core.company.variants.LocalCompany
 import com.google.firebase.firestore.Exclude
+import io.realm.kotlin.ext.realmListOf
+import io.realm.kotlin.ext.toRealmList
+import io.realm.kotlin.types.EmbeddedRealmObject
+import io.realm.kotlin.types.RealmList
 import java.util.UUID
 
 data class Company(
@@ -15,52 +19,31 @@ data class Company(
     val coarseLocation: String = "",
     val type: String = "",
     val aboutUs: String = "",
-    var employees: List<DocumentReference> = emptyList(),
-    @Exclude var tempEmployees: List<Employee> = emptyList()/*This is for local usage*/
+    var employeesDocPaths: List<String> = emptyList(),
+    @Exclude var employees: List<Employee> = emptyList()/*This is for local usage*/
 ) {
-    object MapToStripped {
-        fun from(form: Company) =
-            CompanyStripped(
-                companyId = form.companyId,
-                photoUrl = form.photoUrl,
-                name = form.summary!!.name,
-                coarseLocation = form.coarseLocation,
-                type = form.type,
-                category = form.summary.category,
-                collectionPath = form.summary.collectionPath
-            )
-    }
-}
+    object Config {
+        fun mapToLocal(form: Company) = LocalCompany().apply {
+            val formattedForm = trimmedFields(form)
+            companyId = formattedForm.companyId
+            summary = formattedForm.summary?.let { CompanySummary.Config.mapToLocal(it) }
+            photoUrl = formattedForm.photoUrl
+            coarseLocation = formattedForm.coarseLocation
+            type = formattedForm.type
+            aboutUs = formattedForm.aboutUs
+            employeesDocPaths = formattedForm.employeesDocPaths.toRealmList()
+            employees = formattedForm.employees.map { Employee.Config.mapToLocal(it) }.toRealmList()
+        }
 
-@Entity
-data class CompanyStripped(
-    @PrimaryKey
-    val companyId: String = "${UUID.randomUUID()}",
-    val photoUrl: String = "",
-    val name: String = "",
-    val coarseLocation: String = "",
-    val type: String = "",
-    val category: String = "",
-    val collectionPath: String = ""
-) {
-    object MapToOriginal {
-        fun from(
-            form: CompanyStripped,
-            workers: List<DocumentReference>,
-            tempEmployees: List<Employee>
-        ) =
-            Company(
-                companyId = form.companyId,
-                photoUrl = form.photoUrl,
-                summary = CompanySummary(
-                    name = form.name,
-                    category = form.category,
-                    collectionPath = form.collectionPath
-                ),
-                coarseLocation = form.coarseLocation,
-                type = form.type,
-                employees = workers,
-                tempEmployees = tempEmployees,
-            )
+        fun trimmedFields(form: Company) = Company(
+            companyId = form.companyId.trim(),
+            summary = CompanySummary.Config.trimmedFields(form.summary),
+            photoUrl = form.photoUrl.trim(),
+            coarseLocation = form.coarseLocation.trim(),
+            type = form.type.trim(),
+            aboutUs = form.aboutUs.trim(),
+            employeesDocPaths = form.employeesDocPaths.map { it.trim() },
+            employees = form.employees.map { Employee.Config.trimmedFields(it) }
+        )
     }
 }

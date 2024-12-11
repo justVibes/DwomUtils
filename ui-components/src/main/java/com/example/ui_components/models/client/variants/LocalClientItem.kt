@@ -13,6 +13,7 @@ import com.example.ui_components.models.client.components.vitals.ClientVitals
 import com.example.ui_components.models.client.components.vitals.variants.LocalClientVitals
 import com.google.firebase.firestore.Exclude
 import io.realm.kotlin.ext.realmListOf
+import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
@@ -30,7 +31,8 @@ class LocalClientItem : RealmObject {
     var history: RealmList<LocalClientHistory>? = realmListOf()
 
     /* Use this to differentiate between client files that the user owns and downloaded client files */
-    @Exclude var isDownloaded: Boolean = false
+    @Exclude
+    var isDownloaded: Boolean = false
 
     object Config {
         fun mapToOriginal(form: LocalClientItem) = ClientItem(
@@ -48,7 +50,23 @@ class LocalClientItem : RealmObject {
             } ?: EmergencyContactInfo(),
             tempNotes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },
             labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) },
-            history = form.history?.map { LocalClientHistory.Config.mapToOriginal(it) } ?: emptyList()
+            history = form.history?.map { LocalClientHistory.Config.mapToOriginal(it) }
+                ?: emptyList()
         )
+
+        fun trimmedFields(form: LocalClientItem) = LocalClientItem().apply {
+            serviceProvider = LocalServiceProvider.Config.trimmedFields(
+                form.serviceProvider ?: LocalServiceProvider()
+            )
+            accessorEmails = form.accessorEmails.map { it.trim() }.toRealmList()
+            clientInfo = LocalClientInfo.Config.trimmedFields(form.clientInfo ?: LocalClientInfo())
+            vitals = LocalClientVitals.Config.trimmedFields(form.vitals ?: LocalClientVitals())
+            emergencyContactInfo = LocalEmergencyContactInfo.Config.trimmedFields(
+                form.emergencyContactInfo ?: LocalEmergencyContactInfo()
+            )
+            notes = form.notes.map { LocalClientNote.Config.trimmedFields(it) }.toRealmList()
+            labResults = form.labResults
+//            history = form.history.map { LocalClientHistory.Config. } TODO("Make a trimmedFields for this")
+        }
     }
 }
