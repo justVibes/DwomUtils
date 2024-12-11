@@ -2,7 +2,6 @@ package com.example.ui_components.models.core.company.components.book_appointmen
 
 import com.example.ui_components.models.client.ClientItem
 import com.example.ui_components.models.core.company.components.book_appointment.variants.LocalBookedAppointment
-import com.example.ui_components.models.core.company.components.employee.Employee
 import com.google.firebase.firestore.Exclude
 import org.jetbrains.annotations.ApiStatus.Experimental
 

@@ -1,8 +1,8 @@
 package com.example.ui_components.models.core.company.components.employee
 
 import com.example.ui_components.models.core.company.components.book_appointment.BookedAppointment
-import com.example.ui_components.models.core.company.components.employee.variants.LocalEmployee
 import com.example.ui_components.models.core.company.components.employee.employee_info.EmployeeInfo
+import com.example.ui_components.models.core.company.components.employee.variants.LocalEmployee
 import com.google.firebase.firestore.Exclude
 import io.realm.kotlin.ext.toRealmList
 

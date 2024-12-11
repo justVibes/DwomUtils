@@ -34,5 +34,6 @@ class LocalClientHistory : EmbeddedRealmObject {
             notes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },
             labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) }
         )
+
     }
 }
