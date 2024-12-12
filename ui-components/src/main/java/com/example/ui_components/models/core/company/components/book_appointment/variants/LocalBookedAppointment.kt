@@ -6,7 +6,7 @@ import io.realm.kotlin.types.EmbeddedRealmObject
 
 class LocalBookedAppointment : EmbeddedRealmObject {
     var date: Long = 0L
-    var time: String = ""
+    var time: Long = 0L
     var approxDurationInMins: Int = 0
     var employeeDocPath: String? = null
     var clientDocPath: String? = null
@@ -17,7 +17,7 @@ class LocalBookedAppointment : EmbeddedRealmObject {
             val formattedForm = trimmedFields(form)
             return BookedAppointment(
                 date = form.date,
-                time = formattedForm.time,
+                time = form.time,
                 approxDurationInMins = form.approxDurationInMins,
                 employeeDocPath = formattedForm.employeeDocPath,
                 clientDocPath = formattedForm.clientDocPath,
@@ -26,7 +26,6 @@ class LocalBookedAppointment : EmbeddedRealmObject {
         }
 
         fun trimmedFields(form: LocalBookedAppointment) = LocalBookedAppointment().apply {
-            time = form.time.trim()
             employeeDocPath = form.employeeDocPath?.trim()
             clientDocPath = form.clientDocPath?.trim()
             client = form.client?.let { LocalClientItem.Config.trimmedFields(it) }

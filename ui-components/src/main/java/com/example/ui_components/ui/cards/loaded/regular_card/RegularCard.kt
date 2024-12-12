@@ -1,6 +1,5 @@
 package com.example.ui_components.ui.cards.loaded.regular_card
 
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -21,7 +20,6 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,142 +29,145 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
-import com.example.ui_components.R
-import com.example.ui_components.theme.Teal
-import com.example.ui_components.ui.cards.loaded.regular_card.components.CardTextContent
-import com.example.ui_components.ui.cards.loaded.regular_card.components.LeadingImage
-import com.example.ui_components.ui.cards.loaded.regular_card.components.PunchDefaults
-import com.example.ui_components.ui.cards.loaded.regular_card.components.RegularCardColors
-import com.example.ui_components.ui.cards.loaded.regular_card.components.TrailingIcon
+import com.example.ui_components.ui.cards.loaded.regular_card.config.RegularCardLeadingConfig
+import com.example.ui_components.ui.cards.loaded.regular_card.config.RegularCardTextConfig
+import com.example.ui_components.ui.cards.loaded.regular_card.config.RegularCardTrailingConfig
+import com.example.ui_components.ui.cards.loaded.regular_card.defaults.RegularCardDefaults
+import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardColors
+import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardLeadingImage
+import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardPunch
+import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardText
+import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardTrailingIcon
 import com.example.ui_components.ui.core.core_logic.TextStyling
 
 @Composable
 fun RegularCard(
     modifier: Modifier = Modifier,
-    leadingImage: LeadingImage,
-    header: CardTextContent,
-    subHeader: CardTextContent,
-    trailingIcon: TrailingIcon? = null,
-    trailingContent: (@Composable () -> Unit)? = null,
-    colors: RegularCardColors = RegularCardColors(),
+    isSelected: Boolean = false,
+    isPunchVisible: Boolean = false,
+    leadingContentConfig: RegularCardLeadingConfig,
+    header: RegularCardTextConfig,
+    subHeader: RegularCardTextConfig,
+    trailingContentConfig: RegularCardTrailingConfig? = null,
     shape: CornerBasedShape? = MaterialTheme.shapes.small,
     shadowElevation: Dp = Dp.Unspecified,
-    isSelected: Boolean = false,
-    punchDefaults: PunchDefaults? = null,
+    punchDefaults: RegularCardPunch = RegularCardDefaults.trailingPunch(),
+    leadingImageDefaults: RegularCardLeadingImage = RegularCardDefaults.leadingImage(),
+    trailingIconDefaults: RegularCardTrailingIcon = RegularCardDefaults.trailingIcon(),
+    textDefaults: RegularCardText = RegularCardDefaults.text(),
+    colors: RegularCardColors = RegularCardDefaults.colors(),
+    onTrailingIconClicked: () -> Unit,
     onClick: () -> Unit
 ) {
-    val containerColor by animateColorAsState(
-        if (!isSelected) colors.unfocusedContainerColor.invoke() else colors.focusedContainerColor.invoke(),
-        label = "containerColor"
-    )
-    val contentColor by animateColorAsState(
-        if (!isSelected) colors.unfocusedContentColor.invoke() else colors.focusedContentColor.invoke(),
-        label = "contentColor"
-    )
-
     ListItem(
         modifier = modifier
             .fillMaxWidth()
             .clip(shape ?: RoundedCornerShape(0))
             .clickable { onClick() },
         colors = ListItemDefaults.colors(
-            containerColor = containerColor,
-            headlineColor = contentColor,
-            supportingColor = contentColor
+            containerColor = colors.containerColor(isSelected),
+            headlineColor = colors.contentColor(isSelected),
+            supportingColor = colors.contentColor(isSelected)
         ),
         leadingContent = {
             val imgModifier = Modifier
                 .fillMaxSize()
                 .clip(CircleShape)
 
-
-
-
             Box(
                 modifier = Modifier
-                    .size(leadingImage.photoSize)
-                    .clip(CircleShape)
-                    .background(leadingImage.backgroundColor.invoke())
+                    .size(leadingImageDefaults.photoSize)
+                    .clip(leadingImageDefaults.shape)
+                    .background(colors.leadingImageBackgroundColor)
                     .border(
-                        width = 2.dp,
-                        color = leadingImage.borderColor.invoke(),
-                        shape = CircleShape
+                        width = leadingImageDefaults.borderThickness,
+                        color = colors.leadingImageBorderColor,
+                        shape = leadingImageDefaults.shape
                     )
                     .padding(5.dp),
                 contentAlignment = Alignment.Center
             ) {
-                if (leadingImage.resPhoto != 0) {
+                if (leadingContentConfig.resPhoto != null) {
                     Image(
                         modifier = imgModifier,
-                        painter = painterResource(leadingImage.resPhoto),
+                        painter = painterResource(leadingContentConfig.resPhoto),
                         contentDescription = null,
                         contentScale = ContentScale.Crop
                     )
                 } else {
-                    val placeholderImg =
-                        if (!leadingImage.isProfileImage) painterResource(R.drawable.ic_image_placeholder)
-                        else painterResource(R.drawable.ic_person)
                     AsyncImage(
                         modifier = imgModifier,
-                        model = leadingImage.photoUrl.toUri(),
+                        model = leadingContentConfig.photoUrl.toUri(),
                         contentDescription = null,
-                        placeholder = placeholderImg,
-                        error = placeholderImg,
+                        placeholder = leadingImageDefaults.placeholder,
+                        error = leadingImageDefaults.placeholder,
                         contentScale = ContentScale.Crop
                     )
-                    if (leadingImage.isUpdateBubbleVisible) {
+                    if (leadingImageDefaults.isUpdateBubbleVisible) {
                         Box(
                             modifier = Modifier
-                                .align(Alignment.TopEnd)
-                                .size((leadingImage.photoSize.value * .25).dp)
+                                .align(leadingImageDefaults.updateBubbleAlignment)
+                                .size((leadingImageDefaults.photoSize.value * .25).dp)
                                 .clip(CircleShape)
-                                .background(Teal)
+                                .background(colors.updateBubbleColor)
                         )
                     }
                 }
             }
         },
         headlineContent = {
-            GetTextContent(header)
+            GetTextContent(
+                textConfig = header,
+                isHeader = true,
+                defaults = textDefaults,
+                colors = colors
+            )
         },
         supportingContent = {
-            GetTextContent(subHeader)
+            GetTextContent(
+                textConfig = subHeader,
+                isHeader = false,
+                defaults = textDefaults,
+                colors = colors
+            )
         },
         trailingContent = {
             when {
-                trailingContent != null -> {
-                    trailingContent.invoke()
+                trailingContentConfig?.content != null -> {
+                    trailingContentConfig.content.invoke()
                 }
 
-                trailingIcon != null -> {
+                trailingContentConfig?.icon != null -> {
                     Icon(
                         modifier = Modifier
-                            .size(trailingIcon.size)
-                            .clip(CircleShape)
-                            .background(trailingIcon.backgroundColor.invoke())
-                            .clickable { trailingIcon.onClick() }
+                            .size(trailingIconDefaults.size)
+                            .clip(trailingIconDefaults.shape)
+                            .background(colors.trailingIconBackgroundColor)
+                            .clickable { onTrailingIconClicked() }
                             .padding(10.dp),
-                        imageVector = trailingIcon.icon,
+                        imageVector = trailingContentConfig.icon,
                         contentDescription = null,
-                        tint = trailingIcon.iconColor.invoke()
+                        tint = colors.trailingIconColor
                     )
                 }
 
-                punchDefaults != null -> {
+                isPunchVisible -> {
                     Column(
-                        verticalArrangement = Arrangement.spacedBy(((leadingImage.photoSize.value.toInt() / 2) * .7).dp),
+                        verticalArrangement = Arrangement.spacedBy(((leadingImageDefaults.photoSize.value.toInt() / 2) * .7).dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Box(
                             modifier = Modifier
-                                .size(if (punchDefaults.punchSize != Dp.Unspecified) punchDefaults.punchSize else (leadingImage.photoSize.value * .25).dp)
+                                .size(punchDefaults.copy(size = (leadingImageDefaults.photoSize.value * .25).dp).size)
                                 .clip(CircleShape)
-                                .background(punchDefaults.color.invoke())
+                                .background(colors.punchColor)
                         )
-                        Text(
-                            text = punchDefaults.supportText,
-                            style = punchDefaults.supportTextStyle.invoke()
-                        )
+                        if(trailingContentConfig?.punchSupportText != null){
+                            Text(
+                                text = trailingContentConfig.punchSupportText,
+                                style = punchDefaults.textStyle
+                            )
+                        }
                     }
                 }
             }
@@ -176,30 +177,38 @@ fun RegularCard(
 }
 
 @Composable
-private fun GetTextContent(header: CardTextContent) {
+private fun GetTextContent(
+    textConfig: RegularCardTextConfig,
+    isHeader: Boolean,
+    defaults: RegularCardText,
+    colors: RegularCardColors
+) {
+    val color = if (isHeader) colors.headerColor else colors.subHeaderColor
     when {
-        header.annotatedText != null -> {
+        textConfig.annotatedText != null -> {
             Text(
-                text = header.annotatedText,
-                style = header.style.invoke()
+                text = textConfig.annotatedText,
+                style = defaults.style(true),
+                color = color
             )
         }
 
-        header.separateText -> {
+        defaults.separateText -> {
             TextStyling.ColorDifference(
-                text = header.text,
-                color = header.style.invoke().color,
-                style = header.style.invoke(),
-                separator = header.separator,
+                text = textConfig.text,
+                color = color,
+                style = defaults.style(isHeader),
+                separator = textConfig.separator!!,
             )
         }
 
         else -> {
             Text(
-                text = header.text,
-                style = header.style.invoke(),
-                maxLines = header.maxLines,
-                overflow = header.overflow
+                text = textConfig.text,
+                style = defaults.style(isHeader),
+                maxLines = defaults.maxLines,
+                overflow = defaults.overflow,
+                color = color
             )
         }
     }

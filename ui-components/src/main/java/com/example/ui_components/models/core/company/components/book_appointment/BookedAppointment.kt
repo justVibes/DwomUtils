@@ -7,7 +7,7 @@ import org.jetbrains.annotations.ApiStatus.Experimental
 
 data class BookedAppointment(
     val date: Long = 0L,
-    val time: String = "",
+    val time: Long = 0L,
     val approxDurationInMins: Int = 0,
     @Experimental val employeeDocPath: String? = null,
     val clientDocPath: String? = null,
@@ -17,7 +17,7 @@ data class BookedAppointment(
         fun mapToLocal(form: BookedAppointment) = LocalBookedAppointment().apply {
             val formattedForm = trimmedFields(form)
             date = form.date
-            time = formattedForm.time
+            time = form.time
             approxDurationInMins = form.approxDurationInMins
             employeeDocPath = formattedForm.employeeDocPath
             clientDocPath = formattedForm.clientDocPath
@@ -25,7 +25,6 @@ data class BookedAppointment(
         }
 
         fun trimmedFields(form: BookedAppointment) = form.copy(
-            time = form.time.trim(),
             employeeDocPath = form.employeeDocPath?.trim(),
             clientDocPath = form.clientDocPath?.trim(),
             client = form.client?.let { ClientItem.Config.trimmedFields(it) }

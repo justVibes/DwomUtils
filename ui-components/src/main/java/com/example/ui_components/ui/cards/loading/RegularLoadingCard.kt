@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
@@ -15,14 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.example.ui_components.ui.cards.loaded.regular_card.components.LeadingImage
+import com.example.ui_components.ui.cards.loaded.regular_card.defaults.RegularCardDefaults
 import com.example.ui_components.ui.core.core_logic.CustomColor
 import com.example.ui_components.ui.modifiers.shimmerEffect
 
 @Composable
-fun RegularLoadingCard(
-    modifier: Modifier = Modifier
-) {
+fun RegularLoadingCard(modifier: Modifier = Modifier) {
+    val leadingImageDefaults = RegularCardDefaults.leadingImage()
     ListItem(
         modifier = modifier
             .fillMaxWidth()
@@ -33,8 +31,8 @@ fun RegularLoadingCard(
         leadingContent = {
             Box(
                 modifier = Modifier
-                    .size(LeadingImage().photoSize)
-                    .clip(CircleShape)
+                    .size(leadingImageDefaults.photoSize)
+                    .clip(leadingImageDefaults.shape)
                     .shimmerEffect(),
             )
         },
