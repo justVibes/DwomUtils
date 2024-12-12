@@ -56,7 +56,6 @@ fun RegularCard(
     trailingIconDefaults: RegularCardTrailingIcon = RegularCardDefaults.trailingIcon(),
     textDefaults: RegularCardText = RegularCardDefaults.text(),
     colors: RegularCardColors = RegularCardDefaults.colors(),
-    onTrailingIconClicked: () -> Unit,
     onClick: () -> Unit
 ) {
     ListItem(
@@ -143,7 +142,7 @@ fun RegularCard(
                             .size(trailingIconDefaults.size)
                             .clip(trailingIconDefaults.shape)
                             .background(colors.trailingIconBackgroundColor)
-                            .clickable { onTrailingIconClicked() }
+                            .clickable { trailingContentConfig.onTrailingIconClicked() }
                             .padding(10.dp),
                         imageVector = trailingContentConfig.icon,
                         contentDescription = null,

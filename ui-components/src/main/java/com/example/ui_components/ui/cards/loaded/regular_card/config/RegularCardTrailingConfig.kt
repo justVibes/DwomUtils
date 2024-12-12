@@ -7,4 +7,5 @@ data class RegularCardTrailingConfig(
     val icon: ImageVector? = null,
     val content: (@Composable () -> Unit)? = null,
     val punchSupportText: String = "",
+    val onTrailingIconClicked: () -> Unit = {},
 )
