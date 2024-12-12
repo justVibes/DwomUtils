@@ -187,7 +187,7 @@ private fun GetTextContent(
         textConfig.annotatedText != null -> {
             Text(
                 text = textConfig.annotatedText,
-                style = defaults.style(true),
+                style = defaults.style(isHeader),
                 color = color
             )
         }

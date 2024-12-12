@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -81,14 +82,14 @@ object RegularCardDefaults {
 
     @Composable
     fun text(
-        isHeader: Boolean = false,
-        style: TextStyle = MaterialTheme.typography.titleSmall,
+        headerStyle: TextStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.ExtraBold),
+        subHeaderStyle: TextStyle = MaterialTheme.typography.bodyMedium,
         separateText: Boolean = false,
         maxLines: Int = 1,
         overflow: TextOverflow = TextOverflow.Ellipsis
     ) = RegularCardText(
-        isHeader = isHeader,
-        style = style,
+        headerStyle = headerStyle,
+        subHeaderStyle = subHeaderStyle,
         separateText = separateText,
         maxLines = maxLines,
         overflow = overflow

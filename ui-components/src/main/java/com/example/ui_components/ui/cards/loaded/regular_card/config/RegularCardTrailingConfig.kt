@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 data class RegularCardTrailingConfig(
     val icon: ImageVector? = null,
-    val content: (@Composable () -> Unit)? = null,
     val punchSupportText: String = "",
     val onTrailingIconClicked: () -> Unit = {},
+    val content: (@Composable () -> Unit)? = null,
 )
