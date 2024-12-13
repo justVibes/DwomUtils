@@ -1,5 +1,6 @@
 package com.example.ui_components.models.client.components.info.variants
 
+import com.example.ui_components.models.client.components.core.name.LocalName
 import com.example.ui_components.models.client.components.financial_info.variants.LocalClientFinancialInfo
 import com.example.ui_components.models.client.components.info.ClientInfo
 import com.example.ui_components.models.client.components.info.components.ClientPhoto
@@ -10,10 +11,9 @@ import io.realm.kotlin.types.annotations.Ignore
 import java.util.Calendar
 
 class LocalClientInfo : EmbeddedRealmObject {
+    var name: LocalName? = null
     var tagName: String = ""
     var photo: LocalClientPhoto? = null
-    var firstName: String = ""
-    var lastName: String = ""
     var sex: String = ""
     var birthDate: Long = 0L
     var birthPlace: String = ""
@@ -39,8 +39,7 @@ class LocalClientInfo : EmbeddedRealmObject {
                     updatedUrl = form.photo?.updatedUrl ?: "",
                     storagePath = form.photo?.storagePath ?: ""
                 ),
-                firstName = formattedForm.firstName,
-                lastName = formattedForm.lastName,
+                name = LocalName.Config.mapToOriginal(formattedForm.name ?: LocalName()),
                 sex = formattedForm.sex,
                 birthDate = formattedForm.birthDate,
                 birthPlace = formattedForm.birthPlace,
@@ -62,8 +61,7 @@ class LocalClientInfo : EmbeddedRealmObject {
 
         fun trimmedFields(form: LocalClientInfo) = LocalClientInfo().apply {
             tagName = form.tagName.trim()
-            firstName = form.firstName.trim()
-            lastName = form.lastName.trim()
+            name = form.name?.let { LocalName.Config.trimmedFields(it) }
             sex = form.sex.trim()
             birthPlace = form.birthPlace.trim()
             height = form.height.filter { it.isDigit() }.trim()

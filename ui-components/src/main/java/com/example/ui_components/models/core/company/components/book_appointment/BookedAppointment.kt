@@ -1,6 +1,7 @@
 package com.example.ui_components.models.core.company.components.book_appointment
 
 import com.example.ui_components.models.client.ClientItem
+import com.example.ui_components.models.client.components.service_provider.ServiceProvider
 import com.example.ui_components.models.core.company.components.book_appointment.variants.LocalBookedAppointment
 import com.google.firebase.firestore.Exclude
 import org.jetbrains.annotations.ApiStatus.Experimental
@@ -8,7 +9,11 @@ import org.jetbrains.annotations.ApiStatus.Experimental
 data class BookedAppointment(
     val date: Long = 0L,
     val time: Long = 0L,
+    val approxStartTime: Long = 0L,
     val approxDurationInMins: Int = 0,
+    val delayInMins: Int = 0,
+    val advanceInMins: Int = 0,
+    val serviceProvider: ServiceProvider? = null,
     @Experimental val employeeDocPath: String? = null,
     val clientDocPath: String? = null,
     @Exclude val client: ClientItem? = null/*This is for local usage*/
@@ -19,6 +24,12 @@ data class BookedAppointment(
             date = form.date
             time = form.time
             approxDurationInMins = form.approxDurationInMins
+            approxStartTime = form.approxStartTime
+            delayInMins = form.delayInMins
+            advanceInMins = form.advanceInMins
+            serviceProvider = formattedForm.serviceProvider?.let {
+                ServiceProvider.Config.mapToLocal(it)
+            }
             employeeDocPath = formattedForm.employeeDocPath
             clientDocPath = formattedForm.clientDocPath
             client = formattedForm.client?.let { ClientItem.Config.mapToLocal(it) }
@@ -27,7 +38,8 @@ data class BookedAppointment(
         fun trimmedFields(form: BookedAppointment) = form.copy(
             employeeDocPath = form.employeeDocPath?.trim(),
             clientDocPath = form.clientDocPath?.trim(),
-            client = form.client?.let { ClientItem.Config.trimmedFields(it) }
+            client = form.client?.let { ClientItem.Config.trimmedFields(it) },
+            serviceProvider = form.serviceProvider?.let { ServiceProvider.Config.trimmedFields(it) }
         )
     }
 }

@@ -80,7 +80,7 @@ fun RegularDialogHeader(
             text = title,
             style = MaterialTheme.typography.let {
                 when (windowSizeClass.widthSizeClass) {
-                    WindowWidthSizeClass.Compact -> it.titleLarge
+                    WindowWidthSizeClass.Compact -> it.headlineSmall
                     WindowWidthSizeClass.Medium -> it.headlineMedium
                     WindowWidthSizeClass.Expanded -> it.headlineLarge
                     else -> it.titleSmall

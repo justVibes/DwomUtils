@@ -1,5 +1,6 @@
 package com.example.ui_components.models.client.components.info
 
+import com.example.ui_components.models.client.components.core.name.Name
 import com.example.ui_components.models.client.components.core.stringComparison
 import com.example.ui_components.models.client.components.financial_info.ClientFinancialInfo
 import com.example.ui_components.models.client.components.info.components.ClientPhoto
@@ -16,8 +17,7 @@ import java.util.Calendar
 data class ClientInfo(
     val tagName: String = "",
     @Transient val photo: ClientPhoto = ClientPhoto(),
-    val firstName: String = "",
-    val lastName: String = "",
+    val name: Name = Name(),
     val sex: String = "", /*Use 'ValidGenders' enum to initialize*/
     val birthDate: Long = 0L,
     val birthPlace: String = "",
@@ -28,7 +28,7 @@ data class ClientInfo(
     val age: Int = (Calendar.getInstance().timeInMillis - birthDate).toInt(), /*Generated based on the given birth date*/
     val localPhoneNumber: String = "",
     val emailAddress: String = "",
-    val medicalInfo : ClientMedicalInfo = ClientMedicalInfo(),
+    val medicalInfo: ClientMedicalInfo = ClientMedicalInfo(),
     val financialInfo: ClientFinancialInfo = ClientFinancialInfo()
 ) {
     object Config {
@@ -41,8 +41,7 @@ data class ClientInfo(
                     updatedUrl = form.photo.updatedUrl
                     storagePath = form.photo.storagePath
                 }
-                firstName = formattedForm.firstName
-                lastName = formattedForm.lastName
+                name = Name.Config.mapToLocal(formattedForm.name)
                 sex = formattedForm.sex  /*Use 'ValidGenders' enum to initialize*/
                 birthDate = formattedForm.birthDate
                 birthPlace = formattedForm.birthPlace
@@ -60,8 +59,8 @@ data class ClientInfo(
 
         fun mapToHighlighted(original: ClientInfo?, modified: ClientInfo?) = HighlightedClientInfo(
             tagName = stringComparison(original?.tagName, modified?.tagName),
-            firstName = stringComparison(original?.firstName, modified?.firstName),
-            lastName = stringComparison(original?.lastName, modified?.lastName),
+            firstName = stringComparison(original?.name?.first, modified?.name?.first),
+            lastName = stringComparison(original?.name?.last, modified?.name?.last),
             sex = stringComparison(original?.sex, modified?.sex),
             birthDate = stringComparison("${original?.birthDate}", "${modified?.birthDate}"),
             birthPlace = stringComparison(original?.birthPlace, modified?.birthPlace),
@@ -82,8 +81,7 @@ data class ClientInfo(
         fun trimmedFields(form: ClientInfo?) =
             form?.copy(
                 tagName = form.tagName.trim(),
-                firstName = form.firstName.trim(),
-                lastName = form.lastName.trim(),
+                name = Name.Config.trimmedFields(form.name),
                 sex = form.sex.trim(),
                 birthDate = form.birthDate,
                 birthPlace = form.birthPlace.trim(),
@@ -100,8 +98,8 @@ data class ClientInfo(
         fun mapToString(form: ClientInfo): String {
             val formattedForm = trimmedFields(form)
             return """
-                Firstname: ${formattedForm.firstName.ifEmpty { "n/a" }}
-                Lastname: ${formattedForm.lastName.ifEmpty { "n/a" }}
+                Firstname: ${formattedForm.name.first.ifEmpty { "n/a" }}
+                Lastname: ${formattedForm.name.last.ifEmpty { "n/a" }}
                 Sex: ${formattedForm.sex.ifEmpty { "n/a" }}
                 D.O.B : ${
                 DateTimeConversion.mmmDDYYYFormat(formattedForm.birthDate).ifEmpty { "n/a" }
@@ -119,8 +117,8 @@ data class ClientInfo(
         fun mapToListOfPairs(form: ClientInfo): List<Pair<String, String>> {
             val formattedForm = trimmedFields(form)
             return listOf(
-                "Firstname" to formattedForm.firstName.ifEmpty { "n/a" },
-                "Lastname" to formattedForm.lastName.ifEmpty { "n/a" },
+                "Firstname" to formattedForm.name.first.ifEmpty { "n/a" },
+                "Lastname" to formattedForm.name.last.ifEmpty { "n/a" },
                 "Sex" to formattedForm.sex.ifEmpty { "n/a" },
                 "D.O.B" to DateTimeConversion.mmmDDYYYFormat(formattedForm.birthDate)
                     .ifEmpty { "n/a" },

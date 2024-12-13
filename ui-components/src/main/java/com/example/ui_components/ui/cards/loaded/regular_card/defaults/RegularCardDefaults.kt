@@ -25,10 +25,10 @@ import com.example.ui_components.ui.core.core_logic.CustomColor
 object RegularCardDefaults {
     @Composable
     fun colors(
-        focusedContainerColor: Color = CustomColor.cardFadedGraySelected(),
-        unfocusedContainerColor: Color = CustomColor.cardFadedGray(),
+        focusedContainerColor: Color = MaterialTheme.colorScheme.onSurface.copy(.7f),
+        unfocusedContainerColor: Color = MaterialTheme.colorScheme.onSurface.copy(.35f),
         focusedContentColor: Color = MaterialTheme.colorScheme.surface,
-        unfocusedContentColor: Color = MaterialTheme.colorScheme.inverseSurface,
+        unfocusedContentColor: Color = MaterialTheme.colorScheme.onSurface,
         leadingImageBackgroundColor: Color = if (isSystemInDarkTheme()) {
             MaterialTheme.colorScheme.onSurface.copy(alpha = .1f)
         } else {
@@ -43,8 +43,6 @@ object RegularCardDefaults {
         trailingIconBackgroundColor: Color = Color.Unspecified,
         punchColor: Color = MaterialTheme.colorScheme.onSurface,
         updateBubbleColor: Color = Teal,
-        headerColor: Color = MaterialTheme.colorScheme.onSurface,
-        subHeaderColor: Color = MaterialTheme.colorScheme.outline
     ) = RegularCardColors(
         focusedContainerColor = focusedContainerColor,
         unfocusedContainerColor = unfocusedContainerColor,
@@ -56,8 +54,6 @@ object RegularCardDefaults {
         trailingIconBackgroundColor = trailingIconBackgroundColor,
         punchColor = punchColor,
         updateBubbleColor = updateBubbleColor,
-        headerColor = headerColor,
-        subHeaderColor = subHeaderColor
     )
 
     fun leadingImage(
@@ -84,15 +80,21 @@ object RegularCardDefaults {
     fun text(
         headerStyle: TextStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.ExtraBold),
         subHeaderStyle: TextStyle = MaterialTheme.typography.bodyMedium,
-        separateText: Boolean = false,
-        maxLines: Int = 1,
-        overflow: TextOverflow = TextOverflow.Ellipsis
+        separateHeader: Boolean = false,
+        separateSubHeader: Boolean = false,
+        headerMaxLines: Int = 1,
+        subHeaderMaxLines: Int = 1,
+        headerOverflow: TextOverflow = TextOverflow.Ellipsis,
+        subHeaderOverflow: TextOverflow = TextOverflow.Ellipsis
     ) = RegularCardText(
         headerStyle = headerStyle,
         subHeaderStyle = subHeaderStyle,
-        separateText = separateText,
-        maxLines = maxLines,
-        overflow = overflow
+        separateHeader = separateHeader,
+        headerMaxLines = headerMaxLines,
+        headerOverflow = headerOverflow,
+        separateSubHeader = separateSubHeader,
+        subHeaderMaxLines = subHeaderMaxLines,
+        subHeaderOverflow = subHeaderOverflow
     )
 
     fun trailingIcon(

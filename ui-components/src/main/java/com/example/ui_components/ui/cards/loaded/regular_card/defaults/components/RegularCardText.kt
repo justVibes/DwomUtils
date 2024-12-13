@@ -7,24 +7,43 @@ import androidx.compose.ui.text.style.TextOverflow
 class RegularCardText(
     val headerStyle: TextStyle,
     val subHeaderStyle: TextStyle,
-    val separateText: Boolean,
-    val maxLines: Int,
-    val overflow: TextOverflow
+    val separateHeader: Boolean,
+    val separateSubHeader: Boolean,
+    val headerMaxLines: Int,
+    val subHeaderMaxLines: Int,
+    val headerOverflow: TextOverflow,
+    val subHeaderOverflow: TextOverflow,
 ) {
     fun copy(
         headerStyle: TextStyle = this.headerStyle,
         subHeaderStyle: TextStyle = this.subHeaderStyle,
-        separateText: Boolean = this.separateText,
-        maxLines: Int = this.maxLines,
-        overflow: TextOverflow = this.overflow
+        separateHeader: Boolean = this.separateHeader,
+        separateSubHeader: Boolean = this.separateSubHeader,
+        headerMaxLines: Int = this.headerMaxLines,
+        subHeaderMaxLines: Int = this.subHeaderMaxLines,
+        headerOverflow: TextOverflow = this.headerOverflow,
+        subHeaderOverflow: TextOverflow = this.subHeaderOverflow,
     ) = RegularCardText(
         headerStyle = headerStyle,
-        separateText = separateText,
-        maxLines = maxLines,
-        overflow = overflow,
-        subHeaderStyle = subHeaderStyle
+        separateHeader = separateHeader,
+        headerMaxLines = headerMaxLines,
+        headerOverflow = headerOverflow,
+        subHeaderStyle = subHeaderStyle,
+        separateSubHeader = separateSubHeader,
+        subHeaderMaxLines = subHeaderMaxLines,
+        subHeaderOverflow = subHeaderOverflow
     )
 
     @Composable
     internal fun style(isHeader: Boolean) = if (isHeader) headerStyle else subHeaderStyle
+
+    @Composable
+    internal fun separateText(isHeader: Boolean) =
+        if (isHeader) separateHeader else separateSubHeader
+
+    @Composable
+    internal fun maxLines(isHeader: Boolean) = if (isHeader) headerMaxLines else subHeaderMaxLines
+
+    @Composable
+    internal fun overflow(isHeader: Boolean) = if (isHeader) headerOverflow else subHeaderOverflow
 }

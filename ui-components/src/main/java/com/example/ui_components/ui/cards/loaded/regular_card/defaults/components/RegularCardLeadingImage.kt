@@ -40,6 +40,6 @@ class RegularCardLeadingImage(
     )
 
     internal val placeholder: Painter
-        @Composable get() = if (isProfileImage) painterResource(photoPlaceholder)
-        else painterResource(profilePlaceholder)
+        @Composable get() = if (isProfileImage) painterResource(profilePlaceholder)
+        else painterResource(photoPlaceholder)
 }

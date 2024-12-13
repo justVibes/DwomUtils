@@ -119,7 +119,8 @@ fun RegularCard(
                 textConfig = header,
                 isHeader = true,
                 defaults = textDefaults,
-                colors = colors
+                colors = colors,
+                isSelected = isSelected
             )
         },
         supportingContent = {
@@ -127,7 +128,8 @@ fun RegularCard(
                 textConfig = subHeader,
                 isHeader = false,
                 defaults = textDefaults,
-                colors = colors
+                colors = colors,
+                isSelected = isSelected
             )
         },
         trailingContent = {
@@ -161,7 +163,7 @@ fun RegularCard(
                                 .clip(CircleShape)
                                 .background(colors.punchColor)
                         )
-                        if(trailingContentConfig?.punchSupportText != null){
+                        if (trailingContentConfig?.punchSupportText != null) {
                             Text(
                                 text = trailingContentConfig.punchSupportText,
                                 style = punchDefaults.textStyle
@@ -180,9 +182,12 @@ private fun GetTextContent(
     textConfig: RegularCardTextConfig,
     isHeader: Boolean,
     defaults: RegularCardText,
-    colors: RegularCardColors
+    colors: RegularCardColors,
+    isSelected: Boolean,
 ) {
-    val color = if (isHeader) colors.headerColor else colors.subHeaderColor
+    val color =
+        if (isHeader) colors.containerColor(isSelected) else colors.containerColor(isSelected)
+            .copy(.5f)
     when {
         textConfig.annotatedText != null -> {
             Text(
@@ -192,7 +197,7 @@ private fun GetTextContent(
             )
         }
 
-        defaults.separateText -> {
+        defaults.separateText(isHeader) -> {
             TextStyling.ColorDifference(
                 text = textConfig.text,
                 color = color,
@@ -205,8 +210,8 @@ private fun GetTextContent(
             Text(
                 text = textConfig.text,
                 style = defaults.style(isHeader),
-                maxLines = defaults.maxLines,
-                overflow = defaults.overflow,
+                maxLines = defaults.maxLines(isHeader),
+                overflow = defaults.overflow(isHeader),
                 color = color
             )
         }
