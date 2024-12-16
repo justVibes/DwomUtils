@@ -3,7 +3,7 @@ package com.example.ui_components.models.core.type_of_worker
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.ui_components.models.core.company.Company
-import com.example.ui_components.models.core.type_of_worker.components.WorkerTitle
+import com.example.ui_components.models.core.type_of_worker.components.worker_title.WorkerTitle
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 
