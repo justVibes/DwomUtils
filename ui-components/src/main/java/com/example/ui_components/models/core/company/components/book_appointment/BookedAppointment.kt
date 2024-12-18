@@ -4,25 +4,21 @@ import com.example.ui_components.models.client.ClientItem
 import com.example.ui_components.models.client.components.service_provider.ServiceProvider
 import com.example.ui_components.models.core.company.components.book_appointment.variants.LocalBookedAppointment
 import com.google.firebase.firestore.Exclude
-import org.jetbrains.annotations.ApiStatus.Experimental
 
 data class BookedAppointment(
-    val date: Long = 0L,
-    val time: Long = 0L,
     val approxStartTime: Long = 0L,
     val approxDurationInMins: Int = 0,
     val delayInMins: Int = 0,
     val advanceInMins: Int = 0,
     val serviceProvider: ServiceProvider? = null,
-    @Experimental val employeeDocPath: String? = null,
+    /* This is an identifier when the appointments collection is queried by a receptionist */
+    val companyCollectionPath: String? = null,
     val clientDocPath: String? = null,
     @Exclude val client: ClientItem? = null/*This is for local usage*/
 ) {
     object Config {
         fun mapToLocal(form: BookedAppointment) = LocalBookedAppointment().apply {
             val formattedForm = trimmedFields(form)
-            date = form.date
-            time = form.time
             approxDurationInMins = form.approxDurationInMins
             approxStartTime = form.approxStartTime
             delayInMins = form.delayInMins
@@ -30,13 +26,13 @@ data class BookedAppointment(
             serviceProvider = formattedForm.serviceProvider?.let {
                 ServiceProvider.Config.mapToLocal(it)
             }
-            employeeDocPath = formattedForm.employeeDocPath
+            employeeDocPath = formattedForm.companyCollectionPath
             clientDocPath = formattedForm.clientDocPath
             client = formattedForm.client?.let { ClientItem.Config.mapToLocal(it) }
         }
 
         fun trimmedFields(form: BookedAppointment) = form.copy(
-            employeeDocPath = form.employeeDocPath?.trim(),
+            companyCollectionPath = form.companyCollectionPath?.trim(),
             clientDocPath = form.clientDocPath?.trim(),
             client = form.client?.let { ClientItem.Config.trimmedFields(it) },
             serviceProvider = form.serviceProvider?.let { ServiceProvider.Config.trimmedFields(it) }

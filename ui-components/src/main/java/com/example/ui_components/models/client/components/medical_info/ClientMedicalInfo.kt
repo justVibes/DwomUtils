@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ClientMedicalInfo(
-    val patientHealthConcern: String = "",
+    val appointmentReason: String = "",
     val diagnosis: String = "",
     val prescriptions: List<Prescription> = emptyList(),
     val recommendations: List<ClientRecommendation> = emptyList(),
@@ -18,7 +18,7 @@ data class ClientMedicalInfo(
         fun mapToLocal(form: ClientMedicalInfo) =
             LocalClientMedicalInfo().apply {
                 val formattedFields = trimmedFields(form)
-                patientHealthConcern= formattedFields.patientHealthConcern
+                appointmentReason= formattedFields.appointmentReason
                 diagnosis = formattedFields.diagnosis
                 prescriptions =
                     formattedFields.prescriptions
@@ -31,7 +31,7 @@ data class ClientMedicalInfo(
         fun trimmedFields(form: ClientMedicalInfo) = form.copy(
             diagnosis = form.diagnosis.trim(),
             prescriptions = form.prescriptions.map { Prescription.Config.trimmedFields(it) },
-            patientHealthConcern = form.patientHealthConcern.trim()
+            appointmentReason = form.appointmentReason.trim()
         )
     }
 }

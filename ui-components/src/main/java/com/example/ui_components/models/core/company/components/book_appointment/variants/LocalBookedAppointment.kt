@@ -6,8 +6,6 @@ import com.example.ui_components.models.core.company.components.book_appointment
 import io.realm.kotlin.types.EmbeddedRealmObject
 
 class LocalBookedAppointment : EmbeddedRealmObject {
-    var date: Long = 0L
-    var time: Long = 0L
     var approxStartTime: Long = 0L
     var approxDurationInMins: Int = 0
     var delayInMins: Int = 0
@@ -21,8 +19,6 @@ class LocalBookedAppointment : EmbeddedRealmObject {
         fun mapToOriginal(form: LocalBookedAppointment): BookedAppointment {
             val formattedForm = trimmedFields(form)
             return BookedAppointment(
-                date = form.date,
-                time = form.time,
                 approxStartTime = form.approxStartTime,
                 approxDurationInMins = form.approxDurationInMins,
                 delayInMins = form.delayInMins,
@@ -30,7 +26,7 @@ class LocalBookedAppointment : EmbeddedRealmObject {
                 serviceProvider = formattedForm.serviceProvider?.let {
                     LocalServiceProvider.Config.mapToOriginal(it)
                 },
-                employeeDocPath = formattedForm.employeeDocPath,
+                companyCollectionPath = formattedForm.employeeDocPath,
                 clientDocPath = formattedForm.clientDocPath,
                 client = formattedForm.client?.let { LocalClientItem.Config.mapToOriginal(it) }
             )

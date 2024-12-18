@@ -26,6 +26,8 @@ import java.util.UUID
 @Serializable
 data class ClientItem(
     val clientId: String = "${UUID.randomUUID()}",
+    val isBillable: Boolean = false,
+    val creationDate: Long = 0L,
     val serviceProvider: ServiceProvider? = null,
     val accessorEmails: List<String> = emptyList(),
     val clientInfo: ClientInfo = ClientInfo(),

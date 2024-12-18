@@ -19,7 +19,6 @@ class LocalClientInfo : EmbeddedRealmObject {
     var birthPlace: String = ""
     var height: String = ""
     var weight: String = ""
-
     @Ignore
     var age: Int = (Calendar.getInstance().timeInMillis - birthDate).toInt()
     var presentAddress: String = ""
