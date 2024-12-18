@@ -1,7 +1,7 @@
-package com.example.ui_components.models.core.company.components.employee.employee_info.variants
+package com.example.ui_components.models.core.company.components.employee_info.variants
 
 import com.example.ui_components.models.core.company.components.company_summary.variants.LocalCompanySummary
-import com.example.ui_components.models.core.company.components.employee.employee_info.EmployeeInfo
+import com.example.ui_components.models.core.company.components.employee_info.EmployeeInfo
 import com.example.ui_components.models.core.type_of_worker.components.worker_title.variants.LocalWorkerTitle
 import io.realm.kotlin.types.EmbeddedRealmObject
 

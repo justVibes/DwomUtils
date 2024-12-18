@@ -1,7 +1,7 @@
-package com.example.ui_components.models.core.company.components.employee.employee_info
+package com.example.ui_components.models.core.company.components.employee_info
 
 import com.example.ui_components.models.core.company.components.company_summary.CompanySummary
-import com.example.ui_components.models.core.company.components.employee.employee_info.variants.LocalEmployeeInfo
+import com.example.ui_components.models.core.company.components.employee_info.variants.LocalEmployeeInfo
 import com.example.ui_components.models.core.type_of_worker.components.worker_title.WorkerTitle
 
 data class EmployeeInfo(

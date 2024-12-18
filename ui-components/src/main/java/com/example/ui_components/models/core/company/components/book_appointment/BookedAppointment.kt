@@ -11,6 +11,7 @@ data class BookedAppointment(
     val delayInMins: Int = 0,
     val advanceInMins: Int = 0,
     val serviceProvider: ServiceProvider? = null,
+    val assistantServiceProvider: ServiceProvider? = null,
     /* This is an identifier when the appointments collection is queried by a receptionist */
     val companyCollectionPath: String? = null,
     val clientDocPath: String? = null,
@@ -26,6 +27,9 @@ data class BookedAppointment(
             serviceProvider = formattedForm.serviceProvider?.let {
                 ServiceProvider.Config.mapToLocal(it)
             }
+            assistantServiceProvider = formattedForm.assistantServiceProvider?.let {
+                ServiceProvider.Config.mapToLocal(it)
+            }
             employeeDocPath = formattedForm.companyCollectionPath
             clientDocPath = formattedForm.clientDocPath
             client = formattedForm.client?.let { ClientItem.Config.mapToLocal(it) }
@@ -35,7 +39,8 @@ data class BookedAppointment(
             companyCollectionPath = form.companyCollectionPath?.trim(),
             clientDocPath = form.clientDocPath?.trim(),
             client = form.client?.let { ClientItem.Config.trimmedFields(it) },
-            serviceProvider = form.serviceProvider?.let { ServiceProvider.Config.trimmedFields(it) }
+            assistantServiceProvider = form.assistantServiceProvider?.let { ServiceProvider.Config.trimmedFields(it) },
+            serviceProvider = form.assistantServiceProvider?.let { ServiceProvider.Config.trimmedFields(it) }
         )
     }
 }

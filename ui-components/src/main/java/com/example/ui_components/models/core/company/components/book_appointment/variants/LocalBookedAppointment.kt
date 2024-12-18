@@ -11,6 +11,7 @@ class LocalBookedAppointment : EmbeddedRealmObject {
     var delayInMins: Int = 0
     var advanceInMins: Int = 0
     var serviceProvider: LocalServiceProvider? = null
+    var assistantServiceProvider: LocalServiceProvider? = null
     var employeeDocPath: String? = null
     var clientDocPath: String? = null
     var client: LocalClientItem? = null/*This is for local usage*/
@@ -26,6 +27,9 @@ class LocalBookedAppointment : EmbeddedRealmObject {
                 serviceProvider = formattedForm.serviceProvider?.let {
                     LocalServiceProvider.Config.mapToOriginal(it)
                 },
+                assistantServiceProvider = formattedForm.assistantServiceProvider?.let {
+                    LocalServiceProvider.Config.mapToOriginal(it)
+                },
                 companyCollectionPath = formattedForm.employeeDocPath,
                 clientDocPath = formattedForm.clientDocPath,
                 client = formattedForm.client?.let { LocalClientItem.Config.mapToOriginal(it) }
@@ -37,6 +41,9 @@ class LocalBookedAppointment : EmbeddedRealmObject {
             clientDocPath = form.clientDocPath?.trim()
             client = form.client?.let { LocalClientItem.Config.trimmedFields(it) }
             serviceProvider = form.serviceProvider?.let {
+                LocalServiceProvider.Config.trimmedFields(it)
+            }
+            assistantServiceProvider = form.assistantServiceProvider?.let {
                 LocalServiceProvider.Config.trimmedFields(it)
             }
         }
