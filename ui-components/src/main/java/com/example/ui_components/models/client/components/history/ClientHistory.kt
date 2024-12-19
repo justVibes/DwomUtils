@@ -8,6 +8,7 @@ import com.example.ui_components.models.client.components.lab_result.LabResult
 import com.example.ui_components.models.client.components.note.ClientNote
 import com.example.ui_components.models.client.components.service_provider.ServiceProvider
 import com.example.ui_components.models.client.components.vitals.ClientVitals
+import com.example.ui_components.models.core.company.components.book_appointment.BookedAppointment
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -20,7 +21,8 @@ data class ClientHistory(
     val vitals: ClientVitals = ClientVitals(),
     val emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
     val notes: List<ClientNote> = emptyList(),
-    @Transient val labResults: List<LabResult> = emptyList()
+    @Transient val labResults: List<LabResult> = emptyList(),
+    @Transient val bookedAppointment: BookedAppointment? = null
 ) {
     object Config {
         fun mapToLocal(form: ClientHistory) = LocalClientHistory().apply {
@@ -31,6 +33,7 @@ data class ClientHistory(
             emergencyContactInfo = EmergencyContactInfo.Config.mapToLocal(form.emergencyContactInfo)
             notes = form.notes.map { ClientNote.Config.mapToLocal(it) }.toRealmList()
             labResults = form.labResults.map { LabResult.Config.mapToLocal(it) }.toRealmList()
+            bookedAppointment = form.bookedAppointment?.let { BookedAppointment.Config.mapToLocal(it) }
         }
 
         fun mapToClientItem(form: ClientHistory) = ClientItem(
@@ -39,7 +42,8 @@ data class ClientHistory(
             vitals = form.vitals,
             emergencyContactInfo = form.emergencyContactInfo,
             tempNotes = form.notes,
-            labResults = form.labResults
+            labResults = form.labResults,
+            bookedAppointment = form.bookedAppointment
         )
     }
 }

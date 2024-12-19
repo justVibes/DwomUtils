@@ -11,6 +11,7 @@ import com.example.ui_components.models.client.components.note.variants.LocalCli
 import com.example.ui_components.models.client.components.service_provider.LocalServiceProvider
 import com.example.ui_components.models.client.components.vitals.ClientVitals
 import com.example.ui_components.models.client.components.vitals.variants.LocalClientVitals
+import com.example.ui_components.models.core.company.components.book_appointment.variants.LocalBookedAppointment
 import com.google.firebase.firestore.Exclude
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.ext.toRealmList
@@ -24,11 +25,13 @@ class LocalClientItem : RealmObject {
     var serviceProvider: LocalServiceProvider? = null
     var accessorEmails: RealmList<String> = realmListOf()
     var clientInfo: LocalClientInfo? = null
+    var isBillable: Boolean = false
     var vitals: LocalClientVitals? = null
     var emergencyContactInfo: LocalEmergencyContactInfo? = null
     var notes: RealmList<LocalClientNote> = realmListOf()
     var labResults: RealmList<LocalLabResult> = realmListOf()
     var history: RealmList<LocalClientHistory> = realmListOf()
+    var bookedAppointment: LocalBookedAppointment? = null
 
     /* Use this to differentiate between client files that the user owns and downloaded client files */
     @Exclude
@@ -50,7 +53,10 @@ class LocalClientItem : RealmObject {
             } ?: EmergencyContactInfo(),
             tempNotes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },
             labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) },
-            history = form.history.map { LocalClientHistory.Config.mapToOriginal(it) }
+            history = form.history.map { LocalClientHistory.Config.mapToOriginal(it) },
+            bookedAppointment = form.bookedAppointment?.let {
+                LocalBookedAppointment.Config.mapToOriginal(it)
+            }
         )
 
         fun trimmedFields(form: LocalClientItem) = LocalClientItem().apply {
@@ -65,6 +71,9 @@ class LocalClientItem : RealmObject {
             )
             notes = form.notes.map { LocalClientNote.Config.trimmedFields(it) }.toRealmList()
             labResults = form.labResults
+            bookedAppointment = form.bookedAppointment?.let {
+                LocalBookedAppointment.Config.trimmedFields(it)
+            }
         }
     }
 }

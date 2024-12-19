@@ -7,6 +7,7 @@ import com.example.ui_components.models.client.components.lab_result.variants.Lo
 import com.example.ui_components.models.client.components.note.variants.LocalClientNote
 import com.example.ui_components.models.client.components.service_provider.LocalServiceProvider
 import com.example.ui_components.models.client.components.vitals.variants.LocalClientVitals
+import com.example.ui_components.models.core.company.components.book_appointment.variants.LocalBookedAppointment
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmList
@@ -19,6 +20,7 @@ class LocalClientHistory : EmbeddedRealmObject {
     var emergencyContactInfo: LocalEmergencyContactInfo? = null
     var notes: RealmList<LocalClientNote> = realmListOf()
     var labResults: RealmList<LocalLabResult> = realmListOf()
+    var bookedAppointment: LocalBookedAppointment? = null
 
     object Config {
         fun mapToOriginal(form: LocalClientHistory) = ClientHistory(
@@ -32,7 +34,10 @@ class LocalClientHistory : EmbeddedRealmObject {
                 form.emergencyContactInfo ?: LocalEmergencyContactInfo()
             ),
             notes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },
-            labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) }
+            labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) },
+            bookedAppointment = form.bookedAppointment?.let {
+                LocalBookedAppointment.Config.mapToOriginal(it)
+            }
         )
 
     }

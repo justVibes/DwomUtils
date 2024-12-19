@@ -11,6 +11,7 @@ import com.example.ui_components.models.client.components.service_provider.Servi
 import com.example.ui_components.models.client.components.vitals.ClientVitals
 import com.example.ui_components.models.client.variants.HighlightedClientItem
 import com.example.ui_components.models.client.variants.LocalClientItem
+import com.example.ui_components.models.core.company.components.book_appointment.BookedAppointment
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 import io.realm.kotlin.ext.toRealmList
@@ -26,7 +27,6 @@ import java.util.UUID
 @Serializable
 data class ClientItem(
     val clientId: String = "${UUID.randomUUID()}",
-    val isBillable: Boolean = false,
     val creationDate: Long = 0L,
     val serviceProvider: ServiceProvider? = null,
     val accessorEmails: List<String> = emptyList(),
@@ -34,6 +34,7 @@ data class ClientItem(
     val vitals: ClientVitals = ClientVitals(),
     val emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
     val history: List<ClientHistory> = emptyList(),
+    @Transient val bookedAppointment: BookedAppointment? = null,
 
     /*
     * References the notes created for this client, which is stored in a sub collection
@@ -71,6 +72,7 @@ data class ClientItem(
             notes = form.tempNotes.map { ClientNote.Config.mapToLocal(it) }.toRealmList()
             labResults = form.labResults.map { LabResult.Config.mapToLocal(it) }.toRealmList()
             history = form.history.map { ClientHistory.Config.mapToLocal(it) }.toRealmList()
+            bookedAppointment = form.bookedAppointment?.let { BookedAppointment.Config.mapToLocal(it) }
         }
 
         fun mapToHistory(form: ClientItem): ClientHistory {
