@@ -22,7 +22,8 @@ data class ClientHistory(
     val emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
     val notes: List<ClientNote> = emptyList(),
     @Transient val labResults: List<LabResult> = emptyList(),
-    @Transient val bookedAppointment: BookedAppointment? = null
+    val bookedAppointmentsDocPaths: List<String> = emptyList(),
+    @Transient val bookedAppointments: List<BookedAppointment> = emptyList() /* This is for local usage */
 ) {
     object Config {
         fun mapToLocal(form: ClientHistory) = LocalClientHistory().apply {
@@ -33,7 +34,7 @@ data class ClientHistory(
             emergencyContactInfo = EmergencyContactInfo.Config.mapToLocal(form.emergencyContactInfo)
             notes = form.notes.map { ClientNote.Config.mapToLocal(it) }.toRealmList()
             labResults = form.labResults.map { LabResult.Config.mapToLocal(it) }.toRealmList()
-            bookedAppointment = form.bookedAppointment?.let { BookedAppointment.Config.mapToLocal(it) }
+            bookedAppointments = form.bookedAppointments.map { BookedAppointment.Config.mapToLocal(it) }.toRealmList()
         }
 
         fun mapToClientItem(form: ClientHistory) = ClientItem(
@@ -43,7 +44,6 @@ data class ClientHistory(
             emergencyContactInfo = form.emergencyContactInfo,
             tempNotes = form.notes,
             labResults = form.labResults,
-            bookedAppointment = form.bookedAppointment
         )
     }
 }

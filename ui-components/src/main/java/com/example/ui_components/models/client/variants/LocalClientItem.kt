@@ -25,7 +25,6 @@ class LocalClientItem : RealmObject {
     var serviceProvider: LocalServiceProvider? = null
     var accessorEmails: RealmList<String> = realmListOf()
     var clientInfo: LocalClientInfo? = null
-    var isBillable: Boolean = false
     var vitals: LocalClientVitals? = null
     var emergencyContactInfo: LocalEmergencyContactInfo? = null
     var notes: RealmList<LocalClientNote> = realmListOf()
