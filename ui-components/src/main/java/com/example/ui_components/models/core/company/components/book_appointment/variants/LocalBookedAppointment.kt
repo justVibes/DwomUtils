@@ -34,9 +34,7 @@ class LocalBookedAppointment : EmbeddedRealmObject {
                 },
                 companyCollectionPath = formattedForm.companyCollectionPath,
                 clientSummary = formattedForm.clientSummary?.let {
-                    LocalClientSummary.Config.mapToOriginal(
-                        it
-                    )
+                    LocalClientSummary.Config.mapToOriginal(it)
                 }
             )
         }

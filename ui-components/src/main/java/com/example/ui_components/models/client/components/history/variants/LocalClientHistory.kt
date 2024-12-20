@@ -20,8 +20,7 @@ class LocalClientHistory : EmbeddedRealmObject {
     var emergencyContactInfo: LocalEmergencyContactInfo? = null
     var notes: RealmList<LocalClientNote> = realmListOf()
     var labResults: RealmList<LocalLabResult> = realmListOf()
-    var bookedAppointmentsDocPaths: RealmList<String> = realmListOf()
-    var bookedAppointments: RealmList<LocalBookedAppointment> = realmListOf()
+    var bookedAppointment: LocalBookedAppointment? = null
 
     object Config {
         fun mapToOriginal(form: LocalClientHistory) = ClientHistory(
@@ -36,8 +35,7 @@ class LocalClientHistory : EmbeddedRealmObject {
             ),
             notes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },
             labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) },
-            bookedAppointmentsDocPaths = form.bookedAppointmentsDocPaths.map { it.trim() },
-            bookedAppointments = form.bookedAppointments.map {
+            bookedAppointment = form.bookedAppointment?.let {
                 LocalBookedAppointment.Config.mapToOriginal(it)
             }
         )

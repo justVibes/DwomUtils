@@ -32,29 +32,27 @@ data class ClientInfo(
     val financialInfo: ClientFinancialInfo = ClientFinancialInfo()
 ) {
     object Config {
-        fun mapToLocal(form: ClientInfo): LocalClientInfo {
+        fun mapToLocal(form: ClientInfo) = LocalClientInfo().apply {
             val formattedForm = trimmedFields(form)
-            return LocalClientInfo().apply {
-                tagName = formattedForm.tagName
-                photo = LocalClientPhoto().apply {
-                    url = form.photo.url
-                    updatedUrl = form.photo.updatedUrl
-                    storagePath = form.photo.storagePath
-                }
-                name = Name.Config.mapToLocal(formattedForm.name)
-                sex = formattedForm.sex  /*Use 'ValidGenders' enum to initialize*/
-                birthDate = formattedForm.birthDate
-                birthPlace = formattedForm.birthPlace
-                height = formattedForm.height
-                weight = formattedForm.weight
-                presentAddress = formattedForm.presentAddress
-                occupation = formattedForm.occupation
-                age = 0 /*Generated based on the given birth date*/
-                localPhoneNumber = formattedForm.localPhoneNumber
-                emailAddress = formattedForm.emailAddress
-                medicalInfo = ClientMedicalInfo.Config.mapToLocal(formattedForm.medicalInfo)
-                financialInfo = ClientFinancialInfo.Config.mapToLocal(formattedForm.financialInfo)
+            tagName = formattedForm.tagName
+            photo = LocalClientPhoto().apply {
+                url = form.photo.url
+                updatedUrl = form.photo.updatedUrl
+                storagePath = form.photo.storagePath
             }
+            name = Name.Config.mapToLocal(formattedForm.name)
+            sex = formattedForm.sex  /*Use 'ValidGenders' enum to initialize*/
+            birthDate = formattedForm.birthDate
+            birthPlace = formattedForm.birthPlace
+            height = formattedForm.height
+            weight = formattedForm.weight
+            presentAddress = formattedForm.presentAddress
+            occupation = formattedForm.occupation
+            age = 0 /*Generated based on the given birth date*/
+            localPhoneNumber = formattedForm.localPhoneNumber
+            emailAddress = formattedForm.emailAddress
+            medicalInfo = ClientMedicalInfo.Config.mapToLocal(formattedForm.medicalInfo)
+            financialInfo = ClientFinancialInfo.Config.mapToLocal(formattedForm.financialInfo)
         }
 
         fun mapToHighlighted(original: ClientInfo?, modified: ClientInfo?) = HighlightedClientInfo(

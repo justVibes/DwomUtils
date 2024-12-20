@@ -1,5 +1,6 @@
 package com.example.ui_components.models.client
 
+import androidx.compose.ui.graphics.Color
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.emergency_contact_info.EmergencyContactInfo
 import com.example.ui_components.models.client.components.history.ClientHistory
@@ -35,6 +36,12 @@ data class ClientItem(
     val emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
     val history: List<ClientHistory> = emptyList(),
     @Transient val bookedAppointment: BookedAppointment? = null,
+    @Transient val randColor: Color = Color(
+        (30..225).random(),
+        (30..225).random(),
+        (30..225).random(),
+        (30..225).random(),
+    ),
 
     /*
     * References the notes created for this client, which is stored in a sub collection
@@ -53,7 +60,7 @@ data class ClientItem(
     @Exclude val tempNotes: List<ClientNote> = emptyList(),
     @Transient val labResults: List<LabResult> = emptyList()
 ) {
-    object Config {
+    companion object Config {
         fun mapToLocal(form: ClientItem) = LocalClientItem().apply {
             clientId = form.clientId
             serviceProvider = form.serviceProvider?.let {
@@ -72,7 +79,8 @@ data class ClientItem(
             notes = form.tempNotes.map { ClientNote.Config.mapToLocal(it) }.toRealmList()
             labResults = form.labResults.map { LabResult.Config.mapToLocal(it) }.toRealmList()
             history = form.history.map { ClientHistory.Config.mapToLocal(it) }.toRealmList()
-            bookedAppointment = form.bookedAppointment?.let { BookedAppointment.Config.mapToLocal(it) }
+            bookedAppointment =
+                form.bookedAppointment?.let { BookedAppointment.Config.mapToLocal(it) }
         }
 
         fun mapToHistory(form: ClientItem): ClientHistory {

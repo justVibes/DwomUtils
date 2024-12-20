@@ -62,6 +62,7 @@ class LocalClientInfo : EmbeddedRealmObject {
             tagName = form.tagName.trim()
             name = form.name?.let { LocalName.Config.trimmedFields(it) }
             sex = form.sex.trim()
+            birthDate = form.birthDate
             birthPlace = form.birthPlace.trim()
             height = form.height.filter { it.isDigit() }.trim()
             weight = form.weight.filter { it.isDigit() }.trim()
