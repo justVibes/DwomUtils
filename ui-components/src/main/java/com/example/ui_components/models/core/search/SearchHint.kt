@@ -6,8 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class SearchHint(
-    @PrimaryKey(autoGenerate = true)
-    val _id: Int = 0,
+    @PrimaryKey
     val hint: String = "",
     @ColumnInfo(index = true)
     val timeStamp: Long = System.currentTimeMillis(),
