@@ -6,6 +6,7 @@ data class HighlightedClientInfo(
     val tagName: EditType = EditType.NONE,
     val photoUrl: EditType = EditType.NONE,
     val firstName: EditType = EditType.NONE,
+    val middleName: EditType = EditType.NONE,
     val lastName: EditType = EditType.NONE,
     val sex: EditType = EditType.NONE,
     val birthDate: EditType = EditType.NONE,

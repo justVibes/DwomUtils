@@ -1,4 +1,4 @@
-package com.bizmap.book_it_business.core.presentation.search_textfield
+package com.example.ui_components.ui.text_fields.search_textfield
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -42,18 +42,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.ui_components.R
-import com.example.ui_components.models.core.SearchHint
+import com.example.ui_components.models.core.search.SearchHint
 import com.example.ui_components.ui.core.core_logic.WindowSizes
 
-
 @Composable
-fun <T> SearchTextField(
+fun SearchTextField(
     windowSizeClass: WindowSizeClass,
     height: Dp,
     searchText: String,
-    previousSearches: List<SearchHint<T>>,
-    matchingSearches: List<SearchHint<T>>,
-    onHintClicked: (SearchHint<T>) -> Unit,
+    previousSearches: List<SearchHint>,
+    matchingSearches: List<SearchHint>,
+    onHintClicked: (SearchHint) -> Unit,
     onUpdateSearch: (String) -> Unit,
     onSearchClicked: () -> Unit,
     onManageSearchClicked: () -> Unit,
@@ -94,7 +93,7 @@ fun <T> SearchTextField(
 }
 
 @Composable
-private fun <T> SearchField(
+private fun SearchField(
     windowSizeClass: WindowSizeClass,
     height: Dp,
     onClearClicked: () -> Unit,
@@ -102,8 +101,8 @@ private fun <T> SearchField(
     onUpdateSearch: (String) -> Unit,
     onSearchClicked: () -> Unit,
     focusManager: FocusManager,
-    searchHints: List<SearchHint<T>>,
-    onHintClicked: (SearchHint<T>) -> Unit
+    searchHints: List<SearchHint>,
+    onHintClicked: (SearchHint) -> Unit
 ) {
     var areHintsVisible by remember { mutableStateOf(false) }
     Column(
@@ -126,11 +125,11 @@ private fun <T> SearchField(
                 )
             },
             suffix = {
-                if(searchText.isNotEmpty()){
+                if (searchText.isNotEmpty()) {
                     Icon(
                         modifier = Modifier
                             .clip(CircleShape)
-                            .clickable {onClearClicked()},
+                            .clickable { onClearClicked() },
                         imageVector = Icons.Default.Close,
                         contentDescription = null,
                     )

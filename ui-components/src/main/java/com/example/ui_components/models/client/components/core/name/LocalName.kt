@@ -5,7 +5,7 @@ import io.realm.kotlin.types.EmbeddedRealmObject
 class LocalName : EmbeddedRealmObject {
     var first: String = ""
     var last: String = ""
-    var middleInitial: Char = ' '
+    var middle: String = ""
 
     object Config {
         fun mapToOriginal(form: LocalName): Name {
@@ -13,7 +13,7 @@ class LocalName : EmbeddedRealmObject {
             return Name(
                 first = formattedForm.first,
                 last = formattedForm.last,
-                middleInitial = formattedForm.middleInitial
+                middle = formattedForm.middle
             )
         }
 
@@ -21,7 +21,7 @@ class LocalName : EmbeddedRealmObject {
         fun trimmedFields(form: LocalName) = LocalName().apply {
             first = form.first.trim()
             last = form.last.trim()
-            middleInitial = form.middleInitial
+            middle = form.middle
         }
     }
 }

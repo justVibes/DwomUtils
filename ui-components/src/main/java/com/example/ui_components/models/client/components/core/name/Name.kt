@@ -6,20 +6,20 @@ import kotlinx.serialization.Serializable
 data class Name(
     val first: String = "",
     val last: String = "",
-    val middleInitial: Char = ' '
+    val middle: String = ""
 ) {
     object Config {
         fun mapToLocal(form: Name) = LocalName().apply {
             val formattedFields = trimmedFields(form)
             first = formattedFields.first
             last = formattedFields.last
-            middleInitial = formattedFields.middleInitial
+            middle = formattedFields.middle
         }
 
         fun trimmedFields(form: Name) = form.copy(
             first = form.first.trim(),
             last = form.last.trim(),
-            middleInitial = form.middleInitial
+            middle = form.middle
         )
     }
 }

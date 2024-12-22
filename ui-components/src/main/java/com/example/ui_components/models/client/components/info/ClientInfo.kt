@@ -58,6 +58,7 @@ data class ClientInfo(
         fun mapToHighlighted(original: ClientInfo?, modified: ClientInfo?) = HighlightedClientInfo(
             tagName = stringComparison(original?.tagName, modified?.tagName),
             firstName = stringComparison(original?.name?.first, modified?.name?.first),
+            middleName = stringComparison(original?.name?.middle, modified?.name?.middle),
             lastName = stringComparison(original?.name?.last, modified?.name?.last),
             sex = stringComparison(original?.sex, modified?.sex),
             birthDate = stringComparison("${original?.birthDate}", "${modified?.birthDate}"),
