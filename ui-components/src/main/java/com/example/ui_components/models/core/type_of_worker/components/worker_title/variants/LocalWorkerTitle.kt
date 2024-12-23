@@ -7,7 +7,7 @@ class LocalWorkerTitle : EmbeddedRealmObject {
     var formatted: String = ""
     var abv: String = ""
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalWorkerTitle): WorkerTitle {
             val formattedForm = trimmedFields(form)
             return WorkerTitle(

@@ -1,6 +1,6 @@
 package com.example.ui_components.models.client
 
-import androidx.compose.ui.graphics.Color
+import com.example.ui_components.models.client.components.color.ClientColor
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.emergency_contact_info.EmergencyContactInfo
 import com.example.ui_components.models.client.components.history.ClientHistory
@@ -36,13 +36,7 @@ data class ClientItem(
     val emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
     val history: List<ClientHistory> = emptyList(),
     @Transient val bookedAppointment: BookedAppointment? = null,
-    @Transient val randColor: Color = Color(
-        (30..225).random(),
-        (30..225).random(),
-        (30..225).random(),
-        (30..225).random(),
-    ),
-
+    @Transient val clientColor: ClientColor = ClientColor(rand1, rand2, rand3),
     /*
     * References the notes created for this client, which is stored in a sub collection
     * of the client's document
@@ -60,27 +54,31 @@ data class ClientItem(
     @Exclude val tempNotes: List<ClientNote> = emptyList(),
     @Transient val labResults: List<LabResult> = emptyList()
 ) {
-    companion object Config {
+    companion object {
+        internal val rand1 = (30..225).random()
+        internal val rand2 = (30..225).random()
+        internal val rand3 = (30..225).random()
         fun mapToLocal(form: ClientItem) = LocalClientItem().apply {
             clientId = form.clientId
             serviceProvider = form.serviceProvider?.let {
-                ServiceProvider.Config.mapToLocal(it)
+                ServiceProvider.mapToLocal(it)
             }
             accessorEmails = form.accessorEmails.toRealmList()
             clientInfo = form.clientInfo.let {
-                ClientInfo.Config.mapToLocal(it)
+                ClientInfo.mapToLocal(it)
             }
             vitals = form.vitals.let {
-                ClientVitals.Config.mapToLocal(it)
+                ClientVitals.mapToLocal(it)
             }
             emergencyContactInfo = form.emergencyContactInfo.let {
-                EmergencyContactInfo.Config.mapToLocal(it)
+                EmergencyContactInfo.mapToLocal(it)
             }
-            notes = form.tempNotes.map { ClientNote.Config.mapToLocal(it) }.toRealmList()
-            labResults = form.labResults.map { LabResult.Config.mapToLocal(it) }.toRealmList()
-            history = form.history.map { ClientHistory.Config.mapToLocal(it) }.toRealmList()
+            notes = form.tempNotes.map { ClientNote.mapToLocal(it) }.toRealmList()
+            labResults = form.labResults.map { LabResult.mapToLocal(it) }.toRealmList()
+            history = form.history.map { ClientHistory.mapToLocal(it) }.toRealmList()
             bookedAppointment =
-                form.bookedAppointment?.let { BookedAppointment.Config.mapToLocal(it) }
+                form.bookedAppointment?.let { BookedAppointment.mapToLocal(it) }
+            clientColor = ClientColor.mapToLocal(form.clientColor)
         }
 
         fun mapToHistory(form: ClientItem): ClientHistory {
@@ -98,18 +96,18 @@ data class ClientItem(
 
         fun mapToHighlighted(original: ClientItem, modified: ClientItem): HighlightedClientItem {
             return HighlightedClientItem(
-                clientInfo = ClientInfo.Config.mapToHighlighted(
+                clientInfo = ClientInfo.mapToHighlighted(
                     original.clientInfo,
                     modified.clientInfo
                 ),
-                vitals = ClientVitals.Config.mapToHighlighted(original.vitals, modified.vitals),
-                emergencyContactInfo = EmergencyContactInfo.Config.mapToHighlighted(
+                vitals = ClientVitals.mapToHighlighted(original.vitals, modified.vitals),
+                emergencyContactInfo = EmergencyContactInfo.mapToHighlighted(
                     original.emergencyContactInfo,
                     modified.emergencyContactInfo
                 ),
                 notes = modified.tempNotes.mapIndexed { index, note ->
                     try {
-                        ClientNote.Config.mapToHighlighted(note, original.tempNotes[index])
+                        ClientNote.mapToHighlighted(note, original.tempNotes[index])
                     } catch (e: IndexOutOfBoundsException) {
                         HighlightedClientNote(isNew = EditType.ADDED)
                     }
@@ -119,30 +117,30 @@ data class ClientItem(
 
         fun trimmedFields(form: ClientItem) =
             form.copy(
-                clientInfo = ClientInfo.Config.trimmedFields(form.clientInfo),
-                vitals = ClientVitals.Config.trimmedFields(form.vitals),
-                emergencyContactInfo = EmergencyContactInfo.Config.trimmedFields(form.emergencyContactInfo),
-                tempNotes = form.tempNotes.map { ClientNote.Config.trimmedFields(it) }
+                clientInfo = ClientInfo.trimmedFields(form.clientInfo),
+                vitals = ClientVitals.trimmedFields(form.vitals),
+                emergencyContactInfo = EmergencyContactInfo.trimmedFields(form.emergencyContactInfo),
+                tempNotes = form.tempNotes.map { ClientNote.trimmedFields(it) }
             )
 
         fun mapToString(form: ClientItem): String {
             val formattedForm = trimmedFields(form)
             return """
                 Client Info.
-                ${formattedForm.clientInfo.let { ClientInfo.Config.mapToString(it) }}
+                ${formattedForm.clientInfo.let { ClientInfo.mapToString(it) }}
                 
                 Emergency Contact Info.
                 ${
                 formattedForm.emergencyContactInfo.let {
-                    EmergencyContactInfo.Config.mapToString(it)
+                    EmergencyContactInfo.mapToString(it)
                 }
             }
                 
                 Vitals
-                ${formattedForm.vitals.let { ClientVitals.Config.mapToString(it) }}
+                ${formattedForm.vitals.let { ClientVitals.mapToString(it) }}
                 
                 Notes
-                ${form.tempNotes.joinToString("\n\n") { ClientNote.Config.mapToString(it) }}
+                ${form.tempNotes.joinToString("\n\n") { ClientNote.mapToString(it) }}
             """.trimIndent()
         }
 
@@ -152,11 +150,11 @@ data class ClientItem(
             val paragraph = wordDocument.createParagraph()
             val run = paragraph.createRun()
             val sections = listOf(
-                "Client Info." to form.clientInfo.let { ClientInfo.Config.mapToListOfPairs(it) },
+                "Client Info." to form.clientInfo.let { ClientInfo.mapToListOfPairs(it) },
                 "Emergency Contact Info." to form.emergencyContactInfo.let {
-                    EmergencyContactInfo.Config.mapToListOfPairs(it)
+                    EmergencyContactInfo.mapToListOfPairs(it)
                 },
-                "Vitals" to form.vitals.let { ClientVitals.Config.mapToListOfPairs(it) },
+                "Vitals" to form.vitals.let { ClientVitals.mapToListOfPairs(it) },
             )
             run.setText("Client created by ${form.serviceProvider!!.name}")
             run.addBreak()
@@ -175,7 +173,7 @@ data class ClientItem(
                     }
                     run.setText("Notes")
                     form.tempNotes.forEach { note ->
-                        ClientNote.Config.mapToListOfPairs(note).forEach { noteSection ->
+                        ClientNote.mapToListOfPairs(note).forEach { noteSection ->
                             run.setText("${noteSection.first}: ${noteSection.second}")
                             run.addBreak()
                         }

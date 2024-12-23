@@ -10,12 +10,12 @@ data class ClientSummary(
     val email: String = "",
     val docPath: String? = null
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: ClientSummary) = LocalClientSummary().apply {
             val formattedForm = trimmedFields(form)
             uid = formattedForm.uid
             photoUrl = formattedForm.photoUrl
-            name = Name.Config.mapToLocal(formattedForm.name)
+            name = Name.mapToLocal(formattedForm.name)
             email = formattedForm.email
             docPath = formattedForm.docPath
         }
@@ -23,7 +23,7 @@ data class ClientSummary(
         fun trimmedFields(form: ClientSummary) = form.copy(
             uid = form.uid.trim(),
             photoUrl = form.photoUrl.trim(),
-            name = Name.Config.trimmedFields(form.name),
+            name = Name.trimmedFields(form.name),
             email = form.email.trim(),
             docPath = form.docPath?.trim()
         )

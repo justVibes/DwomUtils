@@ -8,7 +8,7 @@ class LocalCompanySummary : EmbeddedRealmObject {
     var category: String = ""
     var collectionPath: String? = null
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalCompanySummary): CompanySummary {
             val formattedForm = trimmedFields(form)
             return CompanySummary(

@@ -14,7 +14,7 @@ data class ClientMedicalInfo(
     val recommendations: List<ClientRecommendation> = emptyList(),
     val appointmentDate: Long = 0L,
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: ClientMedicalInfo) =
             LocalClientMedicalInfo().apply {
                 val formattedFields = trimmedFields(form)
@@ -22,15 +22,15 @@ data class ClientMedicalInfo(
                 diagnosis = formattedFields.diagnosis
                 prescriptions =
                     formattedFields.prescriptions
-                        .map { Prescription.Config.mapToLocal(it) }
+                        .map { Prescription.mapToLocal(it) }
                         .toRealmList()
-                recommendations = form.recommendations.map { ClientRecommendation.Config.mapToLocal(it) }.toRealmList()
+                recommendations = form.recommendations.map { ClientRecommendation.mapToLocal(it) }.toRealmList()
                 appointmentDate = form.appointmentDate
             }
 
         fun trimmedFields(form: ClientMedicalInfo) = form.copy(
             diagnosis = form.diagnosis.trim(),
-            prescriptions = form.prescriptions.map { Prescription.Config.trimmedFields(it) },
+            prescriptions = form.prescriptions.map { Prescription.trimmedFields(it) },
             appointmentReason = form.appointmentReason.trim()
         )
     }

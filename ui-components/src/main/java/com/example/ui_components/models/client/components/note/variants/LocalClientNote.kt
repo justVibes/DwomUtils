@@ -15,7 +15,7 @@ class LocalClientNote: EmbeddedRealmObject {
     var note: String = ""
     var accessEmails: RealmList<String> = realmListOf()
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalClientNote): ClientNote {
             val formattedForm = trimmedFields(form)
             return ClientNote(

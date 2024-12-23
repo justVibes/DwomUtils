@@ -17,28 +17,28 @@ data class Company(
     var employeesDocPaths: List<String> = emptyList(),
     @Exclude var employees: List<Employee> = emptyList()/*This is for local usage*/
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: Company) = LocalCompany().apply {
             val formattedForm = trimmedFields(form)
             companyId = formattedForm.companyId
-            summary = formattedForm.summary?.let { CompanySummary.Config.mapToLocal(it) }
+            summary = formattedForm.summary?.let { CompanySummary.mapToLocal(it) }
             photoUrl = formattedForm.photoUrl
             coarseLocation = formattedForm.coarseLocation
             type = formattedForm.type
             aboutUs = formattedForm.aboutUs
             employeesDocPaths = formattedForm.employeesDocPaths.toRealmList()
-            employees = formattedForm.employees.map { Employee.Config.mapToLocal(it) }.toRealmList()
+            employees = formattedForm.employees.map { Employee.mapToLocal(it) }.toRealmList()
         }
 
         fun trimmedFields(form: Company) = Company(
             companyId = form.companyId.trim(),
-            summary = CompanySummary.Config.trimmedFields(form.summary),
+            summary = CompanySummary.trimmedFields(form.summary),
             photoUrl = form.photoUrl.trim(),
             coarseLocation = form.coarseLocation.trim(),
             type = form.type.trim(),
             aboutUs = form.aboutUs.trim(),
             employeesDocPaths = form.employeesDocPaths.map { it.trim() },
-            employees = form.employees.map { Employee.Config.trimmedFields(it) }
+            employees = form.employees.map { Employee.trimmedFields(it) }
         )
     }
 }

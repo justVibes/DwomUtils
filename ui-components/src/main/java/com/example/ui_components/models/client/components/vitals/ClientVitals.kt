@@ -13,7 +13,7 @@ data class ClientVitals(
     val bloodOxygen: String = "",
     val bodyTemperatureCel: String = "",
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: ClientVitals) = LocalClientVitals().apply {
             val formattedForm = trimmedFields(form)
             heartRate = formattedForm.heartRate

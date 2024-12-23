@@ -15,12 +15,12 @@ class LocalPrescription : EmbeddedRealmObject {
     var issuedDate: Long = 0L
     var issuedBy: String = ""
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalPrescription): Prescription {
             val formattedForm = trimmedFields(form)
             return Prescription(
                 prescriptionId = formattedForm.prescriptionId,
-                medicines = formattedForm.medicines.map { LocalPrescriptionMedicine.Config.mapToOriginal(it) },
+                medicines = formattedForm.medicines.map { LocalPrescriptionMedicine.mapToOriginal(it) },
                 clientName = formattedForm.clientName,
                 clientAddress = formattedForm.clientAddress,
                 issuedBy = formattedForm.issuedBy,
@@ -30,7 +30,7 @@ class LocalPrescription : EmbeddedRealmObject {
 
         fun trimmedFields(form: LocalPrescription) = LocalPrescription().apply {
             prescriptionId = form.prescriptionId.trim()
-            medicines = form.medicines.map { LocalPrescriptionMedicine.Config.trimmedFields(it) }.toRealmList()
+            medicines = form.medicines.map { LocalPrescriptionMedicine.trimmedFields(it) }.toRealmList()
             clientName = form.clientName.trim()
             clientAddress = form.clientAddress.trim()
             issuedBy = form.issuedBy.trim()

@@ -24,16 +24,16 @@ data class ClientHistory(
     @Transient val labResults: List<LabResult> = emptyList(),
     @Transient val bookedAppointment: BookedAppointment? = null /* This is for local usage */
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: ClientHistory) = LocalClientHistory().apply {
             datePosted = form.datePosted
-            serviceProvider = form.serviceProvider?.let { ServiceProvider.Config.mapToLocal(it) }
-            clientInfo = ClientInfo.Config.mapToLocal(form.clientInfo)
-            vitals = ClientVitals.Config.mapToLocal(form.vitals)
-            emergencyContactInfo = EmergencyContactInfo.Config.mapToLocal(form.emergencyContactInfo)
-            notes = form.notes.map { ClientNote.Config.mapToLocal(it) }.toRealmList()
-            labResults = form.labResults.map { LabResult.Config.mapToLocal(it) }.toRealmList()
-            bookedAppointment = form.bookedAppointment?.let { BookedAppointment.Config.mapToLocal(it) }
+            serviceProvider = form.serviceProvider?.let { ServiceProvider.mapToLocal(it) }
+            clientInfo = ClientInfo.mapToLocal(form.clientInfo)
+            vitals = ClientVitals.mapToLocal(form.vitals)
+            emergencyContactInfo = EmergencyContactInfo.mapToLocal(form.emergencyContactInfo)
+            notes = form.notes.map { ClientNote.mapToLocal(it) }.toRealmList()
+            labResults = form.labResults.map { LabResult.mapToLocal(it) }.toRealmList()
+            bookedAppointment = form.bookedAppointment?.let { BookedAppointment.mapToLocal(it) }
         }
 
         fun mapToClientItem(form: ClientHistory) = ClientItem(

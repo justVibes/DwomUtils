@@ -3,11 +3,11 @@ package com.example.ui_components.models.client.components.medical_info.componen
 import com.example.ui_components.models.client.components.medical_info.components.prescription.components.inscription.PrescriptionInscription
 import io.realm.kotlin.types.EmbeddedRealmObject
 
-class LocalPrescriptionInscription: EmbeddedRealmObject {
+class LocalPrescriptionInscription : EmbeddedRealmObject {
     var drugName: String = ""
     var quantity: String = ""
 
-    object Config{
+    companion object {
         fun mapToLocal(form: LocalPrescriptionInscription): PrescriptionInscription {
             val formattedForm = trimmedFields(form)
             return PrescriptionInscription(
@@ -16,9 +16,10 @@ class LocalPrescriptionInscription: EmbeddedRealmObject {
             )
         }
 
-        fun trimmedFields(form: LocalPrescriptionInscription) = LocalPrescriptionInscription().apply {
-            drugName = form.drugName.trim()
-            quantity = form.quantity.trim()
-        }
+        fun trimmedFields(form: LocalPrescriptionInscription) =
+            LocalPrescriptionInscription().apply {
+                drugName = form.drugName.trim()
+                quantity = form.quantity.trim()
+            }
     }
 }

@@ -7,7 +7,7 @@ data class CompanySummary(
     val category: String = "",
     val collectionPath: String? = null
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: CompanySummary?): LocalCompanySummary? {
             return trimmedFields(form)?.let { formattedForm ->
                 LocalCompanySummary().apply {

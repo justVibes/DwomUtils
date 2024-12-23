@@ -112,7 +112,7 @@ class CreateAndSaveWordDoc @Inject constructor(
                 when {
                     content != null -> content.write(outputStream)
                     clientItem != null ->{
-                        ClientItem.Config.mapToXWPFDoc(form = clientItem).write(outputStream)
+                        ClientItem.mapToXWPFDoc(form = clientItem).write(outputStream)
                     }
                 }
                 outputStream.close()

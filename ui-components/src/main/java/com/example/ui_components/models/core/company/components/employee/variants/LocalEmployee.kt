@@ -18,31 +18,31 @@ class LocalEmployee : EmbeddedRealmObject {
     var assistant: LocalEmployeeAssistant? = null
     var bookedAppointments: RealmList<LocalBookedAppointment> = realmListOf()
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalEmployee): Employee {
             val formattedForm = trimmedFields(form)
             return Employee(
                 email = formattedForm.email,
-                name = LocalName.Config.mapToOriginal(formattedForm.name ?: LocalName()),
+                name = LocalName.mapToOriginal(formattedForm.name ?: LocalName()),
                 photoUrl = formattedForm.photoUrl,
-                info = formattedForm.info?.let { LocalEmployeeInfo.Config.mapToOriginal(it) },
+                info = formattedForm.info?.let { LocalEmployeeInfo.mapToOriginal(it) },
                 assistant = formattedForm.assistant?.let {
-                    LocalEmployeeAssistant.Config.mapToOriginal(it)
+                    LocalEmployeeAssistant.mapToOriginal(it)
                 },
                 bookedAppointments = formattedForm.bookedAppointments.map {
-                    LocalBookedAppointment.Config.mapToOriginal(it)
+                    LocalBookedAppointment.mapToOriginal(it)
                 }
             )
         }
 
         fun trimmedFields(form: LocalEmployee) = LocalEmployee().apply {
             email = form.email.trim()
-            name = form.name?.let { LocalName.Config.trimmedFields(it) }
+            name = form.name?.let { LocalName.trimmedFields(it) }
             photoUrl = form.photoUrl.trim()
-            info = form.info?.let { LocalEmployeeInfo.Config.trimmedFields(it) }
-            assistant = form.assistant?.let { LocalEmployeeAssistant.Config.trimmedFields(it) }
+            info = form.info?.let { LocalEmployeeInfo.trimmedFields(it) }
+            assistant = form.assistant?.let { LocalEmployeeAssistant.trimmedFields(it) }
             bookedAppointments =
-                form.bookedAppointments.map { LocalBookedAppointment.Config.trimmedFields(it) }
+                form.bookedAppointments.map { LocalBookedAppointment.trimmedFields(it) }
                     .toRealmList()
 
         }

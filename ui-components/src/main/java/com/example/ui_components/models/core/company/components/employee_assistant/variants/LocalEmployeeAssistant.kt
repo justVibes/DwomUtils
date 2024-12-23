@@ -18,27 +18,27 @@ class LocalEmployeeAssistant : EmbeddedRealmObject {
     /*This is for local usage*/
     var bookedAppointments: RealmList<LocalBookedAppointment> = realmListOf()
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalEmployeeAssistant): EmployeeAssistant {
             val formattedForm = trimmedFields(form)
             return EmployeeAssistant(
                 email = formattedForm.email,
-                name = LocalName.Config.mapToOriginal(formattedForm.name ?: LocalName()),
+                name = LocalName.mapToOriginal(formattedForm.name ?: LocalName()),
                 photoUrl = formattedForm.photoUrl,
-                info = formattedForm.info?.let { LocalEmployeeInfo.Config.mapToOriginal(it) },
+                info = formattedForm.info?.let { LocalEmployeeInfo.mapToOriginal(it) },
                 bookedAppointments = formattedForm.bookedAppointments.map {
-                    LocalBookedAppointment.Config.mapToOriginal(it)
+                    LocalBookedAppointment.mapToOriginal(it)
                 }
             )
         }
 
         fun trimmedFields(form: LocalEmployeeAssistant) = LocalEmployeeAssistant().apply {
             email = form.email.trim()
-            name = form.name?.let { LocalName.Config.trimmedFields(it) }
+            name = form.name?.let { LocalName.trimmedFields(it) }
             photoUrl = form.photoUrl.trim()
-            info = form.info?.let { LocalEmployeeInfo.Config.trimmedFields(it) }
+            info = form.info?.let { LocalEmployeeInfo.trimmedFields(it) }
             bookedAppointments = form.bookedAppointments
-                .map { LocalBookedAppointment.Config.trimmedFields(it) }
+                .map { LocalBookedAppointment.trimmedFields(it) }
                 .toRealmList()
         }
     }

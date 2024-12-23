@@ -31,7 +31,7 @@ data class ClientInfo(
     val medicalInfo: ClientMedicalInfo = ClientMedicalInfo(),
     val financialInfo: ClientFinancialInfo = ClientFinancialInfo()
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: ClientInfo) = LocalClientInfo().apply {
             val formattedForm = trimmedFields(form)
             tagName = formattedForm.tagName
@@ -40,7 +40,7 @@ data class ClientInfo(
                 updatedUrl = form.photo.updatedUrl
                 storagePath = form.photo.storagePath
             }
-            name = Name.Config.mapToLocal(formattedForm.name)
+            name = Name.mapToLocal(formattedForm.name)
             sex = formattedForm.sex  /*Use 'ValidGenders' enum to initialize*/
             birthDate = formattedForm.birthDate
             birthPlace = formattedForm.birthPlace
@@ -51,8 +51,8 @@ data class ClientInfo(
             age = 0 /*Generated based on the given birth date*/
             localPhoneNumber = formattedForm.localPhoneNumber
             emailAddress = formattedForm.emailAddress
-            medicalInfo = ClientMedicalInfo.Config.mapToLocal(formattedForm.medicalInfo)
-            financialInfo = ClientFinancialInfo.Config.mapToLocal(formattedForm.financialInfo)
+            medicalInfo = ClientMedicalInfo.mapToLocal(formattedForm.medicalInfo)
+            financialInfo = ClientFinancialInfo.mapToLocal(formattedForm.financialInfo)
         }
 
         fun mapToHighlighted(original: ClientInfo?, modified: ClientInfo?) = HighlightedClientInfo(
@@ -80,7 +80,7 @@ data class ClientInfo(
         fun trimmedFields(form: ClientInfo?) =
             form?.copy(
                 tagName = form.tagName.trim(),
-                name = Name.Config.trimmedFields(form.name),
+                name = Name.trimmedFields(form.name),
                 sex = form.sex.trim(),
                 birthDate = form.birthDate,
                 birthPlace = form.birthPlace.trim(),
@@ -90,8 +90,8 @@ data class ClientInfo(
                 occupation = form.occupation.trim(),
                 localPhoneNumber = form.localPhoneNumber.trim(),
                 emailAddress = form.emailAddress.trim(),
-                medicalInfo = ClientMedicalInfo.Config.trimmedFields(form.medicalInfo),
-                financialInfo = ClientFinancialInfo.Config.trimmedFields(form.financialInfo)
+                medicalInfo = ClientMedicalInfo.trimmedFields(form.medicalInfo),
+                financialInfo = ClientFinancialInfo.trimmedFields(form.financialInfo)
             ) ?: ClientInfo()
 
         fun mapToString(form: ClientInfo): String {

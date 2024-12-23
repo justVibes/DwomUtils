@@ -17,7 +17,7 @@ data class ClientNote(
     var note: String = "",
     var accessEmails: List<String> = emptyList(),
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: ClientNote) = LocalClientNote().apply {
             val formattedForm = trimmedFields(form)
             noteId = formattedForm.noteId

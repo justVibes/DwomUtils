@@ -8,7 +8,7 @@ data class PrescriptionInscription(
     val drugName: String = "",
     val quantity: String = ""
 ){
-    object Config {
+    companion object {
         fun mapToLocal(form: PrescriptionInscription) = LocalPrescriptionInscription().apply {
             val formattedForm = trimmedFields(form)
             drugName = formattedForm.drugName

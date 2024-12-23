@@ -28,7 +28,7 @@ class LocalClientInfo : EmbeddedRealmObject {
     var medicalInfo: LocalClientMedicalInfo? = null
     var financialInfo: LocalClientFinancialInfo? = null
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalClientInfo): ClientInfo {
             val formattedForm = trimmedFields(form)
             return ClientInfo(
@@ -38,7 +38,7 @@ class LocalClientInfo : EmbeddedRealmObject {
                     updatedUrl = form.photo?.updatedUrl ?: "",
                     storagePath = form.photo?.storagePath ?: ""
                 ),
-                name = LocalName.Config.mapToOriginal(formattedForm.name ?: LocalName()),
+                name = LocalName.mapToOriginal(formattedForm.name ?: LocalName()),
                 sex = formattedForm.sex,
                 birthDate = formattedForm.birthDate,
                 birthPlace = formattedForm.birthPlace,
@@ -49,10 +49,10 @@ class LocalClientInfo : EmbeddedRealmObject {
                 age = form.age,
                 localPhoneNumber = formattedForm.localPhoneNumber,
                 emailAddress = formattedForm.emailAddress,
-                medicalInfo = LocalClientMedicalInfo.Config.mapToOriginal(
+                medicalInfo = LocalClientMedicalInfo.mapToOriginal(
                     formattedForm.medicalInfo ?: LocalClientMedicalInfo()
                 ),
-                financialInfo = LocalClientFinancialInfo.Config.mapToOriginal(
+                financialInfo = LocalClientFinancialInfo.mapToOriginal(
                     formattedForm.financialInfo ?: LocalClientFinancialInfo()
                 )
             )
@@ -60,7 +60,7 @@ class LocalClientInfo : EmbeddedRealmObject {
 
         fun trimmedFields(form: LocalClientInfo) = LocalClientInfo().apply {
             tagName = form.tagName.trim()
-            name = form.name?.let { LocalName.Config.trimmedFields(it) }
+            name = form.name?.let { LocalName.trimmedFields(it) }
             sex = form.sex.trim()
             birthDate = form.birthDate
             birthPlace = form.birthPlace.trim()
@@ -70,10 +70,10 @@ class LocalClientInfo : EmbeddedRealmObject {
             occupation = form.occupation.trim()
             localPhoneNumber = form.localPhoneNumber.filter { it.isDigit() }.trim()
             emailAddress = form.emailAddress.trim()
-            medicalInfo = LocalClientMedicalInfo.Config.trimmedFields(
+            medicalInfo = LocalClientMedicalInfo.trimmedFields(
                 form.medicalInfo ?: LocalClientMedicalInfo()
             )
-            financialInfo = LocalClientFinancialInfo.Config.trimmedFields(
+            financialInfo = LocalClientFinancialInfo.trimmedFields(
                 form.financialInfo ?: LocalClientFinancialInfo()
             )
         }

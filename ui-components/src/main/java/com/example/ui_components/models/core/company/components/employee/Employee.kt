@@ -16,27 +16,27 @@ data class Employee(
     val assistant: EmployeeAssistant? = null,
     @Exclude val bookedAppointments: List<BookedAppointment> = emptyList(), /*This is for local usage*/
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: Employee) = LocalEmployee().apply {
             val formattedForm = trimmedFields(form)
             email = formattedForm.email
-            name = Name.Config.mapToLocal(formattedForm.name)
+            name = Name.mapToLocal(formattedForm.name)
             photoUrl = formattedForm.photoUrl
-            info = formattedForm.info?.let { EmployeeInfo.Config.mapToLocal(it) }
-            assistant = formattedForm.assistant?.let { EmployeeAssistant.Config.mapToLocal(it) }
+            info = formattedForm.info?.let { EmployeeInfo.mapToLocal(it) }
+            assistant = formattedForm.assistant?.let { EmployeeAssistant.mapToLocal(it) }
             bookedAppointments = formattedForm.bookedAppointments
-                .map { BookedAppointment.Config.mapToLocal(it) }
+                .map { BookedAppointment.mapToLocal(it) }
                 .toRealmList()
         }
 
         fun trimmedFields(form: Employee) = form.copy(
             email = form.email.trim(),
-            name = Name.Config.trimmedFields(form.name),
+            name = Name.trimmedFields(form.name),
             photoUrl = form.photoUrl.trim(),
-            assistant = form.assistant?.let { EmployeeAssistant.Config.trimmedFields(it) },
-            info = form.info?.let { EmployeeInfo.Config.trimmedFields(it) },
+            assistant = form.assistant?.let { EmployeeAssistant.trimmedFields(it) },
+            info = form.info?.let { EmployeeInfo.trimmedFields(it) },
             bookedAppointments = form.bookedAppointments.map {
-                BookedAppointment.Config.trimmedFields(it)
+                BookedAppointment.trimmedFields(it)
             }
         )
     }

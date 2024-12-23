@@ -11,21 +11,21 @@ data class EmployeeInfo(
     val companySummary: CompanySummary? = null,
     val employeeDocPath: String? = null
 ) {
-    object Config {
+    companion object  {
         fun mapToLocal(form: EmployeeInfo) = LocalEmployeeInfo().apply {
             val formattedForm = trimmedFields(form)
-            title = WorkerTitle.Config.mapToLocal(formattedForm.title)
+            title = WorkerTitle.mapToLocal(formattedForm.title)
             nextAvailable = formattedForm.nextAvailable
             nextBreak = formattedForm.nextBreak
-            companySummary = CompanySummary.Config.mapToLocal(formattedForm.companySummary)
+            companySummary = CompanySummary.mapToLocal(formattedForm.companySummary)
             employeeDocPath = formattedForm.employeeDocPath
         }
 
         fun trimmedFields(form: EmployeeInfo) = form.copy(
-            title = WorkerTitle.Config.trimmedFields(form.title),
+            title = WorkerTitle.trimmedFields(form.title),
             nextBreak = form.nextBreak,
             nextAvailable = form.nextAvailable,
-            companySummary = CompanySummary.Config.trimmedFields(form.companySummary),
+            companySummary = CompanySummary.trimmedFields(form.companySummary),
             employeeDocPath = form.employeeDocPath?.trim()
         )
     }

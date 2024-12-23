@@ -12,11 +12,11 @@ data class ServiceProvider(
     val email: String = "",
     val photoUrl: String = ""
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: ServiceProvider) = LocalServiceProvider().apply {
             val formattedForm = trimmedFields(form)
             uid = formattedForm.uid
-            name = Name.Config.mapToLocal(formattedForm.name)
+            name = Name.mapToLocal(formattedForm.name)
             email = formattedForm.email
             photoUrl = formattedForm.photoUrl
             abvTitle = formattedForm.abvTitle
@@ -25,7 +25,7 @@ data class ServiceProvider(
 
         fun trimmedFields(form: ServiceProvider) = form.copy(
             uid = form.uid.trim(),
-            name = Name.Config.trimmedFields(form.name),
+            name = Name.trimmedFields(form.name),
             email = form.email.trim(),
             photoUrl = form.photoUrl.trim(),
             abvTitle = form.abvTitle.trim()

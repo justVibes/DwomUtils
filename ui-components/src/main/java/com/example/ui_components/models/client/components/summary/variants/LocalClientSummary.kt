@@ -11,13 +11,13 @@ class LocalClientSummary : EmbeddedRealmObject {
     var email: String = ""
     var docPath: String? = null
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalClientSummary): ClientSummary {
             val formattedForm = trimmedFields(form)
             return ClientSummary(
                 uid = formattedForm.uid,
                 photoUrl = formattedForm.photoUrl,
-                name = LocalName.Config.mapToOriginal(formattedForm.name ?: LocalName()),
+                name = LocalName.mapToOriginal(formattedForm.name ?: LocalName()),
                 email = formattedForm.email,
                 docPath = formattedForm.docPath
             )
@@ -26,7 +26,7 @@ class LocalClientSummary : EmbeddedRealmObject {
         fun trimmedFields(form: LocalClientSummary) = LocalClientSummary().apply {
             uid = form.uid.trim()
             photoUrl = form.photoUrl.trim()
-            name = form.name?.let { LocalName.Config.trimmedFields(it) }
+            name = form.name?.let { LocalName.trimmedFields(it) }
             email = form.email.trim()
             docPath = form.docPath?.trim()
         }

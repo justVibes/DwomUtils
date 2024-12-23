@@ -18,30 +18,30 @@ class LocalCompany : EmbeddedRealmObject {
     var employeesDocPaths: RealmList<String> = realmListOf()
     var employees: RealmList<LocalEmployee> = realmListOf()/*This is for local usage*/
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalCompany): Company {
             val formattedForm = trimmedFields(form)
             return Company(
                 companyId = formattedForm.companyId,
-                summary = formattedForm.summary?.let { LocalCompanySummary.Config.mapToOriginal(it) },
+                summary = formattedForm.summary?.let { LocalCompanySummary.mapToOriginal(it) },
                 photoUrl = formattedForm.photoUrl,
                 coarseLocation = formattedForm.coarseLocation,
                 type = formattedForm.type,
                 aboutUs = formattedForm.aboutUs,
                 employeesDocPaths = formattedForm.employeesDocPaths,
-                employees = formattedForm.employees.map { LocalEmployee.Config.mapToOriginal(it) }
+                employees = formattedForm.employees.map { LocalEmployee.mapToOriginal(it) }
             )
         }
 
         fun trimmedFields(form: LocalCompany) = LocalCompany().apply {
             companyId = form.companyId.trim()
-            summary = form.summary?.let { LocalCompanySummary.Config.trimmedFields(it) }
+            summary = form.summary?.let { LocalCompanySummary.trimmedFields(it) }
             photoUrl = form.photoUrl.trim()
             coarseLocation = form.coarseLocation.trim()
             type = form.type.trim()
             aboutUs = form.aboutUs.trim()
             employeesDocPaths = form.employeesDocPaths.map { it.trim() }.toRealmList()
-            employees = form.employees.map { LocalEmployee.Config.trimmedFields(it) }.toRealmList()
+            employees = form.employees.map { LocalEmployee.trimmedFields(it) }.toRealmList()
         }
     }
 }

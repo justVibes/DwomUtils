@@ -10,12 +10,12 @@ class LocalServiceProvider : EmbeddedRealmObject {
     var email: String = ""
     var photoUrl: String = ""
 
-    object Config {
+    companion object  {
         fun mapToOriginal(form: LocalServiceProvider): ServiceProvider {
             val formattedForm = trimmedFields(form)
             return ServiceProvider(
                 uid = formattedForm.uid,
-                name = LocalName.Config.mapToOriginal(formattedForm.name ?: LocalName()),
+                name = LocalName.mapToOriginal(formattedForm.name ?: LocalName()),
                 email = formattedForm.email,
                 photoUrl = formattedForm.photoUrl,
                 abvTitle = formattedForm.abvTitle
@@ -24,7 +24,7 @@ class LocalServiceProvider : EmbeddedRealmObject {
 
         fun trimmedFields(form: LocalServiceProvider) = LocalServiceProvider().apply {
             uid = form.uid.trim()
-            name = form.name?.let { LocalName.Config.trimmedFields(it) }
+            name = form.name?.let { LocalName.trimmedFields(it) }
             email = form.email.trim()
             photoUrl = form.photoUrl.trim()
             abvTitle = form.abvTitle.trim()

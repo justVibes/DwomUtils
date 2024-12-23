@@ -11,18 +11,18 @@ data class PrescriptionMedicine(
     val signatura: String = "",
     val subscription: String = "",
 ){
-    object Config {
+    companion object {
         fun mapToLocal(form: PrescriptionMedicine) = LocalPrescriptionMedicine().apply {
             val formattedForm = trimmedFields(form)
             refills = formattedForm.refills
-            inscription = PrescriptionInscription.Config.mapToLocal(formattedForm.inscription)
+            inscription = PrescriptionInscription.mapToLocal(formattedForm.inscription)
             signatura = formattedForm.signatura
             subscription = formattedForm.subscription
         }
         
         fun trimmedFields(form: PrescriptionMedicine) = form.copy(
             refills = form.refills.trim(),
-            inscription = PrescriptionInscription.Config.trimmedFields(form.inscription),
+            inscription = PrescriptionInscription.trimmedFields(form.inscription),
             signatura = form.signatura.trim(),
             subscription = form.subscription.trim()
         )

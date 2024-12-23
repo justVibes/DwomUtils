@@ -22,21 +22,21 @@ class LocalClientHistory : EmbeddedRealmObject {
     var labResults: RealmList<LocalLabResult> = realmListOf()
     var bookedAppointment: LocalBookedAppointment? = null
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalClientHistory) = ClientHistory(
             datePosted = form.datePosted,
-            serviceProvider = LocalServiceProvider.Config.mapToOriginal(
+            serviceProvider = LocalServiceProvider.mapToOriginal(
                 form.serviceProvider ?: LocalServiceProvider()
             ),
-            clientInfo = LocalClientInfo.Config.mapToOriginal(form.clientInfo ?: LocalClientInfo()),
-            vitals = LocalClientVitals.Config.mapToOriginal(form.vitals ?: LocalClientVitals()),
-            emergencyContactInfo = LocalEmergencyContactInfo.Config.mapToOriginal(
+            clientInfo = LocalClientInfo.mapToOriginal(form.clientInfo ?: LocalClientInfo()),
+            vitals = LocalClientVitals.mapToOriginal(form.vitals ?: LocalClientVitals()),
+            emergencyContactInfo = LocalEmergencyContactInfo.mapToOriginal(
                 form.emergencyContactInfo ?: LocalEmergencyContactInfo()
             ),
-            notes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },
-            labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) },
+            notes = form.notes.map { LocalClientNote.mapToOriginal(it) },
+            labResults = form.labResults.map { LocalLabResult.mapToOriginal(it) },
             bookedAppointment = form.bookedAppointment?.let {
-                LocalBookedAppointment.Config.mapToOriginal(it)
+                LocalBookedAppointment.mapToOriginal(it)
             }
         )
 

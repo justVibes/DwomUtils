@@ -16,12 +16,12 @@ data class Prescription(
     val issuedDate: Long = 0L,
     val issuedBy: String = "",
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: Prescription): LocalPrescription {
             val formattedForm = trimmedFields(form)
             return LocalPrescription().apply {
                 prescriptionId = formattedForm.prescriptionId
-                medicines = formattedForm.medicines.map { PrescriptionMedicine.Config.mapToLocal(it) }.toRealmList()
+                medicines = formattedForm.medicines.map { PrescriptionMedicine.mapToLocal(it) }.toRealmList()
                 clientName = formattedForm.clientName
                 clientAddress = formattedForm.clientAddress
                 issuedDate = formattedForm.issuedDate
@@ -34,7 +34,7 @@ data class Prescription(
             medicines = form.medicines.map {
                 it.copy(
                     refills = it.refills.trim(),
-                    inscription = PrescriptionInscription.Config.trimmedFields(it.inscription),
+                    inscription = PrescriptionInscription.trimmedFields(it.inscription),
                     signatura = it.signatura.trim(),
                     subscription = it.subscription.trim()
                 )

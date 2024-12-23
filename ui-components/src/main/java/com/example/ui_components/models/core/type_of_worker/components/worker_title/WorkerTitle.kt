@@ -6,7 +6,7 @@ data class WorkerTitle(
     val formatted: String = "",
     val abv: String = ""
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: WorkerTitle) = LocalWorkerTitle().apply {
             val formattedForm = trimmedFields(form)
             formatted = formattedForm.formatted

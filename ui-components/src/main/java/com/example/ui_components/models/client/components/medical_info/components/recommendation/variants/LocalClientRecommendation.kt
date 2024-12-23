@@ -8,7 +8,7 @@ class LocalClientRecommendation : EmbeddedRealmObject {
     var recommendation: String = ""
     var issueDate: Long = 0L
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalClientRecommendation) = ClientRecommendation(
             uid = form.uid,
             recommendation = form.recommendation.trim(),

@@ -9,7 +9,7 @@ class LocalClientFinancialInfo : EmbeddedRealmObject {
     var contactNumber: String = ""
     var policyNumber: String = ""
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalClientFinancialInfo): ClientFinancialInfo {
             val formattedForm = trimmedFields(form)
             return ClientFinancialInfo(

@@ -12,16 +12,16 @@ class LocalEmployeeInfo : EmbeddedRealmObject {
     var companySummary: LocalCompanySummary? = null
     var employeeDocPath: String? = null
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalEmployeeInfo): EmployeeInfo {
             val formattedForm = trimmedFields(form)
             return EmployeeInfo(
-                title = LocalWorkerTitle.Config.mapToOriginal(
+                title = LocalWorkerTitle.mapToOriginal(
                     formattedForm.title ?: LocalWorkerTitle()
                 ),
                 nextBreak = formattedForm.nextBreak,
                 nextAvailable = formattedForm.nextAvailable,
-                companySummary = LocalCompanySummary.Config.mapToOriginal(
+                companySummary = LocalCompanySummary.mapToOriginal(
                     formattedForm.companySummary ?: LocalCompanySummary()
                 ),
                 employeeDocPath = formattedForm.employeeDocPath
@@ -29,10 +29,10 @@ class LocalEmployeeInfo : EmbeddedRealmObject {
         }
 
         fun trimmedFields(form: LocalEmployeeInfo) = LocalEmployeeInfo().apply {
-            title = form.title?.let { LocalWorkerTitle.Config.trimmedFields(it) }
+            title = form.title?.let { LocalWorkerTitle.trimmedFields(it) }
             nextBreak = form.nextBreak
             nextAvailable = form.nextAvailable
-            companySummary = LocalCompanySummary.Config.trimmedFields(
+            companySummary = LocalCompanySummary.trimmedFields(
                 form.companySummary ?: LocalCompanySummary()
             )
             employeeDocPath = form.employeeDocPath?.trim()

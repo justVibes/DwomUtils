@@ -15,17 +15,17 @@ class LocalClientMedicalInfo : EmbeddedRealmObject {
     var recommendations: RealmList<LocalClientRecommendation> = realmListOf()
     var appointmentDate: Long = 0L
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalClientMedicalInfo): ClientMedicalInfo {
             val formattedFields = trimmedFields(form)
             return ClientMedicalInfo(
                 appointmentReason = formattedFields.appointmentReason,
                 diagnosis = formattedFields.diagnosis,
                 prescriptions = formattedFields.prescriptions.map {
-                    LocalPrescription.Config.mapToOriginal(it)
+                    LocalPrescription.mapToOriginal(it)
                 },
                 recommendations = formattedFields.recommendations.map {
-                    LocalClientRecommendation.Config.mapToOriginal(it)
+                    LocalClientRecommendation.mapToOriginal(it)
                 },
                 appointmentDate = form.appointmentDate
             )
@@ -35,7 +35,7 @@ class LocalClientMedicalInfo : EmbeddedRealmObject {
             diagnosis = form.diagnosis.trim()
             appointmentReason = form.appointmentReason.trim()
             prescriptions =
-                form.prescriptions.map { LocalPrescription.Config.trimmedFields(it) }.toRealmList()
+                form.prescriptions.map { LocalPrescription.trimmedFields(it) }.toRealmList()
             recommendations =
                 form.recommendations
                     .map {

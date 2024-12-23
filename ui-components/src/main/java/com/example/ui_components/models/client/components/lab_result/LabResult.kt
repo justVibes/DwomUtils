@@ -22,7 +22,7 @@ data class LabResult(
     val title: String = "",
     @Exclude var tempPdf: List<Bitmap> = emptyList() /*This is for local usage (To render pdfs).*/
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: LabResult) = LocalLabResult().apply {
             resultType = form.resultType
             resultUrl = form.resultUrl

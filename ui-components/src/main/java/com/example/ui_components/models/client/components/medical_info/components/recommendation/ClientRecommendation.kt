@@ -10,7 +10,7 @@ data class ClientRecommendation(
     val recommendation: String = "",
     val issueDate: Long = 0L
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: ClientRecommendation) = LocalClientRecommendation().apply {
             uid = form.uid
             recommendation = form.recommendation.trim()

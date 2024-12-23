@@ -8,7 +8,7 @@ data class Name(
     val last: String = "",
     val middle: String = ""
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: Name) = LocalName().apply {
             val formattedFields = trimmedFields(form)
             first = formattedFields.first

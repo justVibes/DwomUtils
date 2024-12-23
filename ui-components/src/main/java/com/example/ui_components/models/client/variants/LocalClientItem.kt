@@ -1,6 +1,7 @@
 package com.example.ui_components.models.client.variants
 
 import com.example.ui_components.models.client.ClientItem
+import com.example.ui_components.models.client.components.color.variants.LocalClientColor
 import com.example.ui_components.models.client.components.emergency_contact_info.EmergencyContactInfo
 import com.example.ui_components.models.client.components.emergency_contact_info.variants.LocalEmergencyContactInfo
 import com.example.ui_components.models.client.components.history.variants.LocalClientHistory
@@ -31,47 +32,50 @@ class LocalClientItem : RealmObject {
     var labResults: RealmList<LocalLabResult> = realmListOf()
     var history: RealmList<LocalClientHistory> = realmListOf()
     var bookedAppointment: LocalBookedAppointment? = null
+    var clientColor: LocalClientColor? = null
+
 
     /* Use this to differentiate between client files that the user owns and downloaded client files */
     @Exclude
     var isDownloaded: Boolean = false
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalClientItem) = ClientItem(
             clientId = form.clientId,
             serviceProvider = form.serviceProvider?.let {
-                LocalServiceProvider.Config.mapToOriginal(it)
+                LocalServiceProvider.mapToOriginal(it)
             },
             accessorEmails = form.accessorEmails,
-            clientInfo = form.clientInfo?.let { LocalClientInfo.Config.mapToOriginal(it) }
+            clientInfo = form.clientInfo?.let { LocalClientInfo.mapToOriginal(it) }
                 ?: ClientInfo(),
-            vitals = form.vitals?.let { LocalClientVitals.Config.mapToOriginal(it) }
+            vitals = form.vitals?.let { LocalClientVitals.mapToOriginal(it) }
                 ?: ClientVitals(),
             emergencyContactInfo = form.emergencyContactInfo?.let {
-                LocalEmergencyContactInfo.Config.mapToOriginal(it)
+                LocalEmergencyContactInfo.mapToOriginal(it)
             } ?: EmergencyContactInfo(),
-            tempNotes = form.notes.map { LocalClientNote.Config.mapToOriginal(it) },
-            labResults = form.labResults.map { LocalLabResult.Config.mapToOriginal(it) },
-            history = form.history.map { LocalClientHistory.Config.mapToOriginal(it) },
+            tempNotes = form.notes.map { LocalClientNote.mapToOriginal(it) },
+            labResults = form.labResults.map { LocalLabResult.mapToOriginal(it) },
+            history = form.history.map { LocalClientHistory.mapToOriginal(it) },
             bookedAppointment = form.bookedAppointment?.let {
-                LocalBookedAppointment.Config.mapToOriginal(it)
-            }
+                LocalBookedAppointment.mapToOriginal(it)
+            },
+            clientColor = LocalClientColor.mapToOriginal(form.clientColor ?: LocalClientColor())
         )
 
         fun trimmedFields(form: LocalClientItem) = LocalClientItem().apply {
-            serviceProvider = LocalServiceProvider.Config.trimmedFields(
+            serviceProvider = LocalServiceProvider.trimmedFields(
                 form.serviceProvider ?: LocalServiceProvider()
             )
             accessorEmails = form.accessorEmails.map { it.trim() }.toRealmList()
-            clientInfo = LocalClientInfo.Config.trimmedFields(form.clientInfo ?: LocalClientInfo())
-            vitals = LocalClientVitals.Config.trimmedFields(form.vitals ?: LocalClientVitals())
-            emergencyContactInfo = LocalEmergencyContactInfo.Config.trimmedFields(
+            clientInfo = LocalClientInfo.trimmedFields(form.clientInfo ?: LocalClientInfo())
+            vitals = LocalClientVitals.trimmedFields(form.vitals ?: LocalClientVitals())
+            emergencyContactInfo = LocalEmergencyContactInfo.trimmedFields(
                 form.emergencyContactInfo ?: LocalEmergencyContactInfo()
             )
-            notes = form.notes.map { LocalClientNote.Config.trimmedFields(it) }.toRealmList()
+            notes = form.notes.map { LocalClientNote.trimmedFields(it) }.toRealmList()
             labResults = form.labResults
             bookedAppointment = form.bookedAppointment?.let {
-                LocalBookedAppointment.Config.trimmedFields(it)
+                LocalBookedAppointment.trimmedFields(it)
             }
         }
     }

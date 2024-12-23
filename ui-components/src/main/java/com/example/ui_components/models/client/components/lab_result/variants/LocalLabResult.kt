@@ -13,7 +13,7 @@ class LocalLabResult : EmbeddedRealmObject {
     var authorName: String = ""
     var title: String = ""
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalLabResult) = LabResult(
             resultType = form.resultType,
             resultUrl = form.resultUrl,

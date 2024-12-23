@@ -10,12 +10,12 @@ class LocalPrescriptionMedicine : EmbeddedRealmObject {
     var signatura: String = ""
     var subscription: String = ""
     
-    object Config {
+    companion object  {
         fun mapToOriginal(form: LocalPrescriptionMedicine): PrescriptionMedicine {
             val formattedForm = trimmedFields(form)
             return PrescriptionMedicine(
                 refills = formattedForm.refills,
-                inscription = LocalPrescriptionInscription.Config.mapToLocal(formattedForm.inscription ?: LocalPrescriptionInscription()),
+                inscription = LocalPrescriptionInscription.mapToLocal(formattedForm.inscription ?: LocalPrescriptionInscription()),
                 signatura = formattedForm.signatura,
                 subscription = formattedForm.subscription
             )
@@ -23,7 +23,7 @@ class LocalPrescriptionMedicine : EmbeddedRealmObject {
         
         fun trimmedFields(form: LocalPrescriptionMedicine) = LocalPrescriptionMedicine().apply { 
             refills = form.refills.trim()
-            inscription = LocalPrescriptionInscription.Config.trimmedFields(form.inscription ?: LocalPrescriptionInscription())
+            inscription = LocalPrescriptionInscription.trimmedFields(form.inscription ?: LocalPrescriptionInscription())
             signatura = form.signatura.trim()
             subscription = form.subscription.trim()
         }

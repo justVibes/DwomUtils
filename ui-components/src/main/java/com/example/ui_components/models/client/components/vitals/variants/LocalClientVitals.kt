@@ -10,7 +10,7 @@ class LocalClientVitals : EmbeddedRealmObject {
     var bloodOxygen: String = ""
     var bodyTemperatureCel: String = ""
 
-    object Config {
+    companion object{
         fun mapToOriginal(form: LocalClientVitals): ClientVitals {
             val formattedForm = trimmedFields(form)
             return ClientVitals(

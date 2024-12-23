@@ -7,7 +7,7 @@ class LocalName : EmbeddedRealmObject {
     var last: String = ""
     var middle: String = ""
 
-    object Config {
+    companion object {
         fun mapToOriginal(form: LocalName): Name {
             val formattedForm = trimmedFields(form)
             return Name(

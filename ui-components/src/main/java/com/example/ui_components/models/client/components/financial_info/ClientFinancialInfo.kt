@@ -12,7 +12,7 @@ data class ClientFinancialInfo(
     val contactNumber: String = "",
     val policyNumber: String = "",
 ) {
-    object Config {
+    companion object {
         fun mapToLocal(form: ClientFinancialInfo) = LocalClientFinancialInfo().apply {
             val formattedForm = trimmedFields(form)
             insuranceCarrier = formattedForm.insuranceCarrier
