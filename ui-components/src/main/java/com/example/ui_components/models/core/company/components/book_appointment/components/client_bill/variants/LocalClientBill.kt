@@ -1,36 +1,36 @@
 package com.example.ui_components.models.core.company.components.book_appointment.components.client_bill.variants
 
 import com.example.ui_components.models.core.company.components.book_appointment.components.client_bill.ClientBill
+import com.example.ui_components.models.core.company.components.book_appointment.components.client_bill.components.charge.variants.LocalClientCharge
+import com.example.ui_components.models.core.company.components.book_appointment.components.client_bill.components.payment.variants.LocalClientPayment
+import com.example.ui_components.models.core.company.components.book_appointment.components.client_bill.components.status.variants.LocalClientPaymentStatus
+import io.realm.kotlin.ext.realmListOf
+import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.types.EmbeddedRealmObject
+import io.realm.kotlin.types.RealmList
 
 class LocalClientBill : EmbeddedRealmObject {
-    var description: String = ""
-    var totalCost: String = ""
-    var paidAmt: String = ""
-    var isPaid: Boolean = paidAmt == totalCost
-    var paidDate: Long = 0L
-    var paymentMethod: String = ""
+    var charges: RealmList<LocalClientCharge> = realmListOf()
+    var totalCost: String = charges.maxOfOrNull { it.fee.toInt() }?.let { "$it" } ?: "0"
+    var paymentMethod: LocalClientPayment? = null
+    var paymentStatus: LocalClientPaymentStatus? = null
 
     companion object {
         fun mapToOriginal(form: LocalClientBill): ClientBill {
             val fmtForm = trimmedFields(form)
             return ClientBill(
-                description = fmtForm.description,
+                charges = fmtForm.charges.map { LocalClientCharge.mapToOriginal(it) },
                 totalCost = fmtForm.totalCost,
-                paidDate = fmtForm.paidDate,
-                isPaid = fmtForm.isPaid,
-                paidAmt = fmtForm.paidAmt,
-                paymentMethod = fmtForm.paymentMethod
+                paymentMethod = fmtForm.paymentMethod?.let { LocalClientPayment.mapToOriginal(it) },
+                paymentStatus = LocalClientPaymentStatus.mapToOriginal(fmtForm.paymentStatus!!)
             )
         }
 
         fun trimmedFields(form: LocalClientBill) = LocalClientBill().apply {
-            description = form.description.trim()
+            charges = form.charges.map { LocalClientCharge.trimmedFields(it) }.toRealmList()
             totalCost = form.totalCost.filter { it.isDigit() }.trim()
-            paidAmt = form.paidAmt.filter { it.isDigit() }.trim()
-            isPaid = totalCost == paidAmt
-            paidDate = form.paidDate
-            paymentMethod = form.paymentMethod.trim()
+            paymentMethod = form.paymentMethod?.let { LocalClientPayment.trimmedFields(it) }
+            paymentStatus = form.paymentStatus
         }
     }
 }

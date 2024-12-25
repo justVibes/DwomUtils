@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
@@ -86,30 +87,42 @@ fun RegularCard(
                     .padding(5.dp),
                 contentAlignment = Alignment.Center
             ) {
-                if (leadingContentConfig.resPhoto != null) {
-                    Image(
-                        modifier = imgModifier,
-                        painter = painterResource(leadingContentConfig.resPhoto),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop
-                    )
-                } else {
-                    AsyncImage(
-                        modifier = imgModifier,
-                        model = leadingContentConfig.photoUrl.toUri(),
-                        contentDescription = null,
-                        placeholder = leadingImageDefaults.placeholder,
-                        error = leadingImageDefaults.placeholder,
-                        contentScale = ContentScale.Crop
-                    )
-                    if (leadingImageDefaults.isUpdateBubbleVisible) {
-                        Box(
-                            modifier = Modifier
-                                .align(leadingImageDefaults.updateBubbleAlignment)
-                                .size((leadingImageDefaults.photoSize.value * .25).dp)
-                                .clip(CircleShape)
-                                .background(colors.updateBubbleColor)
+                when{
+                    leadingContentConfig.useInitialForPhoto -> {
+                        Text(
+                            modifier = imgModifier,
+                            text = "${header.text.firstOrNull()}",
+                            color = Color.White
                         )
+                    }
+
+                    leadingContentConfig.resPhoto != null -> {
+                        Image(
+                            modifier = imgModifier,
+                            painter = painterResource(leadingContentConfig.resPhoto),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+
+                    else -> {
+                        AsyncImage(
+                            modifier = imgModifier,
+                            model = leadingContentConfig.photoUrl.toUri(),
+                            contentDescription = null,
+                            placeholder = leadingImageDefaults.placeholder,
+                            error = leadingImageDefaults.placeholder,
+                            contentScale = ContentScale.Crop
+                        )
+                        if (leadingImageDefaults.isUpdateBubbleVisible) {
+                            Box(
+                                modifier = Modifier
+                                    .align(leadingImageDefaults.updateBubbleAlignment)
+                                    .size((leadingImageDefaults.photoSize.value * .25).dp)
+                                    .clip(CircleShape)
+                                    .background(colors.updateBubbleColor)
+                            )
+                        }
                     }
                 }
             }

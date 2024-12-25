@@ -4,5 +4,6 @@ import androidx.annotation.DrawableRes
 
 data class RegularCardLeadingConfig(
     val photoUrl: String = "",
-    @DrawableRes val resPhoto: Int? = null
+    @DrawableRes val resPhoto: Int? = null,
+    val useInitialForPhoto: Boolean = false
 )
