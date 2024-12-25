@@ -5,10 +5,11 @@ import com.example.ui_components.models.client.components.summary.ClientSummary
 import com.example.ui_components.models.core.company.components.book_appointment.components.client_bill.ClientBill
 import com.example.ui_components.models.core.company.components.book_appointment.variants.LocalBookedAppointment
 
+
 data class BookedAppointment(
-    val type: String = "",
+    val type: String = "", /* Use the 'BookedAppointmentType' enum to initialize */
     val positionInQueue: String = "",
-    val status: String = "", /* Use 'BookedAppointmentStatus' enum to initialize*/
+    val status: String = "", /* Use 'BookedAppointmentStatus' enum to initialize */
     val approxStartTime: Long = 0L,
     val approxDurationInMins: Int = 0,
     val delayInMins: Int = 0,
