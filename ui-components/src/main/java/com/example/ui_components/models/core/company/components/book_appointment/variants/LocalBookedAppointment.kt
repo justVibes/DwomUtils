@@ -7,6 +7,7 @@ import io.realm.kotlin.types.EmbeddedRealmObject
 
 class LocalBookedAppointment : EmbeddedRealmObject {
     var type: String = ""
+    var appointmentReason: String = ""
     var positionInQueue: String = ""
     var status: String = ""
     var approxStartTime: Long = 0L
@@ -20,22 +21,23 @@ class LocalBookedAppointment : EmbeddedRealmObject {
 
     companion object {
         fun mapToOriginal(form: LocalBookedAppointment): BookedAppointment {
-            val formattedForm = trimmedFields(form)
+            val fmtForm = trimmedFields(form)
             return BookedAppointment(
-                type = formattedForm.type,
-                status = formattedForm.status,
+                type = fmtForm.type,
+                appointmentReason = fmtForm.appointmentReason,
+                status = fmtForm.status,
                 approxStartTime = form.approxStartTime,
                 approxDurationInMins = form.approxDurationInMins,
                 delayInMins = form.delayInMins,
                 advanceInMins = form.advanceInMins,
-                serviceProvider = formattedForm.serviceProvider?.let {
+                serviceProvider = fmtForm.serviceProvider?.let {
                     LocalServiceProvider.mapToOriginal(it)
                 },
-                assistantServiceProvider = formattedForm.assistantServiceProvider?.let {
+                assistantServiceProvider = fmtForm.assistantServiceProvider?.let {
                     LocalServiceProvider.mapToOriginal(it)
                 },
-                companyCollectionPath = formattedForm.companyCollectionPath,
-                clientSummary = formattedForm.clientSummary?.let {
+                companyCollectionPath = fmtForm.companyCollectionPath,
+                clientSummary = fmtForm.clientSummary?.let {
                     LocalClientSummary.mapToOriginal(it)
                 }
             )
@@ -43,6 +45,7 @@ class LocalBookedAppointment : EmbeddedRealmObject {
 
         fun trimmedFields(form: LocalBookedAppointment) = LocalBookedAppointment().apply {
             type = form.type.trim()
+            appointmentReason = form.appointmentReason.trim()
             status = form.status.trim()
             clientSummary = form.clientSummary?.let { LocalClientSummary.trimmedFields(it) }
             serviceProvider = form.serviceProvider?.let {

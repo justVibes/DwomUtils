@@ -8,7 +8,7 @@ class LocalClientPayment : EmbeddedRealmObject {
     var cash: LocalPaymentMethod.LocalCash? = null
     var card: LocalPaymentMethod.LocalCard? = null
     var cheque: LocalPaymentMethod.LocalBankCheque? = null
-    var paidDate: Long = 0L
+    var paymentDate: Long = 0L
 
     companion object {
         fun mapToOriginal(form: LocalClientPayment): ClientPayment {
@@ -17,7 +17,7 @@ class LocalClientPayment : EmbeddedRealmObject {
                 cash = fmtForm.cash?.let { LocalPaymentMethod.LocalCash.mapToOriginal(it) },
                 card = fmtForm.card?.let { LocalPaymentMethod.LocalCard.mapToOriginal(it) },
                 cheque = fmtForm.cheque?.let { LocalPaymentMethod.LocalBankCheque.mapToOriginal(it) },
-                paidDate = fmtForm.paidDate
+                paymentDate = fmtForm.paymentDate
             )
         }
 
@@ -25,7 +25,7 @@ class LocalClientPayment : EmbeddedRealmObject {
             cash = form.cash?.let { LocalPaymentMethod.LocalCash.trimmedFields(it) }
             card = form.card?.let { LocalPaymentMethod.LocalCard.trimmedFields(it) }
             cheque = form.cheque?.let { LocalPaymentMethod.LocalBankCheque.trimmedFields(it) }
-            paidDate = form.paidDate
+            paymentDate = form.paymentDate
         }
     }
 }

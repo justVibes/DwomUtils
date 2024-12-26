@@ -8,6 +8,7 @@ import com.example.ui_components.models.core.company.components.book_appointment
 
 data class BookedAppointment(
     val type: String = "", /* Use the 'BookedAppointmentType' enum to initialize */
+    val appointmentReason: String = "",
     val positionInQueue: String = "",
     val status: String = "", /* Use 'BookedAppointmentStatus' enum to initialize */
     val approxStartTime: Long = 0L,
@@ -23,26 +24,28 @@ data class BookedAppointment(
 ) {
     companion object {
         fun mapToLocal(form: BookedAppointment) = LocalBookedAppointment().apply {
-            val formattedForm = trimmedFields(form)
-            type = formattedForm.type
-            status = formattedForm.status
-            positionInQueue = formattedForm.positionInQueue
+            val fmtForm = trimmedFields(form)
+            type = fmtForm.type
+            appointmentReason = fmtForm.appointmentReason
+            status = fmtForm.status
+            positionInQueue = fmtForm.positionInQueue
             approxDurationInMins = form.approxDurationInMins
             approxStartTime = form.approxStartTime
             delayInMins = form.delayInMins
             advanceInMins = form.advanceInMins
-            companyCollectionPath = formattedForm.companyCollectionPath
-            serviceProvider = formattedForm.serviceProvider?.let {
+            companyCollectionPath = fmtForm.companyCollectionPath
+            serviceProvider = fmtForm.serviceProvider?.let {
                 ServiceProvider.mapToLocal(it)
             }
-            assistantServiceProvider = formattedForm.assistantServiceProvider?.let {
+            assistantServiceProvider = fmtForm.assistantServiceProvider?.let {
                 ServiceProvider.mapToLocal(it)
             }
-            clientSummary = formattedForm.clientSummary?.let { ClientSummary.mapToLocal(it) }
+            clientSummary = fmtForm.clientSummary?.let { ClientSummary.mapToLocal(it) }
         }
 
         fun trimmedFields(form: BookedAppointment) = form.copy(
             type = form.type.trim(),
+            appointmentReason = form.appointmentReason.trim(),
             positionInQueue = form.positionInQueue.trim(),
             companyCollectionPath = form.companyCollectionPath?.trim(),
             status = form.status.trim(),
