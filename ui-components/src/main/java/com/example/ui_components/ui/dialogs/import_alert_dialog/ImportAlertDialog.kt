@@ -29,9 +29,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.ui_components.theme.ConfirmBlue
 import com.example.ui_components.ui.core.core_logic.CustomColor
 import com.example.ui_components.ui.dialogs.import_alert_dialog.components.ImportDocumentTypes
+import com.example.ui_components.ui.theme.ConfirmBlue
 
 @Composable
 fun ImportAlertDialog(

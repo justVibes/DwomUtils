@@ -32,9 +32,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.ui_components.theme.Cream
+import com.example.ui_components.ui.theme.Cream
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RescheduleAlertDialog(
     modifier: Modifier = Modifier,

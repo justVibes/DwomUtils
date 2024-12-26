@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import com.example.ui_components.models.gigrequest.GigRequest
-import com.example.ui_components.theme.BlueHighlight
+import com.example.ui_components.ui.theme.BlueHighlight
 
 @Composable
 fun HeaderRow(

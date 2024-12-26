@@ -25,7 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.ui_components.theme.Teal
+import com.example.ui_components.ui.theme.Teal
 import kotlinx.coroutines.delay
 
 @Composable

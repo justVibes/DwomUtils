@@ -31,10 +31,10 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.ui_components.theme.ConfirmBlue
-import com.example.ui_components.theme.Export
 import com.example.ui_components.ui.core.core_logic.CustomColor
 import com.example.ui_components.ui.dialogs.export_alert_dialog.components.ExportDocumentTypes
+import com.example.ui_components.ui.theme.ConfirmBlue
+import com.example.ui_components.ui.theme.Export
 
 @Composable
 fun ExportAlertDialog(

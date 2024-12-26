@@ -24,8 +24,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.example.ui_components.theme.CancelRed
 import com.example.ui_components.ui.dialogs.delete_alert_dialog.components.DeletionType
+import com.example.ui_components.ui.theme.CancelRed
 
 @Composable
 fun DeleteAlertDialog(

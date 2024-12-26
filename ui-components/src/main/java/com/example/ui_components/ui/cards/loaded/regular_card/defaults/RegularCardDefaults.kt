@@ -14,13 +14,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.ui_components.R
-import com.example.ui_components.theme.Teal
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardColors
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardLeadingImage
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardPunch
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardText
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardTrailingIcon
 import com.example.ui_components.ui.core.core_logic.CustomColor
+import com.example.ui_components.ui.theme.Teal
 
 object RegularCardDefaults {
     @Composable

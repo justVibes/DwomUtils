@@ -30,7 +30,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.ui_components.theme.ConfirmBlue
+import com.example.ui_components.ui.theme.ConfirmBlue
 
 @Composable
 fun <T> ListAlertDialog(

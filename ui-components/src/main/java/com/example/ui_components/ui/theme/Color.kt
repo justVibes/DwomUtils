@@ -1,30 +1,32 @@
-package com.example.ui_components.theme
+package com.example.ui_components.ui.theme
 
 import androidx.compose.ui.graphics.Color
-
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+import androidx.compose.ui.graphics.Color.Companion.DarkGray
 
 val Teal = Color(0xB4009688)
 val LogoRed = Color(0xFFB01A21)
 val Cream = Color(0xF0D6A986)
 val BlueHighlight = Color(0xFFADD8E6)
 
+val PaleGreen = Color(0xFFC6E2B5)
+
 val Save = Color(0xFF4CAF50)
 val Export = Color(0xFFFFC107)
 val Delete = Color(0xFFE74C3C)
 
-val PaleGreen = Color(0xFFC6E2B5)
+val NavBar = Color(0xFF000049)
+val NavBarDark = NavBar.copy(.5f)
+val DetailsBox = NavBar.copy(alpha = .2f)
+val DetailsBoxDark = Color(0xFF007bff).copy(alpha = .05f)
+
+val DetailsContent = Color.White.copy(.7f)
+val DetailsContentDark = Color.White.copy(.25f)
+val DetailsContentBorder = DarkGray.copy(.7f)
+val DetailsContentBorderDark = DarkGray.copy(.5f)
 
 val CancelRed = Color(0xFFFF1744)
 val UploadBlue = Color(0xFF007bff)
-val CreativeGreen = Color(0xFF32CD32 )
-//val SaveGreen = Color(0xFF3e8e41)
+val CreativeGreen = Color(0xFF32CD32)
 
 val ConfirmBlue = Color(0xFF007bff)
 

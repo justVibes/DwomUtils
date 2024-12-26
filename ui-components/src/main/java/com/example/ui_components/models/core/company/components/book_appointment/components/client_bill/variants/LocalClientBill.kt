@@ -11,6 +11,7 @@ import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmList
 
 class LocalClientBill : EmbeddedRealmObject {
+    var billId: String = ""
     var issueDate: Long = 0L
     var paymentHandler: LocalEmployee? = null
     var charges: RealmList<LocalClientCharge> = realmListOf()
@@ -22,6 +23,7 @@ class LocalClientBill : EmbeddedRealmObject {
         fun mapToOriginal(form: LocalClientBill): ClientBill {
             val fmtForm = trimmedFields(form)
             return ClientBill(
+                billId = fmtForm.billId,
                 issueDate = fmtForm.issueDate,
                 paymentHandler = fmtForm.paymentHandler?.let { LocalEmployee.mapToOriginal(it) },
                 charges = fmtForm.charges.map { LocalClientCharge.mapToOriginal(it) },
@@ -32,6 +34,7 @@ class LocalClientBill : EmbeddedRealmObject {
         }
 
         fun trimmedFields(form: LocalClientBill) = LocalClientBill().apply {
+            billId = form.billId.trim()
             paymentHandler = form.paymentHandler?.let { LocalEmployee.trimmedFields(it) }
             issueDate = form.issueDate
             charges = form.charges.map { LocalClientCharge.trimmedFields(it) }.toRealmList()

@@ -34,9 +34,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.ui_components.theme.ConfirmBlue
 import com.example.ui_components.ui.dialogs.textfields_alert_dialog.components.ConditionModel
 import com.example.ui_components.ui.dialogs.textfields_alert_dialog.components.FieldModel
+import com.example.ui_components.ui.theme.ConfirmBlue
 
 @Composable
 fun TextFieldsAlertDialog(

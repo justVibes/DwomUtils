@@ -7,9 +7,11 @@ import com.example.ui_components.models.core.company.components.book_appointment
 import com.example.ui_components.models.core.company.components.book_appointment.components.client_bill.variants.LocalClientBill
 import com.example.ui_components.models.core.company.components.employee.Employee
 import io.realm.kotlin.ext.toRealmList
+import java.util.UUID
 
 
 data class ClientBill(
+    val billId: String = "${UUID.randomUUID()}",
     val issueDate: Long = System.currentTimeMillis(),
     val paymentHandler: Employee? = null,
     val charges: List<ClientCharge> = emptyList(),
@@ -37,6 +39,7 @@ data class ClientBill(
     companion object {
         fun mapToLocal(form: ClientBill) = LocalClientBill().apply {
             val fmtForm = trimmedFields(form)
+            billId = fmtForm.billId
             issueDate = fmtForm.issueDate
             paymentHandler = fmtForm.paymentHandler?.let { Employee.mapToLocal(it) }
             charges = fmtForm.charges.map { ClientCharge.mapToLocal(it) }.toRealmList()
@@ -46,6 +49,7 @@ data class ClientBill(
         }
 
         fun trimmedFields(form: ClientBill) = form.copy(
+            billId = form.billId.trim(),
             issueDate = form.issueDate,
             paymentHandler = form.paymentHandler?.let { Employee.trimmedFields(it) },
             charges = form.charges.map { ClientCharge.trimmedFields(it) },
