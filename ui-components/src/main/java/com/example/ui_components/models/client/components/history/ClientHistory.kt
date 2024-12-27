@@ -43,7 +43,7 @@ data class ClientHistory(
             emergencyContactInfo = form.emergencyContactInfo,
             tempNotes = form.notes,
             labResults = form.labResults,
-            bookedAppointment = form.bookedAppointment
+            bookedAppointment = form.bookedAppointment ?: BookedAppointment()
         )
     }
 }

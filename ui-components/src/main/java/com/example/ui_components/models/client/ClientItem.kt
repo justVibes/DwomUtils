@@ -35,7 +35,7 @@ data class ClientItem(
     val vitals: ClientVitals = ClientVitals(),
     val emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
     val history: List<ClientHistory> = emptyList(),
-    @Transient val bookedAppointment: BookedAppointment? = null,
+    @Transient val bookedAppointment: BookedAppointment = BookedAppointment(),
     @Transient val clientColor: ClientColor = ClientColor(rand1, rand2, rand3),
     /*
     * References the notes created for this client, which is stored in a sub collection
@@ -76,8 +76,7 @@ data class ClientItem(
             notes = form.tempNotes.map { ClientNote.mapToLocal(it) }.toRealmList()
             labResults = form.labResults.map { LabResult.mapToLocal(it) }.toRealmList()
             history = form.history.map { ClientHistory.mapToLocal(it) }.toRealmList()
-            bookedAppointment =
-                form.bookedAppointment?.let { BookedAppointment.mapToLocal(it) }
+            bookedAppointment = BookedAppointment.mapToLocal(form.bookedAppointment)
             clientColor = ClientColor.mapToLocal(form.clientColor)
         }
 

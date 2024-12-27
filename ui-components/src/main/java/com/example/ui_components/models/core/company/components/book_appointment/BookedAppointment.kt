@@ -20,7 +20,7 @@ data class BookedAppointment(
     val assistantServiceProvider: ServiceProvider? = null,
     /* This is an identifier when the appointments collection is queried by a receptionist */
     val clientSummary: ClientSummary? = null/*This is for local usage*/,
-    val bill: ClientBill? = null
+    val bill: ClientBill = ClientBill()
 ) {
     companion object {
         fun mapToLocal(form: BookedAppointment) = LocalBookedAppointment().apply {

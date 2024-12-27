@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -87,12 +88,16 @@ fun RegularCard(
                     .padding(5.dp),
                 contentAlignment = Alignment.Center
             ) {
-                when{
-                    leadingContentConfig.useInitialForPhoto -> {
+                when {
+                    leadingContentConfig.useInitialForPhoto != null -> {
+                        val style = leadingContentConfig.initialStyle
+                            ?: MaterialTheme.typography.displaySmall.copy(
+                                fontWeight = FontWeight.Medium,
+                                color = Color.White
+                            )
                         Text(
-                            modifier = imgModifier,
-                            text = "${header.text.firstOrNull()}",
-                            color = Color.White
+                            text = leadingContentConfig.useInitialForPhoto.let { "${it.first}.${it.second}" },
+                            style = style
                         )
                     }
 
