@@ -1,6 +1,5 @@
 package com.example.ui_components.models.payment_methods
 
-import com.example.ui_components.R
 import com.example.ui_components.exts.String.fmtDigits
 import com.example.ui_components.models.payment_methods.components.PaymentCurrency
 import com.example.ui_components.models.payment_methods.variants.LocalPaymentMethod
@@ -11,8 +10,6 @@ sealed class PaymentMethod(val label: String) {
         val amt: String = ""
     ) : PaymentMethod(label = "Cash") {
         companion object {
-            val icon= R.drawable.ic_cash_payment
-
             fun mapToLocal(form: Cash) = LocalPaymentMethod.LocalCash().apply {
                 val fmtForm = trimmedFields(form)
                 currency = PaymentCurrency.mapToLocal(fmtForm.currency)
@@ -34,7 +31,6 @@ sealed class PaymentMethod(val label: String) {
         val amt: String = ""
     ) : PaymentMethod(label = "Card") {
         companion object {
-            val icon = R.drawable.ic_card_payment
             fun mapToLocal(form: Card) = LocalPaymentMethod.LocalCard().apply {
                 val fmtForm = trimmedFields(form)
                 currency = PaymentCurrency.mapToLocal(fmtForm.currency)
@@ -59,7 +55,6 @@ sealed class PaymentMethod(val label: String) {
         val amt: String = ""
     ) : PaymentMethod(label = "Cheque") {
         companion object {
-            val icon  = R.drawable.ic_cheque_payment
 
             fun mapToLocal(form: BankCheque) = LocalPaymentMethod.LocalBankCheque().apply {
                 val fmtForm = trimmedFields(form)
