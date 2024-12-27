@@ -1,20 +1,22 @@
 package com.example.ui_components.models.payment_methods
 
-import androidx.annotation.DrawableRes
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import com.example.ui_components.R
 import com.example.ui_components.exts.String.fmtDigits
 import com.example.ui_components.models.payment_methods.components.PaymentCurrency
 import com.example.ui_components.models.payment_methods.variants.LocalPaymentMethod
 
-sealed class PaymentMethod(
-    @DrawableRes val icon: Int,
-    val label: String
-) {
+sealed class PaymentMethod(val label: String) {
     data class Cash(
         val currency: PaymentCurrency = PaymentCurrency() /* Use the 'PaymentCurrency' enum to initialize */,
         val amt: String = ""
-    ) : PaymentMethod(icon = R.drawable.ic_cash_payment, label = "Cash") {
+    ) : PaymentMethod(label = "Cash") {
         companion object {
+            val icon
+                @Composable get() = ImageVector.vectorResource(R.drawable.ic_cash_payment)
+
             fun mapToLocal(form: Cash) = LocalPaymentMethod.LocalCash().apply {
                 val fmtForm = trimmedFields(form)
                 currency = PaymentCurrency.mapToLocal(fmtForm.currency)
@@ -34,8 +36,9 @@ sealed class PaymentMethod(
         val type: String = "", /* Use the 'CardType' enum to initialize */
         val provider: String = "", /* Use the 'CardProvider' enum to initialize */
         val amt: String = ""
-    ) : PaymentMethod(icon = R.drawable.ic_card_payment, label = "Card") {
+    ) : PaymentMethod(label = "Card") {
         companion object {
+            val icon @Composable get() = ImageVector.vectorResource(R.drawable.ic_card_payment)
             fun mapToLocal(form: Card) = LocalPaymentMethod.LocalCard().apply {
                 val fmtForm = trimmedFields(form)
                 currency = PaymentCurrency.mapToLocal(fmtForm.currency)
@@ -58,8 +61,10 @@ sealed class PaymentMethod(
         val chequeNo: String = "",
         val bank: String = "", /* Use the 'CardProvider' enum to initialize */
         val amt: String = ""
-    ) : PaymentMethod(icon = R.drawable.ic_cheque_payment, label = "Cheque") {
+    ) : PaymentMethod(label = "Cheque") {
         companion object {
+            val icon @Composable get() = ImageVector.vectorResource(R.drawable.ic_cheque_payment)
+
             fun mapToLocal(form: BankCheque) = LocalPaymentMethod.LocalBankCheque().apply {
                 val fmtForm = trimmedFields(form)
                 currency = PaymentCurrency.mapToLocal(fmtForm.currency)
