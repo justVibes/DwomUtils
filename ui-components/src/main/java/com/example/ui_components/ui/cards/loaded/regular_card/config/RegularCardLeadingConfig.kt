@@ -6,6 +6,6 @@ import androidx.compose.ui.text.TextStyle
 data class RegularCardLeadingConfig(
     val photoUrl: String = "",
     @DrawableRes val resPhoto: Int? = null,
-    val useInitialForPhoto: Pair<Char,Char>? = null,
+    val useLttrsForPhoto: String? = null,
     val initialStyle: TextStyle? = null
 )

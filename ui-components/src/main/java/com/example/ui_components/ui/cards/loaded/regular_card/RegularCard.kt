@@ -89,14 +89,14 @@ fun RegularCard(
                 contentAlignment = Alignment.Center
             ) {
                 when {
-                    leadingContentConfig.useInitialForPhoto != null -> {
+                    leadingContentConfig.useLttrsForPhoto != null -> {
                         val style = leadingContentConfig.initialStyle
-                            ?: MaterialTheme.typography.displaySmall.copy(
+                            ?: MaterialTheme.typography.titleLarge.copy(
                                 fontWeight = FontWeight.Medium,
                                 color = Color.White
                             )
                         Text(
-                            text = leadingContentConfig.useInitialForPhoto.let { "${it.first}.${it.second}" },
+                            text = leadingContentConfig.useLttrsForPhoto,
                             style = style
                         )
                     }
