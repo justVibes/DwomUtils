@@ -16,5 +16,5 @@ object AllRelationships{
     }
 
     val allRelationships = BaseRelationships.values()
-        .toList() + Prefixed.let { it.step + it.grand } + Suffixed.inLaw
+        .map { it.name } + Prefixed.let { it.step + it.grand } + Suffixed.inLaw
 }
