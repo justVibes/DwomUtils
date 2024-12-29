@@ -15,6 +15,6 @@ object AllRelationships{
             .map { "$it-in-law" }
     }
 
-    val allRelationships = BaseRelationships.values()
+    val values = BaseRelationships.values()
         .map { it.name } + Prefixed.let { it.step + it.grand } + Suffixed.inLaw
 }

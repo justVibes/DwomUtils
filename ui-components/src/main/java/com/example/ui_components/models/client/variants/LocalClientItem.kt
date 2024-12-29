@@ -1,7 +1,7 @@
 package com.example.ui_components.models.client.variants
 
 import com.example.ui_components.models.client.ClientItem
-import com.example.ui_components.models.client.components.color.variants.LocalClientColor
+import com.example.ui_components.models.client.components.color.variants.LocalCustomColor
 import com.example.ui_components.models.client.components.emergency_contact_info.EmergencyContactInfo
 import com.example.ui_components.models.client.components.emergency_contact_info.variants.LocalEmergencyContactInfo
 import com.example.ui_components.models.client.components.history.variants.LocalClientHistory
@@ -32,7 +32,7 @@ class LocalClientItem : RealmObject {
     var labResults: RealmList<LocalLabResult> = realmListOf()
     var history: RealmList<LocalClientHistory> = realmListOf()
     var bookedAppointment: LocalBookedAppointment? = null
-    var clientColor: LocalClientColor? = null
+    var clientColor: LocalCustomColor? = null
 
 
     /* Use this to differentiate between client files that the user owns and downloaded client files */
@@ -59,7 +59,7 @@ class LocalClientItem : RealmObject {
             bookedAppointment = LocalBookedAppointment.mapToOriginal(
                 form.bookedAppointment ?: LocalBookedAppointment()
             ),
-            clientColor = LocalClientColor.mapToOriginal(form.clientColor ?: LocalClientColor())
+            customColor = LocalCustomColor.mapToOriginal(form.clientColor ?: LocalCustomColor())
         )
 
         fun trimmedFields(form: LocalClientItem) = LocalClientItem().apply {

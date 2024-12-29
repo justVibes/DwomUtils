@@ -1,6 +1,6 @@
 package com.example.ui_components.models.client
 
-import com.example.ui_components.models.client.components.color.ClientColor
+import com.example.ui_components.models.client.components.color.CustomColor
 import com.example.ui_components.models.client.components.core.EditType
 import com.example.ui_components.models.client.components.emergency_contact_info.EmergencyContactInfo
 import com.example.ui_components.models.client.components.history.ClientHistory
@@ -36,7 +36,7 @@ data class ClientItem(
     val emergencyContactInfo: EmergencyContactInfo = EmergencyContactInfo(),
     val history: List<ClientHistory> = emptyList(),
     @Transient val bookedAppointment: BookedAppointment = BookedAppointment(),
-    @Transient val clientColor: ClientColor = ClientColor(rand1, rand2, rand3),
+    @Transient val customColor: CustomColor = CustomColor(rand1, rand2, rand3),
     /*
     * References the notes created for this client, which is stored in a sub collection
     * of the client's document
@@ -55,9 +55,9 @@ data class ClientItem(
     @Transient val labResults: List<LabResult> = emptyList()
 ) {
     companion object {
-        internal val rand1 = (30..225).random()
-        internal val rand2 = (30..225).random()
-        internal val rand3 = (30..225).random()
+        internal val rand1 = (20..235).random()
+        internal val rand2 = (20..235).random()
+        internal val rand3 = (20..235).random()
         fun mapToLocal(form: ClientItem) = LocalClientItem().apply {
             clientId = form.clientId
             serviceProvider = form.serviceProvider?.let {
@@ -77,7 +77,7 @@ data class ClientItem(
             labResults = form.labResults.map { LabResult.mapToLocal(it) }.toRealmList()
             history = form.history.map { ClientHistory.mapToLocal(it) }.toRealmList()
             bookedAppointment = BookedAppointment.mapToLocal(form.bookedAppointment)
-            clientColor = ClientColor.mapToLocal(form.clientColor)
+            clientColor = CustomColor.mapToLocal(form.customColor)
         }
 
         fun mapToHistory(form: ClientItem): ClientHistory {

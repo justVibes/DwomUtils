@@ -1,15 +1,15 @@
 package com.example.ui_components.models.client.components.color.variants
 
-import com.example.ui_components.models.client.components.color.ClientColor
+import com.example.ui_components.models.client.components.color.CustomColor
 import io.realm.kotlin.types.EmbeddedRealmObject
 
-class LocalClientColor: EmbeddedRealmObject {
+class LocalCustomColor: EmbeddedRealmObject {
     var red: Int = 0
     var green: Int = 0
     var blue: Int = 0
     
     companion object {
-        fun mapToOriginal(form: LocalClientColor) = ClientColor(
+        fun mapToOriginal(form: LocalCustomColor) = CustomColor(
             red = form.red,
             green = form.green,
             blue = form.blue

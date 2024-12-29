@@ -43,6 +43,8 @@ object RegularCardDefaults {
         trailingIconBackgroundColor: Color = Color.Unspecified,
         punchColor: Color = MaterialTheme.colorScheme.onSurface,
         updateBubbleColor: Color = Teal,
+        lockBackgroundColor: Color = MaterialTheme.colorScheme.onSurface.copy(.7f),
+        lockIconColor: Color = MaterialTheme.colorScheme.surface
     ) = RegularCardColors(
         focusedContainerColor = focusedContainerColor,
         unfocusedContainerColor = unfocusedContainerColor,
@@ -54,6 +56,8 @@ object RegularCardDefaults {
         trailingIconBackgroundColor = trailingIconBackgroundColor,
         punchColor = punchColor,
         updateBubbleColor = updateBubbleColor,
+        lockBackgroundColor = lockBackgroundColor,
+        lockIconColor = lockIconColor
     )
 
     fun leadingImage(

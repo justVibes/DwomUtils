@@ -1,5 +1,6 @@
 package com.example.ui_components.models.core.company.components.employee.variants
 
+import com.example.ui_components.models.client.components.color.variants.LocalCustomColor
 import com.example.ui_components.models.client.components.core.name.LocalName
 import com.example.ui_components.models.core.company.components.book_appointment.variants.LocalBookedAppointment
 import com.example.ui_components.models.core.company.components.employee.Employee
@@ -16,26 +17,29 @@ class LocalEmployee : EmbeddedRealmObject {
     var photoUrl: String = ""
     var info: LocalEmployeeInfo? = null
     var assistant: LocalEmployeeAssistant? = null
+    var customColor: LocalCustomColor? = null
     var bookedAppointments: RealmList<LocalBookedAppointment> = realmListOf()
 
     companion object {
         fun mapToOriginal(form: LocalEmployee): Employee {
-            val formattedForm = trimmedFields(form)
+            val fmtForm = trimmedFields(form)
             return Employee(
-                email = formattedForm.email,
-                name = LocalName.mapToOriginal(formattedForm.name ?: LocalName()),
-                photoUrl = formattedForm.photoUrl,
-                info = formattedForm.info?.let { LocalEmployeeInfo.mapToOriginal(it) },
-                assistant = formattedForm.assistant?.let {
+                email = fmtForm.email,
+                name = LocalName.mapToOriginal(fmtForm.name ?: LocalName()),
+                photoUrl = fmtForm.photoUrl,
+                info = fmtForm.info?.let { LocalEmployeeInfo.mapToOriginal(it) },
+                assistant = fmtForm.assistant?.let {
                     LocalEmployeeAssistant.mapToOriginal(it)
                 },
-                bookedAppointments = formattedForm.bookedAppointments.map {
+                bookedAppointments = fmtForm.bookedAppointments.map {
                     LocalBookedAppointment.mapToOriginal(it)
-                }
+                },
+                customColor = LocalCustomColor.mapToOriginal(form.customColor ?: LocalCustomColor())
             )
         }
 
         fun trimmedFields(form: LocalEmployee) = LocalEmployee().apply {
+            customColor = form.customColor
             email = form.email.trim()
             name = form.name?.let { LocalName.trimmedFields(it) }
             photoUrl = form.photoUrl.trim()

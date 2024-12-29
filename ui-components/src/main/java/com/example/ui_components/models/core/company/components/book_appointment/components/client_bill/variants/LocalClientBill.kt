@@ -19,7 +19,7 @@ class LocalClientBill : EmbeddedRealmObject {
     var paymentMethod: LocalClientPayment? = null
 
     var totalCost: String = ""
-        get() = charges.maxOfOrNull { it.fee.toInt() }?.let { "$it" } ?: "0"
+        get() = charges.sumOf { it.fee.toInt() }.let { "$it" }
         private set
 
     var paymentStatus: LocalClientPaymentStatus? = null

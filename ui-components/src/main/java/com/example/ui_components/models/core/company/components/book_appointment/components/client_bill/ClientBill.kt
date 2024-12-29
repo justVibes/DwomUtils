@@ -18,7 +18,7 @@ data class ClientBill(
     val paymentMethod: ClientPayment? = null,
 ) {
     val totalCost
-        get() = charges.maxOfOrNull { it.fee.fmtDigits().toInt() }?.let { "$it" } ?: "0"
+        get() = charges.sumOf { it.fee.fmtDigits().toInt() }.let { "$it" }
 
     val paymentStatus: ClientPaymentStatus
         get() = ClientPaymentStatus(

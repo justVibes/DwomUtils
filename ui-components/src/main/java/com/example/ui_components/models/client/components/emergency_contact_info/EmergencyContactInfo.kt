@@ -13,7 +13,7 @@ data class EmergencyContactInfo(
     val name: Name = Name(),
     val phoneNumber: String = "",
     val email: String = "",
-    val relationship: String = "", /* (optional) Use 'EmergencyContactRelationships' enum to initialize */
+    val relationship: String = "", /* (optional) Use 'AllRelationships' object to initialize */
     val presentAddress: String = "",
 ) {
     companion object {

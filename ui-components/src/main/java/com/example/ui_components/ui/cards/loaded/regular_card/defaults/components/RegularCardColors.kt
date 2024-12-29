@@ -17,6 +17,8 @@ class RegularCardColors(
     val trailingIconBackgroundColor: Color,
     val punchColor: Color,
     val updateBubbleColor: Color,
+    val lockBackgroundColor: Color,
+    val lockIconColor: Color,
 ) {
     fun copy(
         focusedContainerColor: Color = this.focusedContainerColor,
@@ -29,6 +31,8 @@ class RegularCardColors(
         trailingIconBackgroundColor: Color = this.trailingIconBackgroundColor,
         punchColor: Color = this.punchColor,
         updateBubbleColor: Color = this.updateBubbleColor,
+        lockBackgroundColor: Color = this.lockBackgroundColor,
+        lockIconColor: Color = this.lockIconColor
     ) = RegularCardColors(
         focusedContainerColor = focusedContainerColor.takeOrElse { this.focusedContainerColor },
         unfocusedContainerColor = unfocusedContainerColor.takeOrElse { this.unfocusedContainerColor },
@@ -40,6 +44,8 @@ class RegularCardColors(
         trailingIconBackgroundColor = trailingIconBackgroundColor.takeOrElse { this.trailingIconBackgroundColor },
         punchColor = punchColor.takeOrElse { this.punchColor },
         updateBubbleColor = updateBubbleColor,
+        lockBackgroundColor = lockBackgroundColor.takeOrElse { this.lockBackgroundColor },
+        lockIconColor = lockIconColor.takeOrElse { this.lockIconColor }
     )
 
     internal val containerColor: @Composable (Boolean) -> Color = { isSelected ->
