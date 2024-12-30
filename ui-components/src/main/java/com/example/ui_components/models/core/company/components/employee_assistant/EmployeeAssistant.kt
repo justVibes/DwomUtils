@@ -12,22 +12,25 @@ data class EmployeeAssistant(
     val name: Name = Name(),
     val photoUrl: String = "",
     val info: EmployeeInfo? = null,
+    val isOnBreak: Boolean = false,
     @Exclude val bookedAppointments: List<BookedAppointment> = emptyList(), /*This is for local usage*/
 ) {
     companion object {
         fun mapToLocal(form: EmployeeAssistant) = LocalEmployeeAssistant().apply {
-            val formattedForm = trimmedFields(form)
-            email = formattedForm.email
-            name = Name.mapToLocal(formattedForm.name)
-            photoUrl = formattedForm.photoUrl
-            info = formattedForm.info?.let { EmployeeInfo.mapToLocal(it) }
+            val fmtForm = trimmedFields(form)
+            isOnBreak = fmtForm.isOnBreak
+            email = fmtForm.email
+            name = Name.mapToLocal(fmtForm.name)
+            photoUrl = fmtForm.photoUrl
+            info = fmtForm.info?.let { EmployeeInfo.mapToLocal(it) }
             bookedAppointments =
-                formattedForm.bookedAppointments.map { BookedAppointment.mapToLocal(it) }
+                fmtForm.bookedAppointments.map { BookedAppointment.mapToLocal(it) }
                     .toRealmList()
         }
 
         fun trimmedFields(form: EmployeeAssistant) = form.copy(
             email = form.email.trim(),
+            isOnBreak = form.isOnBreak,
             name = Name.trimmedFields(form.name),
             photoUrl = form.photoUrl.trim(),
             info = form.info?.let { EmployeeInfo.trimmedFields(it) },

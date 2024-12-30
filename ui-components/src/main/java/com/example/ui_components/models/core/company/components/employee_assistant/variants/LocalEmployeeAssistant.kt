@@ -10,6 +10,7 @@ import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmList
 
 class LocalEmployeeAssistant : EmbeddedRealmObject {
+    var isOnBreak: Boolean = false
     var email: String = ""
     var name: LocalName? = null
     var photoUrl: String = ""
@@ -20,13 +21,14 @@ class LocalEmployeeAssistant : EmbeddedRealmObject {
 
     companion object {
         fun mapToOriginal(form: LocalEmployeeAssistant): EmployeeAssistant {
-            val formattedForm = trimmedFields(form)
+            val fmtForm = trimmedFields(form)
             return EmployeeAssistant(
-                email = formattedForm.email,
-                name = LocalName.mapToOriginal(formattedForm.name ?: LocalName()),
-                photoUrl = formattedForm.photoUrl,
-                info = formattedForm.info?.let { LocalEmployeeInfo.mapToOriginal(it) },
-                bookedAppointments = formattedForm.bookedAppointments.map {
+                email = fmtForm.email,
+                isOnBreak = fmtForm.isOnBreak,
+                name = LocalName.mapToOriginal(fmtForm.name ?: LocalName()),
+                photoUrl = fmtForm.photoUrl,
+                info = fmtForm.info?.let { LocalEmployeeInfo.mapToOriginal(it) },
+                bookedAppointments = fmtForm.bookedAppointments.map {
                     LocalBookedAppointment.mapToOriginal(it)
                 }
             )
@@ -34,6 +36,7 @@ class LocalEmployeeAssistant : EmbeddedRealmObject {
 
         fun trimmedFields(form: LocalEmployeeAssistant) = LocalEmployeeAssistant().apply {
             email = form.email.trim()
+            isOnBreak = form.isOnBreak
             name = form.name?.let { LocalName.trimmedFields(it) }
             photoUrl = form.photoUrl.trim()
             info = form.info?.let { LocalEmployeeInfo.trimmedFields(it) }

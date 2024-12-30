@@ -47,7 +47,6 @@ import com.example.ui_components.ui.cards.loaded.regular_card.defaults.component
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardTrailingIcon
 import com.example.ui_components.ui.core.core_logic.TextStyling
 
-
 @Composable
 fun RegularCard(
     modifier: Modifier = Modifier,
@@ -77,7 +76,7 @@ fun RegularCard(
                     if (lockedConfig == null) onClick()
                     else {
                         Toast
-                            .makeText(ctx, lockedConfig.displayMessage, Toast.LENGTH_SHORT)
+                            .makeText(ctx, lockedConfig.displayMessage, Toast.LENGTH_LONG)
                             .show()
                     }
                 },
@@ -222,7 +221,7 @@ fun RegularCard(
                     modifier = Modifier.size(30.dp),
                     imageVector = Icons.Default.Lock,
                     contentDescription = null,
-                    tint = colors.lockBackgroundColor
+                    tint = colors.lockIconColor
                 )
             }
         }

@@ -16,6 +16,7 @@ data class Employee(
     val info: EmployeeInfo? = null,
     val assistant: EmployeeAssistant? = null,
     val customColor: CustomColor = CustomColor(rand1, rand2, rand3),
+    val isOnBreak: Boolean = false,
     @Exclude val bookedAppointments: List<BookedAppointment> = emptyList(), /*This is for local usage*/
 ) {
 
@@ -25,6 +26,7 @@ data class Employee(
         internal val rand3 = (20..235).random()
         fun mapToLocal(form: Employee) = LocalEmployee().apply {
             val fmtForm = trimmedFields(form)
+            isOnBreak = fmtForm.isOnBreak
             email = fmtForm.email
             name = Name.mapToLocal(fmtForm.name)
             photoUrl = fmtForm.photoUrl
@@ -38,6 +40,7 @@ data class Employee(
 
         fun trimmedFields(form: Employee) = form.copy(
             customColor = form.customColor,
+            isOnBreak = form.isOnBreak,
             email = form.email.trim(),
             name = Name.trimmedFields(form.name),
             photoUrl = form.photoUrl.trim(),

@@ -12,6 +12,7 @@ import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmList
 
 class LocalEmployee : EmbeddedRealmObject {
+    var isOnBreak: Boolean = false
     var email: String = ""
     var name: LocalName? = null
     var photoUrl: String = ""
@@ -24,6 +25,7 @@ class LocalEmployee : EmbeddedRealmObject {
         fun mapToOriginal(form: LocalEmployee): Employee {
             val fmtForm = trimmedFields(form)
             return Employee(
+                isOnBreak = fmtForm.isOnBreak,
                 email = fmtForm.email,
                 name = LocalName.mapToOriginal(fmtForm.name ?: LocalName()),
                 photoUrl = fmtForm.photoUrl,
@@ -40,6 +42,7 @@ class LocalEmployee : EmbeddedRealmObject {
 
         fun trimmedFields(form: LocalEmployee) = LocalEmployee().apply {
             customColor = form.customColor
+            isOnBreak = form.isOnBreak
             email = form.email.trim()
             name = form.name?.let { LocalName.trimmedFields(it) }
             photoUrl = form.photoUrl.trim()
