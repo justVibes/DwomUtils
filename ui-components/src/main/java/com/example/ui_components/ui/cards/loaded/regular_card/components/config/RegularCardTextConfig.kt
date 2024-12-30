@@ -1,4 +1,4 @@
-package com.example.ui_components.ui.cards.loaded.regular_card.config
+package com.example.ui_components.ui.cards.loaded.regular_card.components.config
 
 import androidx.compose.ui.text.AnnotatedString
 
