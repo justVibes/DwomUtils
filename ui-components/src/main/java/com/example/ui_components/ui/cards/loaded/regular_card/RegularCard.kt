@@ -263,7 +263,7 @@ private fun GetTextContent(
     isSelected: Boolean,
 ) {
     val color =
-        if (isHeader) colors.containerColor(isSelected) else colors.containerColor(isSelected)
+        if (isHeader) colors.contentColor(isSelected) else colors.contentColor(isSelected)
             .copy(.5f)
     when {
         textConfig.annotatedText != null -> {
