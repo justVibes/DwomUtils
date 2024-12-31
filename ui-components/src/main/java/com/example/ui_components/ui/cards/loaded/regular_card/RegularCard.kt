@@ -40,18 +40,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
+import com.example.ui_components.ui.cards.loaded.regular_card.components.SwipeSide
 import com.example.ui_components.ui.cards.loaded.regular_card.components.config.LockedRegularCardConfig
 import com.example.ui_components.ui.cards.loaded.regular_card.components.config.RegularCardLeadingConfig
 import com.example.ui_components.ui.cards.loaded.regular_card.components.config.RegularCardTextConfig
 import com.example.ui_components.ui.cards.loaded.regular_card.components.config.RegularCardTrailingConfig
+import com.example.ui_components.ui.cards.loaded.regular_card.components.config.SwipeableRegularCardConfig
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.RegularCardDefaults
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardColors
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardLeadingImage
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardPunch
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardText
 import com.example.ui_components.ui.cards.loaded.regular_card.defaults.components.RegularCardTrailingIcon
-import com.example.ui_components.ui.cards.loaded.regular_card.components.SwipeSide
-import com.example.ui_components.ui.cards.loaded.regular_card.components.config.SwipeableRegularCardConfig
 import com.example.ui_components.ui.core.core_logic.TextStyling
 
 @Composable
@@ -59,6 +59,7 @@ fun RegularCard(
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
     isPunchVisible: Boolean = false,
+    objType: Any? = null,
     lockedConfig: LockedRegularCardConfig? = null,
     swipeableConfig: SwipeableRegularCardConfig? = null,
     leadingContentConfig: RegularCardLeadingConfig,
@@ -76,7 +77,7 @@ fun RegularCard(
 ) {
     val ctx = LocalContext.current
     val dismissBoxState = rememberSwipeToDismissBoxState(
-        confirmValueChange = { swipeableConfig?.onSwipe?.invoke(it) ?: false },
+        confirmValueChange = { swipeableConfig?.onSwipe?.invoke(it, objType) ?: false },
         positionalThreshold = { it * .25f },
     )
     SwipeToDismissBox(
