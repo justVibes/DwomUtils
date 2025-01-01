@@ -5,11 +5,11 @@ import com.example.ui_components.models.core.freelancer.components.portfolio.var
 import com.example.ui_components.models.core.type_of_worker.components.worker_title.variants.LocalWorkerTitle
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.ext.toRealmList
+import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmList
-import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 
-class LocalFreelancer : RealmObject {
+class LocalFreelancer : EmbeddedRealmObject {
     @PrimaryKey
     var uid: String = ""
     var tagName: String = ""
