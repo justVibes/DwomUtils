@@ -21,8 +21,10 @@ import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 
 class LocalClientItem : RealmObject {
+
     @PrimaryKey
     var clientId: String = ""
+    var seenByAssistant: Boolean = false
     var serviceProvider: LocalServiceProvider? = null
     var accessorEmails: RealmList<String> = realmListOf()
     var clientInfo: LocalClientInfo? = null
@@ -42,6 +44,7 @@ class LocalClientItem : RealmObject {
     companion object {
         fun mapToOriginal(form: LocalClientItem) = ClientItem(
             clientId = form.clientId,
+            seenByAssistant = form.seenByAssistant,
             serviceProvider = form.serviceProvider?.let {
                 LocalServiceProvider.mapToOriginal(it)
             },

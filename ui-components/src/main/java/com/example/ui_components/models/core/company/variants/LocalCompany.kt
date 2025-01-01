@@ -1,45 +1,36 @@
 package com.example.ui_components.models.core.company.variants
 
 import com.example.ui_components.models.core.company.Company
-import com.example.ui_components.models.core.company.components.company_summary.variants.LocalCompanySummary
 import com.example.ui_components.models.core.company.components.employee.variants.LocalEmployee
+import com.example.ui_components.models.core.company.components.metadata.variants.LocalCompanyMetadata
+import com.google.firebase.firestore.Exclude
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmList
+import java.util.UUID
 
 class LocalCompany : EmbeddedRealmObject {
-    var companyId: String = ""
-    var summary: LocalCompanySummary? = null
-    var photoUrl: String = ""
-    var coarseLocation: String = ""
-    var type: String = ""
-    var aboutUs: String = ""
+    var companyId: String = "${UUID.randomUUID()}"
+    var metadata: LocalCompanyMetadata? = null
     var employeesDocPaths: RealmList<String> = realmListOf()
-    var employees: RealmList<LocalEmployee> = realmListOf()/*This is for local usage*/
+    @Exclude
+    var employees: RealmList<LocalEmployee> = realmListOf()
 
     companion object {
         fun mapToOriginal(form: LocalCompany): Company {
-            val formattedForm = trimmedFields(form)
+            val fmtForm = trimmedFields(form)
             return Company(
-                companyId = formattedForm.companyId,
-                summary = formattedForm.summary?.let { LocalCompanySummary.mapToOriginal(it) },
-                photoUrl = formattedForm.photoUrl,
-                coarseLocation = formattedForm.coarseLocation,
-                type = formattedForm.type,
-                aboutUs = formattedForm.aboutUs,
-                employeesDocPaths = formattedForm.employeesDocPaths,
-                employees = formattedForm.employees.map { LocalEmployee.mapToOriginal(it) }
+                companyId = fmtForm.companyId,
+                metadata =  LocalCompanyMetadata.mapToOriginal(fmtForm.metadata ?: LocalCompanyMetadata()),
+                employeesDocPaths = fmtForm.employeesDocPaths,
+                employees = fmtForm.employees.map { LocalEmployee.mapToOriginal(it) }
             )
         }
 
         fun trimmedFields(form: LocalCompany) = LocalCompany().apply {
             companyId = form.companyId.trim()
-            summary = form.summary?.let { LocalCompanySummary.trimmedFields(it) }
-            photoUrl = form.photoUrl.trim()
-            coarseLocation = form.coarseLocation.trim()
-            type = form.type.trim()
-            aboutUs = form.aboutUs.trim()
+            metadata = form.metadata?.let { LocalCompanyMetadata.trimmedFields(it) }
             employeesDocPaths = form.employeesDocPaths.map { it.trim() }.toRealmList()
             employees = form.employees.map { LocalEmployee.trimmedFields(it) }.toRealmList()
         }

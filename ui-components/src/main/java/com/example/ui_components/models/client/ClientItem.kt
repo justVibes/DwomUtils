@@ -29,6 +29,7 @@ import java.util.UUID
 data class ClientItem(
     val clientId: String = "${UUID.randomUUID()}",
     val creationDate: Long = 0L,
+    val seenByAssistant: Boolean = false,
     val serviceProvider: ServiceProvider? = null,
     val accessorEmails: List<String> = emptyList(),
     val clientInfo: ClientInfo = ClientInfo(),
@@ -58,8 +59,10 @@ data class ClientItem(
         internal val rand1 = (20..235).random()
         internal val rand2 = (20..235).random()
         internal val rand3 = (20..235).random()
+
         fun mapToLocal(form: ClientItem) = LocalClientItem().apply {
             clientId = form.clientId
+            seenByAssistant = form.seenByAssistant
             serviceProvider = form.serviceProvider?.let {
                 ServiceProvider.mapToLocal(it)
             }

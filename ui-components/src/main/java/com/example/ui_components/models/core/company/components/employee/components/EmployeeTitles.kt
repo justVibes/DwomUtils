@@ -1,4 +1,4 @@
-package com.example.ui_components.models.core
+package com.example.ui_components.models.core.company.components.employee.components
 
 enum class EmployeeTitles(val fmt: String, val abv: String) {
     Doctor(Doctor.name, "Dr"),
