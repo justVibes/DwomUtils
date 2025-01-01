@@ -7,10 +7,8 @@ import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmList
-import io.realm.kotlin.types.annotations.PrimaryKey
 
 class LocalFreelancer : EmbeddedRealmObject {
-    @PrimaryKey
     var uid: String = ""
     var tagName: String = ""
     var email: String = ""
