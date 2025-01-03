@@ -1,6 +1,6 @@
-package com.example.ui_components.models.core.company.components.employee.components.work_break
+package com.example.ui_components.models.core.company.components.employee.components.private_info.components.work_break
 
-import com.example.ui_components.models.core.company.components.employee.components.work_break.variants.LocalWorkBreakConfig
+import com.example.ui_components.models.core.company.components.employee.components.private_info.components.work_break.variants.LocalWorkBreakConfig
 
 data class WorkBreakConfig(
     val startTime: Long = 0L,

@@ -19,7 +19,7 @@ data class ClientPayment(
         }
 
         fun trimmedFields(form: ClientPayment) = form.copy(
-            cash = form.cash?.let { PaymentMethod.Cash.trimmedFields(it) },
+            cash = form.cash,
             card = form.card?.let { PaymentMethod.Card.trimmedFields(it) },
             cheque = form.cheque?.let { PaymentMethod.BankCheque.trimmedFields(it) },
             paymentDate = form.paymentDate

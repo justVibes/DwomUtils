@@ -12,5 +12,5 @@ data class Message(
     val timeStamp: Long = Calendar.getInstance().timeInMillis,
     val collectionPath: String? = null
 ) {
-    fun isMyMessage(myEmail: String) = sender?.email == myEmail
+    fun isMyMessage(myEmail: String) = sender?.publicInfo?.email == myEmail
 }

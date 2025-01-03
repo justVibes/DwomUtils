@@ -1,6 +1,6 @@
-package com.example.ui_components.models.payment_methods.variants.components
+package com.example.ui_components.models.payment_methods.components.payment_currency.variants
 
-import com.example.ui_components.models.payment_methods.components.PaymentCurrency
+import com.example.ui_components.models.payment_methods.components.payment_currency.PaymentCurrency
 import io.realm.kotlin.types.EmbeddedRealmObject
 
 class LocalPaymentCurrency : EmbeddedRealmObject {

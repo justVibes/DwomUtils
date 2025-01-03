@@ -1,6 +1,6 @@
 package com.example.ui_components.models.gigrequest.job_info
 
-import com.example.ui_components.models.core.type_of_worker.TypeOfWorkerModel
+import com.example.ui_components.models.core.freelancer.components.metadata.FreelancerMetadata
 import com.example.ui_components.models.gigrequest.job_info.components.JobOption
 import com.example.ui_components.models.gigrequest.job_info.components.JobPayment
 import com.example.ui_components.models.gigrequest.job_info.components.RequestImage
@@ -13,7 +13,7 @@ data class JobInfo(
     var dateToDoJob: String = "",
     var timeToDoJob: String = "",
     val payment: JobPayment? = null,
-    val requiredTypeOfWorker: TypeOfWorkerModel? = null,
+    val requiredTypeOfWorker: FreelancerMetadata? = null,
     val selectedJobOptions: List<JobOption> = emptyList(),
     var referencePhotos: List<RequestImage> = emptyList(),
 )

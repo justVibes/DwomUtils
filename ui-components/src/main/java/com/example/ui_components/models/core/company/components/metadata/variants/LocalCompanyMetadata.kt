@@ -1,6 +1,8 @@
 package com.example.ui_components.models.core.company.components.metadata.variants
 
 import com.example.ui_components.models.core.company.components.metadata.CompanyMetadata
+import com.example.ui_components.models.core.company.components.metadata.components.collection_paths.CompanyCollectionPaths
+import com.example.ui_components.models.core.company.components.metadata.components.collection_paths.variants.LocalCompanyCollectionPaths
 import io.realm.kotlin.types.EmbeddedRealmObject
 
 class LocalCompanyMetadata : EmbeddedRealmObject {
@@ -9,7 +11,7 @@ class LocalCompanyMetadata : EmbeddedRealmObject {
     var field: String = ""
     var type: String = ""
     var photoUrl: String = ""
-    var collectionPath: String = ""
+    var collectionPaths: LocalCompanyCollectionPaths? = null
     var coarseLocation: String = ""
 
     companion object {
@@ -21,7 +23,9 @@ class LocalCompanyMetadata : EmbeddedRealmObject {
                 type = fmtForm.type,
                 field = fmtForm.field,
                 photoUrl = fmtForm.photoUrl,
-                collectionPath = fmtForm.collectionPath,
+                collectionPaths = fmtForm.collectionPaths?.let {
+                    LocalCompanyCollectionPaths.mapToOriginal(it)
+                } ?: CompanyCollectionPaths(),
                 coarseLocation = fmtForm.coarseLocation
             )
         }
@@ -32,7 +36,8 @@ class LocalCompanyMetadata : EmbeddedRealmObject {
             type = form.type.trim()
             field = form.field.trim()
             photoUrl = form.photoUrl.trim()
-            collectionPath = form.collectionPath.trim()
+            collectionPaths =
+                form.collectionPaths?.let { LocalCompanyCollectionPaths.trimmedFields(it) }
             coarseLocation = form.coarseLocation.trim()
         }
     }

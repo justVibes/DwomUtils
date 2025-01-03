@@ -1,7 +1,7 @@
-package com.example.ui_components.models.payment_methods.components
+package com.example.ui_components.models.payment_methods.components.payment_currency
 
+import com.example.ui_components.models.payment_methods.components.payment_currency.variants.LocalPaymentCurrency
 import com.example.ui_components.models.payment_methods.core.PaymentCurrencyConfig
-import com.example.ui_components.models.payment_methods.variants.components.LocalPaymentCurrency
 
 /* Use the 'PaymentCurrencyConfig' enum to initialize */
 data class PaymentCurrency(

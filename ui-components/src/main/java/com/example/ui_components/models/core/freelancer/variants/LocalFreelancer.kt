@@ -1,8 +1,8 @@
 package com.example.ui_components.models.core.freelancer.variants
 
 import com.example.ui_components.models.core.freelancer.Freelancer
+import com.example.ui_components.models.core.freelancer.components.metadata.variants.LocalFreelancerMetadata
 import com.example.ui_components.models.core.freelancer.components.portfolio.variants.LocalPortfolioFile
-import com.example.ui_components.models.core.type_of_worker.components.worker_title.variants.LocalWorkerTitle
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.types.EmbeddedRealmObject
@@ -12,12 +12,10 @@ class LocalFreelancer : EmbeddedRealmObject {
     var uid: String = ""
     var tagName: String = ""
     var email: String = ""
-    var title: LocalWorkerTitle? = null
     var photoUrl: String = ""
     var phoneNumber: String = ""
     var rating: Double = 0.0
-    var typeOfAppointment: String = ""
-    var endProduct: String = ""
+    var metadata: LocalFreelancerMetadata? = null
     var portfolio: RealmList<LocalPortfolioFile> = realmListOf()
 
     companion object {
@@ -27,12 +25,12 @@ class LocalFreelancer : EmbeddedRealmObject {
                 uid = fmtForm.uid,
                 tagName = fmtForm.tagName,
                 email = fmtForm.email,
-                title = LocalWorkerTitle.mapToOriginal(fmtForm.title ?: LocalWorkerTitle()),
                 photoUrl = fmtForm.photoUrl,
                 phoneNumber = fmtForm.phoneNumber,
                 rating = fmtForm.rating,
-                typeOfAppointment = fmtForm.typeOfAppointment,
-                endProduct = fmtForm.endProduct,
+                metadata = fmtForm.metadata.let {
+                    LocalFreelancerMetadata.mapToOriginal(it ?: LocalFreelancerMetadata())
+                },
                 portfolio = form.portfolio.map { LocalPortfolioFile.mapToOriginal(it) }
             )
         }
@@ -44,9 +42,7 @@ class LocalFreelancer : EmbeddedRealmObject {
             email = form.email.trim()
             phoneNumber = form.phoneNumber.filter { it.isDigit() }.trim()
             rating = form.rating
-            title = form.title?.let { LocalWorkerTitle.trimmedFields(it) }
-            typeOfAppointment = form.typeOfAppointment.trim()
-            endProduct = form.endProduct.trim()
+            metadata = form.metadata
             portfolio = form.portfolio.map { LocalPortfolioFile.trimmedFields(it) }.toRealmList()
         }
     }

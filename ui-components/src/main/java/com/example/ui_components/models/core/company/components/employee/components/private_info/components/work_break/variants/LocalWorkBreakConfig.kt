@@ -1,6 +1,6 @@
-package com.example.ui_components.models.core.company.components.employee.components.work_break.variants
+package com.example.ui_components.models.core.company.components.employee.components.private_info.components.work_break.variants
 
-import com.example.ui_components.models.core.company.components.employee.components.work_break.WorkBreakConfig
+import com.example.ui_components.models.core.company.components.employee.components.private_info.components.work_break.WorkBreakConfig
 import io.realm.kotlin.types.EmbeddedRealmObject
 
 class LocalWorkBreakConfig : EmbeddedRealmObject {

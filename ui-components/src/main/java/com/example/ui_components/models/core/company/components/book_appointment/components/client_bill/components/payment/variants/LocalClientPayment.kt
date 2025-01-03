@@ -22,7 +22,7 @@ class LocalClientPayment : EmbeddedRealmObject {
         }
 
         fun trimmedFields(form: LocalClientPayment) = LocalClientPayment().apply {
-            cash = form.cash?.let { LocalPaymentMethod.LocalCash.trimmedFields(it) }
+            cash = form.cash
             card = form.card?.let { LocalPaymentMethod.LocalCard.trimmedFields(it) }
             cheque = form.cheque?.let { LocalPaymentMethod.LocalBankCheque.trimmedFields(it) }
             paymentDate = form.paymentDate

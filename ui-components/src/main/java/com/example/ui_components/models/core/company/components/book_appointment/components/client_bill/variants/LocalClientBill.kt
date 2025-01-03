@@ -25,10 +25,10 @@ class LocalClientBill : EmbeddedRealmObject {
     var paymentStatus: LocalClientPaymentStatus? = null
         get() = LocalClientPaymentStatus().apply {
             fully = paymentMethod?.let {
-                (it.cash?.amt ?: it.card?.amt ?: it.cheque?.amt) == totalCost
+                (it.cash?.paymentInfo ?: it.card?.paymentInfo ?: it.cheque?.paymentInfo)?.amt == totalCost
             } ?: false
             partially = (paymentMethod?.let {
-                val amount = it.cash?.amt ?: it.card?.amt ?: it.cheque?.amt
+                val amount = (it.cash?.paymentInfo ?: it.card?.paymentInfo ?: it.cheque?.paymentInfo)?.amt
                 amount?.let { amt ->
                     amt.fmtDigits().isNotEmpty() && amt.toInt() < totalCost.toInt()
                 } == true

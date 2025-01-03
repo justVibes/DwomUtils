@@ -22,6 +22,7 @@ fun CloseBtn(
     size: Dp = 35.dp,
     shape: CornerBasedShape = MaterialTheme.shapes.small,
     containerColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = .05f),
+    contentColor: Color = MaterialTheme.colorScheme.onSurface,
     isEnabled: Boolean = true,
     onClick: () -> Unit
 
@@ -35,7 +36,7 @@ fun CloseBtn(
             .padding(5.dp),
         imageVector = Icons.Default.Close,
         contentDescription = null,
-        tint = MaterialTheme.colorScheme.onSurface
+        tint = contentColor
     )
 }
 

@@ -1,20 +1,20 @@
-package com.example.ui_components.models.core.type_of_worker.components.worker_title
+package com.example.ui_components.models.core.worker_title
 
-import com.example.ui_components.models.core.type_of_worker.components.worker_title.variants.LocalWorkerTitle
+import com.example.ui_components.models.core.worker_title.variants.LocalWorkerTitle
 
 data class WorkerTitle(
-    val formatted: String = "",
+    val fmt: String = "",
     val abv: String = ""
 ) {
     companion object {
         fun mapToLocal(form: WorkerTitle) = LocalWorkerTitle().apply {
             val formattedForm = trimmedFields(form)
-            formatted = formattedForm.formatted
+            fmt = formattedForm.fmt
             abv = formattedForm.abv
         }
 
         fun trimmedFields(form: WorkerTitle) = form.copy(
-            formatted = form.formatted.trim(),
+            fmt = form.fmt.trim(),
             abv = form.abv.trim()
         )
     }

@@ -1,6 +1,8 @@
 package com.example.ui_components.models.core.company.components.metadata
 
+import com.example.ui_components.models.core.company.components.metadata.components.collection_paths.CompanyCollectionPaths
 import com.example.ui_components.models.core.company.components.metadata.variants.LocalCompanyMetadata
+
 
 data class CompanyMetadata(
     val name: String = "",
@@ -8,7 +10,7 @@ data class CompanyMetadata(
     val field: String = "", /* Use 'CompanyFields.label' to initialize */
     val type: String = "", /* Use a value from the 'CompanyFields.types' list to initialize */
     val photoUrl: String = "",
-    val collectionPath: String = "",
+    val collectionPaths: CompanyCollectionPaths = CompanyCollectionPaths(),
     val coarseLocation: String = "",
 ) {
     companion object {
@@ -19,7 +21,7 @@ data class CompanyMetadata(
             field = fmtForm.field
             type = fmtForm.type
             photoUrl = fmtForm.photoUrl
-            collectionPath = fmtForm.collectionPath
+            collectionPaths = fmtForm.collectionPaths.let { CompanyCollectionPaths.mapToLocal(it) }
             coarseLocation = fmtForm.coarseLocation
         }
 
@@ -29,7 +31,7 @@ data class CompanyMetadata(
             field = form.field.trim(),
             type = form.type.trim(),
             photoUrl = form.photoUrl.trim(),
-            collectionPath = form.collectionPath.trim(),
+            collectionPaths = form.collectionPaths.let { CompanyCollectionPaths.trimmedFields(it) },
             coarseLocation = form.coarseLocation.trim()
         )
     }
