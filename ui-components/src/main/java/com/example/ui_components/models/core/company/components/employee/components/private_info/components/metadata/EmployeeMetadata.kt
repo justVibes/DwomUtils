@@ -1,6 +1,6 @@
 package com.example.ui_components.models.core.company.components.employee.components.private_info.components.metadata
 
-import com.example.ui_components.models.client.components.color.CustomColor
+import com.example.ui_components.models.color.CustomColor
 import com.example.ui_components.models.core.company.components.book_appointment.BookedAppointment
 import com.example.ui_components.models.core.company.components.employee.components.private_info.components.metadata.components.company_attributes.CompanyAttributes
 import com.example.ui_components.models.core.company.components.employee.components.private_info.components.metadata.variants.LocalEmployeeMetadata

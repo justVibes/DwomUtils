@@ -1,6 +1,6 @@
 package com.example.ui_components.models.core.company.components
 
-import com.example.ui_components.models.core.worker_title.WorkerTitle
+import com.example.ui_components.models.core.worker_title.WorkTitle
 
 sealed class CompanyFields(val label: String, val types: List<String>) {
     object Medical : CompanyFields(
@@ -9,8 +9,8 @@ sealed class CompanyFields(val label: String, val types: List<String>) {
     ) {
         enum class Types(
             val fmtName: String,
-            val titles: List<WorkerTitle> = Titles.values()
-                .map { WorkerTitle(fmt = it.fmt, abv = it.abv) }
+            val titles: List<WorkTitle> = Titles.values()
+                .map { WorkTitle(fmt = it.fmt, abv = it.abv) }
         ) {
             Hospital(Hospital.name),
             MedicalCenter("Medical Center")

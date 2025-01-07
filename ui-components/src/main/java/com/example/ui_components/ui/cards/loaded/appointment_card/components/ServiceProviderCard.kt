@@ -22,7 +22,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.example.ui_components.models.gigrequest.GigRequest
 import com.example.ui_components.ui.core.core_logic.AppointmentDateTimeUtil.daysUntilAppointment
@@ -60,7 +59,7 @@ fun ServiceProviderCard(
                         alpha = .5f
                     )
                 ),
-            model = request.selectedWorker!!.photoUrl.toUri(),
+            model = request.selectedWorker!!.photo.url,
             contentDescription = null
         )
         Column(

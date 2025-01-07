@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.example.ui_components.models.client.ClientItem
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -90,7 +89,7 @@ class CreateAndSaveWordDoc @Inject constructor(
         fileName: String,
         fileExtension: String,
         content: XWPFDocument? = null,
-        clientItem: ClientItem? = null
+//        clientItem: ClientItem? = null
     ) {
         require(fileName.isNotBlank()) { "File name cannot be blank" }
         require(fileExtension.isNotBlank()) { "File extension cannot be blank" }
@@ -111,9 +110,9 @@ class CreateAndSaveWordDoc @Inject constructor(
                 val outputStream = FileOutputStream(docFile)
                 when {
                     content != null -> content.write(outputStream)
-                    clientItem != null ->{
-                        ClientItem.mapToXWPFDoc(form = clientItem).write(outputStream)
-                    }
+                    /*clientItem != null ->{
+//                        ClientItem.mapToXWPFDoc(form = clientItem).write(outputStream)
+                    }*/
                 }
                 outputStream.close()
 

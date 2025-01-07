@@ -1,7 +1,7 @@
 package com.example.ui_components.models.core.company.components.employee.components.private_info.components.metadata.variants
 
-import com.example.ui_components.models.client.components.color.CustomColor
-import com.example.ui_components.models.client.components.color.variants.LocalCustomColor
+import com.example.ui_components.models.color.CustomColor
+import com.example.ui_components.models.color.variants.LocalCustomColor
 import com.example.ui_components.models.core.company.components.book_appointment.variants.LocalBookedAppointment
 import com.example.ui_components.models.core.company.components.employee.components.private_info.components.metadata.EmployeeMetadata
 import com.example.ui_components.models.core.company.components.employee.components.private_info.components.metadata.components.company_attributes.CompanyAttributes

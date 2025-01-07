@@ -5,6 +5,7 @@ plugins {
     id ("kotlin-kapt")
     id ("io.realm.kotlin")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
+//    id("com.vanniktech.maven.publish") version "0.29.0"
 }
 
 android {
@@ -71,6 +72,27 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation ("io.realm.kotlin:library-base:1.6.1")
 }
+
+/*mavenPublishing {
+    coordinates(
+        groupId = "io.github.bizmapsolution",
+        artifactId = "book-it-components",
+        version = "0.0.1"
+    )
+
+    pom{
+        name.set("Book It Components")
+        description.set("Library used to host both the ui components and the models used in the Book It App")
+        inceptionYear.set("2025")
+        url.set("")
+
+        licenses {
+            license {
+
+            }
+        }
+    }
+}*/
 
 publishing {
     publications {

@@ -1,20 +1,23 @@
 package com.example.ui_components.models.core.company.components.employee.components.public_info.variants
 
-import com.example.ui_components.models.client.components.core.name.LocalName
-import com.example.ui_components.models.client.components.core.name.Name
 import com.example.ui_components.models.core.company.components.employee.components.public_info.PublicEmployeeInfo
-import com.example.ui_components.models.core.worker_title.WorkerTitle
-import com.example.ui_components.models.core.worker_title.variants.LocalWorkerTitle
+import com.example.ui_components.models.core.company.components.employee.components.public_info.components.workplace.WorkPlace
+import com.example.ui_components.models.core.company.components.employee.components.public_info.components.workplace.variants.LocalWorkPlace
+import com.example.ui_components.models.core.name.Name
+import com.example.ui_components.models.core.name.variants.LocalName
+import com.example.ui_components.models.core.worker_title.WorkTitle
+import com.example.ui_components.models.core.worker_title.variants.LocalWorkTitle
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmList
 
 class LocalPublicEmployeeInfo : EmbeddedRealmObject {
-    var name: LocalName? = null
-    var email: String = ""
-    var photoUrl: String = ""
-    var title: LocalWorkerTitle? = null
     var titleDocPath: String = ""
+    var photoUrl: String = ""
+    var email: String = ""
+    var name: LocalName? = null
+    var title: LocalWorkTitle? = null
+    var workPlace: LocalWorkPlace? = null
     var scheduledAppointmentDates: RealmList<Long> = realmListOf()
 
     companion object {
@@ -24,8 +27,10 @@ class LocalPublicEmployeeInfo : EmbeddedRealmObject {
                 name = fmtForm.name?.let { LocalName.mapToOriginal(it) } ?: Name(),
                 email = fmtForm.email,
                 photoUrl = fmtForm.photoUrl,
-                title = fmtForm.title?.let { LocalWorkerTitle.mapToOriginal(it) } ?: WorkerTitle(),
+                title = fmtForm.title?.let { LocalWorkTitle.mapToOriginal(it) } ?: WorkTitle(),
                 titleDocPath = fmtForm.titleDocPath,
+                workPlace = fmtForm.workPlace?.let { LocalWorkPlace.mapToOriginal(it) }
+                    ?: WorkPlace(),
                 scheduledAppointmentDates = fmtForm.scheduledAppointmentDates.toList()
             )
         }
@@ -34,8 +39,9 @@ class LocalPublicEmployeeInfo : EmbeddedRealmObject {
             name = form.name?.let { LocalName.trimmedFields(it) }
             email = form.email.trim()
             photoUrl = form.photoUrl.trim()
-            title = form.title?.let { LocalWorkerTitle.trimmedFields(it) }
+            title = form.title?.let { LocalWorkTitle.trimmedFields(it) }
             titleDocPath = form.titleDocPath.trim()
+            workPlace = form.workPlace?.let { LocalWorkPlace.trimmedFields(it) }
             scheduledAppointmentDates = form.scheduledAppointmentDates
         }
     }
